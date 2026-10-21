@@ -17,7 +17,7 @@ Landing ──▶ Quiz ──▶ generatePlan() ──▶ Calendar ──▶ Ses
 | Need | Choice | Why |
 |---|---|---|
 | UI | React 19 + Vite (existing scaffold) | Already set up |
-| Routing | `react-router` v7 | Real URLs and a working browser Back button; a session can be opened by link |
+| Routing | `react-router` v8 | Real URLs and a working browser Back button; a session can be opened by link |
 | State | React Context + `useReducer` | The state is one small object; no Redux needed |
 | Dates | `date-fns` | Tree-shakable, avoids writing calendar math by hand |
 | Styling | CSS Modules + CSS custom properties | Built into Vite, no extra dependency |

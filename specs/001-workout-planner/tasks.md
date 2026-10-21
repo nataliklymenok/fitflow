@@ -12,7 +12,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
   Done when: `git log` shows the commit; `git status` is clean.
 - [x] **T002** Remove the Vite demo content (counter, logos, `hero.png`, demo CSS). Set page title "FitFlow" and a simple favicon.
   Done when: `npm run dev` shows an empty "FitFlow" page; `npm run lint` passes.
-- [ ] **T003** Install `react-router`, `date-fns`; dev: `vitest`. Add scripts `test` and `test:watch`.
+- [x] **T003** Install `react-router`, `date-fns`; dev: `vitest`. Add scripts `test` and `test:watch`.
   Done when: `npm test` runs (0 tests) without errors.
 - [ ] **T004** Create `src/styles/tokens.css` (colors, spacing, radius, font sizes, one color per category) and a base layout shell (header + main).
   Done when: the shell renders at 360px and 1280px widths with no horizontal scroll.
