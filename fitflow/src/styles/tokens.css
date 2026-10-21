@@ -1,0 +1,45 @@
+:root {
+  /* Colors */
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-text: #1c1f1e;
+  --color-text-muted: #5f6664;
+  --color-border: #e2e4e1;
+  --color-brand: #0f766e;
+  --color-brand-strong: #0b5d56;
+  --color-brand-soft: #e0f2ef;
+  --color-danger: #b42318;
+  --color-focus: #2563eb;
+
+  /* One color per workout category */
+  --color-functional: #c2410c;
+  --color-cardio: #be123c;
+  --color-stretching: #7c3aed;
+  --color-yoga: #0f766e;
+  --color-calm: #2563eb;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+  --content-width: 1100px;
+}
