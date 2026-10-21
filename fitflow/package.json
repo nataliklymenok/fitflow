@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "check:catalog": "node scripts/check-catalog.mjs"
+    "check:catalog": "node scripts/check-catalog.mjs",
+    "sample:plans": "node scripts/sample-plans.mjs"
   },
   "dependencies": {
     "date-fns": "^4.4.0",
