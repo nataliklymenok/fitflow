@@ -10,7 +10,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
 
 - [x] **T001** Initial commit of the existing scaffold and `specs/`. Add a root `CLAUDE.md` describing the SDD workflow and linking to `specs/constitution.md`.
   Done when: `git log` shows the commit; `git status` is clean.
-- [ ] **T002** Remove the Vite demo content (counter, logos, `hero.png`, demo CSS). Set page title "FitFlow" and a simple favicon.
+- [x] **T002** Remove the Vite demo content (counter, logos, `hero.png`, demo CSS). Set page title "FitFlow" and a simple favicon.
   Done when: `npm run dev` shows an empty "FitFlow" page; `npm run lint` passes.
 - [ ] **T003** Install `react-router`, `date-fns`; dev: `vitest`. Add scripts `test` and `test:watch`.
   Done when: `npm test` runs (0 tests) without errors.
