@@ -116,7 +116,7 @@ The tests run the generator across all 2,880 quiz answer combinations × several
 
 ## Editing (US-5, US-4)
 
-All changes go through `planReducer(state, action)`:
+All changes go through `planReducer(state, action)`. The reducer stays pure: where new videos are needed (`CHANGE_CATEGORY`, `ADD_SESSION`), the action creators `changeCategory()` and `addSession()` pick them with a seed and put the result in the action.
 
 | Action | Behaviour |
 |---|---|
