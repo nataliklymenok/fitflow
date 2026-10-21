@@ -35,7 +35,7 @@ describe('pickVideos', () => {
     const pool = videos(5, 10, 20, 40)
     const ids = pickVideos({
       random: random(),
-      candidates: pool,
+      pools: [pool],
       targetMinutes: 20,
       recentIds: new Set(),
     })
@@ -46,7 +46,7 @@ describe('pickVideos', () => {
     const pool = videos(15, 15, 5)
     const ids = pickVideos({
       random: random(),
-      candidates: pool,
+      pools: [pool],
       targetMinutes: 30,
       recentIds: new Set(),
     })
@@ -58,7 +58,7 @@ describe('pickVideos', () => {
     const pool = videos(10, 12, 15)
     const ids = pickVideos({
       random: random(),
-      candidates: pool,
+      pools: [pool],
       targetMinutes: 45,
       recentIds: new Set(),
     })
@@ -70,7 +70,7 @@ describe('pickVideos', () => {
     for (let seed = 0; seed < 20; seed++) {
       const ids = pickVideos({
         random: createRandom(seed),
-        candidates: pool,
+        pools: [pool],
         targetMinutes: 20,
         recentIds: new Set(['v0-20']),
       })
@@ -82,7 +82,7 @@ describe('pickVideos', () => {
     const pool = videos(20, 45)
     const ids = pickVideos({
       random: random(),
-      candidates: pool,
+      pools: [pool],
       targetMinutes: 20,
       recentIds: new Set(['v0-20']),
     })
@@ -93,7 +93,7 @@ describe('pickVideos', () => {
     const pool = videos(40, 45)
     const ids = pickVideos({
       random: random(),
-      candidates: pool,
+      pools: [pool],
       targetMinutes: 10,
       recentIds: new Set(),
     })
@@ -104,11 +104,45 @@ describe('pickVideos', () => {
     expect(
       pickVideos({
         random: random(),
-        candidates: [],
+        pools: [[]],
         targetMinutes: 20,
         recentIds: new Set(),
       }),
     ).toEqual([])
+  })
+
+  it('uses a later pool only when the first cannot fit the target', () => {
+    const preferred = videos(20, 30)
+    const fallback = videos(5, 10)
+    expect(
+      pickVideos({
+        random: random(),
+        pools: [preferred, [...preferred, ...fallback]],
+        targetMinutes: 20,
+        recentIds: new Set(),
+      }),
+    ).toEqual(['v0-20'])
+    expect(
+      pickVideos({
+        random: random(),
+        pools: [preferred, [...preferred, ...fallback]],
+        targetMinutes: 10,
+        recentIds: new Set(),
+      }),
+    ).toHaveLength(1)
+  })
+
+  it('prefers a fresh video from a later pool over a recent one from the first', () => {
+    const preferred = videos(20)
+    const other = [{ id: 'other-20', durationMin: 20 }]
+    expect(
+      pickVideos({
+        random: random(),
+        pools: [preferred, [...preferred, ...other]],
+        targetMinutes: 20,
+        recentIds: new Set(['v0-20']),
+      }),
+    ).toEqual(['other-20'])
   })
 
   it('is deterministic for a seed', () => {
@@ -116,7 +150,7 @@ describe('pickVideos', () => {
     const run = () =>
       pickVideos({
         random: createRandom(7),
-        candidates: pool,
+        pools: [pool],
         targetMinutes: 20,
         recentIds: new Set(),
       })

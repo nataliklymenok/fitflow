@@ -10,50 +10,77 @@ export function isWithinTolerance(totalMinutes, targetMinutes) {
   return Math.abs(totalMinutes - targetMinutes) <= tolerance(targetMinutes)
 }
 
-function sumMinutes(videos) {
-  return videos.reduce((sum, video) => sum + video.durationMin, 0)
-}
-
-function combinations(items, size, start = 0, prefix = []) {
-  if (prefix.length === size) return [prefix]
-  const result = []
-  for (let i = start; i < items.length; i++) {
-    result.push(...combinations(items, size, i + 1, [...prefix, items[i]]))
+// All groups of `size` videos (1–3) from `pool` whose total fits the target.
+function fittingGroups(pool, size, targetMinutes) {
+  const fits = (...group) =>
+    isWithinTolerance(
+      group.reduce((sum, video) => sum + video.durationMin, 0),
+      targetMinutes,
+    )
+  const groups = []
+  const n = pool.length
+  for (let i = 0; i < n; i++) {
+    if (size === 1) {
+      if (fits(pool[i])) groups.push([pool[i]])
+      continue
+    }
+    for (let j = i + 1; j < n; j++) {
+      if (size === 2) {
+        if (fits(pool[i], pool[j])) groups.push([pool[i], pool[j]])
+        continue
+      }
+      for (let k = j + 1; k < n; k++) {
+        if (fits(pool[i], pool[j], pool[k])) {
+          groups.push([pool[i], pool[j], pool[k]])
+        }
+      }
+    }
   }
-  return result
+  return groups
 }
 
 // Picks within tolerance from `pool`: one video if possible, else 2, else 3.
 function pickFitting(random, pool, targetMinutes) {
   for (const size of [1, 2, 3]) {
-    const fitting = combinations(pool, size).filter((group) =>
-      isWithinTolerance(sumMinutes(group), targetMinutes),
-    )
-    if (fitting.length > 0) return pick(random, fitting)
+    const groups = fittingGroups(pool, size, targetMinutes)
+    if (groups.length > 0) return pick(random, groups)
   }
   return null
 }
 
 // When nothing fits, the single video or pair closest to the target.
 function pickClosest(pool, targetMinutes) {
-  const groups = [...combinations(pool, 1), ...combinations(pool, 2)]
-  const distance = (group) => Math.abs(sumMinutes(group) - targetMinutes)
-  return groups.reduce((best, group) =>
-    distance(group) < distance(best) ? group : best,
-  )
+  let best = null
+  let bestDistance = Infinity
+  const consider = (group) => {
+    const minutes = group.reduce((sum, video) => sum + video.durationMin, 0)
+    const distance = Math.abs(minutes - targetMinutes)
+    if (distance < bestDistance) {
+      best = group
+      bestDistance = distance
+    }
+  }
+  for (let i = 0; i < pool.length; i++) {
+    consider([pool[i]])
+    for (let j = i + 1; j < pool.length; j++) consider([pool[i], pool[j]])
+  }
+  return best
 }
 
-// `candidates`: videos the session may use (already filtered by category and
-// intensity). `recentIds`: video ids used in the previous 7 days, avoided
-// unless nothing else fits. Returns a list of video ids.
-export function pickVideos({ random, candidates, targetMinutes, recentIds }) {
-  if (candidates.length === 0) return []
+// `pools`: lists of videos the session may use, most preferred first (e.g.
+// matching intensity, then the whole category). `recentIds`: ids used in the
+// previous 7 days. Order of preference: a fresh fit from any pool, then a fit
+// that repeats a recent video, then the closest option. Returns video ids.
+export function pickVideos({ random, pools, targetMinutes, recentIds }) {
+  const nonEmpty = pools.filter((pool) => pool.length > 0)
+  if (nonEmpty.length === 0) return []
 
-  const fresh = candidates.filter((video) => !recentIds.has(video.id))
-  const group =
-    pickFitting(random, fresh, targetMinutes) ??
-    pickFitting(random, candidates, targetMinutes) ??
-    pickClosest(candidates, targetMinutes)
-
-  return group.map((video) => video.id)
+  const fresh = nonEmpty.map((pool) =>
+    pool.filter((video) => !recentIds.has(video.id)),
+  )
+  for (const pool of [...fresh, ...nonEmpty]) {
+    const group = pickFitting(random, pool, targetMinutes)
+    if (group) return group.map((video) => video.id)
+  }
+  return pickClosest(nonEmpty[0], targetMinutes).map((video) => video.id)
 }

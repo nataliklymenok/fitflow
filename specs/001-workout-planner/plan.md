@@ -101,7 +101,7 @@ Dates are local `YYYY-MM-DD` strings rather than `Date` objects or ISO timestamp
 
    Every category keeps a minimum weight of 1 so that plans stay varied.
 
-2. **Intensity filter.** Energy low → `low`/`medium` videos, medium → all, high → `medium`/`high`. Calm and Stretching are never filtered out.
+2. **Intensity filter.** Energy low → `low`/`medium` videos, medium → all, high → `medium`/`high`. Calm and Stretching are never filtered out. If no video of the allowed intensities can fill a session to the target length without a recent repeat, the whole category is used for that session: the length and no-repeat rules (US-2) win over intensity.
 
 3. **Training days.** Each week, from today, uses a fixed spread pattern, e.g. 3 days → offsets `[0, 2, 4]`, 4 → `[0, 1, 3, 5]`. Days outside the pattern are rest days.
 
