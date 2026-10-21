@@ -16,7 +16,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
   Done when: `npm test` runs (0 tests) without errors.
 - [x] **T004** Create `src/styles/tokens.css` (colors, spacing, radius, font sizes, one color per category) and a base layout shell (header + main).
   Done when: the shell renders at 360px and 1280px widths with no horizontal scroll.
-- [ ] **T005** Add `vercel.json` with an SPA rewrite to `index.html`.
+- [x] **T005** Add `vercel.json` with an SPA rewrite to `index.html`.
   Done when: the file exists and `npm run build` passes.
 
 ## Phase 1 — Domain logic (pure JS, tested)
