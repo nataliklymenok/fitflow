@@ -21,7 +21,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
 
 ## Phase 1 — Domain logic (pure JS, tested)
 
-- [ ] **T010** `domain/dates.js`: today as local `YYYY-MM-DD`, add days, range between dates, start of week, weekday name. Tests include dates around midnight and DST changes.
+- [x] **T010** `domain/dates.js`: today as local `YYYY-MM-DD`, add days, range between dates, start of week, weekday name. Tests include dates around midnight and DST changes.
 - [ ] **T011** `domain/random.js`: seeded PRNG (mulberry32), `pick`, `weightedPick`, `shuffle`. Tests: same seed → same sequence.
 - [ ] **T012** `domain/quiz.js`: the 6 questions and options from spec.md, `isComplete(answers)`, `validate(answers)`. Tests for valid and invalid answers. *(US-1)*
 - [ ] **T013** `src/data/catalog.json`: draft catalog from the 5 channels, at least 10 videos per category, durations 5–45 min, with intensity and tags. Claude drafts it from public video pages; the user reviews the list. *(FR-1, FR-2)*
