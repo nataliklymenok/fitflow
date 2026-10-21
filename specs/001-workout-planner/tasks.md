@@ -30,7 +30,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
 - [x] **T015** `domain/weights.js`: answer → category points table, minimum weight 1, intensity filter by energy. Tests: stressed + low energy favors Calm/Stretching; motivated + high energy + strength favors Functional/Cardio. *(US-2)*
 - [x] **T016** `domain/pickVideos.js`: fill a session to its target duration within tolerance (single video first, then 2–3 combined), respecting the 7-day no-repeat list with fallback. Tests for each branch. *(US-2)*
 - [x] **T017** `domain/generatePlan.js`: training-day patterns per days-per-week, category choice (max 2 in a row), video picking, plan starts today. Tests: deterministic for a given seed; all 2,880 answer combinations × 3 seeds pass the US-2 rules and FR-4. *(US-2, FR-3, FR-4)*
-- [ ] **T018** `domain/suggestions.js`: alternatives for a video (same category, closest duration, not already in the session). Tests. *(US-4, US-5)*
+- [x] **T018** `domain/suggestions.js`: alternatives for a video (same category, closest duration, not already in the session). Tests. *(US-4, US-5)*
 - [ ] **T019** `domain/planReducer.js`: all 8 actions from plan.md, including move-with-swap and range checks. One test group per action. *(US-5, US-4)*
 - [ ] **T020** `domain/storage.js`: `load`, `save`, `clear`, `migrate`; returns `null` on corrupted JSON, wrong version, wrong shape or unavailable storage. Tests for each case. *(US-6, FR-5, FR-6)*
 
