@@ -1,0 +1,887 @@
+{
+  "version": 1,
+  "updated": "2026-10-21",
+  "note": "Curated by hand. Durations are taken from video titles or descriptions and rounded to whole minutes.",
+  "videos": [
+    {
+      "id": "uZbig5yMlN8",
+      "title": "20 Min Full Body Home Workout",
+      "channel": "MadFit",
+      "durationMin": 20,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "yeLfaC9XIzQ",
+      "title": "30 Min Low Impact Full Body Workout",
+      "channel": "MadFit",
+      "durationMin": 30,
+      "category": "functional",
+      "intensity": "low",
+      "tags": [
+        "no-equipment",
+        "no-jumping"
+      ]
+    },
+    {
+      "id": "EMU5ERi3gg0",
+      "title": "10 Min Beginner Full Body Workout",
+      "channel": "MadFit",
+      "durationMin": 10,
+      "category": "functional",
+      "intensity": "low",
+      "tags": [
+        "no-equipment",
+        "beginner"
+      ]
+    },
+    {
+      "id": "2Z9g-AZinUc",
+      "title": "20 Min Full Body Workout – Small Space Friendly",
+      "channel": "MadFit",
+      "durationMin": 20,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment",
+        "no-jumping"
+      ]
+    },
+    {
+      "id": "OGilMFGN4eQ",
+      "title": "10 Min Full Body Sweat Sesh",
+      "channel": "MadFit",
+      "durationMin": 10,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment",
+        "no-jumping"
+      ]
+    },
+    {
+      "id": "KjzbHCbrnWQ",
+      "title": "30 Min Full Body Workout – Small Space, No Repeats",
+      "channel": "MadFit",
+      "durationMin": 30,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment",
+        "no-jumping"
+      ]
+    },
+    {
+      "id": "d95M3KSba2k",
+      "title": "7 Min Lazy Girl Full Body Workout",
+      "channel": "MadFit",
+      "durationMin": 7,
+      "category": "functional",
+      "intensity": "low",
+      "tags": [
+        "no-equipment",
+        "no-jumping",
+        "floor"
+      ]
+    },
+    {
+      "id": "W8wLcGdQQ30",
+      "title": "20 Min Full Body HIIT With Weights",
+      "channel": "Heather Robertson",
+      "durationMin": 20,
+      "category": "functional",
+      "intensity": "high",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "_2m7nhgolQ0",
+      "title": "20 Min HIIT Workout With Weights",
+      "channel": "Heather Robertson",
+      "durationMin": 20,
+      "category": "functional",
+      "intensity": "high",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "cuHwoCWFLIw",
+      "title": "No Repeat Full Body HIIT With Weights",
+      "channel": "Heather Robertson",
+      "durationMin": 30,
+      "category": "functional",
+      "intensity": "high",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "Yuf052OBeeM",
+      "title": "45 Min Full Body Strength",
+      "channel": "Heather Robertson",
+      "durationMin": 45,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "KfBcXaeXqjo",
+      "title": "38 Min Full Body Strength Supersets + HIIT Finisher",
+      "channel": "Heather Robertson",
+      "durationMin": 38,
+      "category": "functional",
+      "intensity": "high",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "pbkrx340TBM",
+      "title": "30 Min Full Body Strength",
+      "channel": "Heather Robertson",
+      "durationMin": 30,
+      "category": "functional",
+      "intensity": "medium",
+      "tags": [
+        "dumbbells"
+      ]
+    },
+    {
+      "id": "Y2eOW7XYWxc",
+      "title": "20 Min Full Body Workout – Intense",
+      "channel": "Pamela Reif",
+      "durationMin": 20,
+      "category": "functional",
+      "intensity": "high",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "TItIq0L0e58",
+      "title": "15 Min Throwbacks Dance Party Workout",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "zm8Z-63UoTo",
+      "title": "15 Min Dance Party Workout",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "W1JMJnbG0rA",
+      "title": "15 Min Dance Party Workout – Ariana Grande",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "ZNkMD78UjRs",
+      "title": "15 Min TikTok Dance Party Workout pt. 2",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "DO7O3ZI2tKs",
+      "title": "15 Min Throwbacks Dance Party Workout pt. 2",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "TM9IXoejwC4",
+      "title": "15 Min 90's Dance Party Workout",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "uEJwUoMP61c",
+      "title": "Sabrina Carpenter Dance Workout",
+      "channel": "MadFit",
+      "durationMin": 11,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "dance",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "j6uyuZYiTGk",
+      "title": "15 Min Full Body HIIT – All Standing",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "hiit",
+        "no-equipment",
+        "standing"
+      ]
+    },
+    {
+      "id": "L0Ji6oTAovo",
+      "title": "15 Min Killer HIIT Full Body Workout",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "hiit",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "zBTz636KeMA",
+      "title": "30 Min Full Body HIIT",
+      "channel": "Heather Robertson",
+      "durationMin": 30,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "hiit",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "f8GzCmbz6YY",
+      "title": "Intense 30 Min Full Body HIIT",
+      "channel": "Heather Robertson",
+      "durationMin": 30,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "hiit",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "Gzp8IA2vW_Q",
+      "title": "20 Min Full Body HIIT From Home",
+      "channel": "Heather Robertson",
+      "durationMin": 20,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "hiit",
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "HLQ0NCN_Z4Q",
+      "title": "15 Min Full Body Cardio",
+      "channel": "Pamela Reif",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "-K2vxOQG0MQ",
+      "title": "10 Min Cardio – Sweaty Edition",
+      "channel": "Pamela Reif",
+      "durationMin": 10,
+      "category": "cardio",
+      "intensity": "high",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "u3pVIgNcgtA",
+      "title": "15 Min Jumping Cardio – Medium Level",
+      "channel": "Pamela Reif",
+      "durationMin": 15,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "gFeEUq2624Q",
+      "title": "10 Min Silent Cardio – No Jumping",
+      "channel": "Pamela Reif",
+      "durationMin": 10,
+      "category": "cardio",
+      "intensity": "low",
+      "tags": [
+        "no-equipment",
+        "no-jumping"
+      ]
+    },
+    {
+      "id": "HE0WhQlkuN0",
+      "title": "12 Min Enjoy Cardio",
+      "channel": "Pamela Reif",
+      "durationMin": 12,
+      "category": "cardio",
+      "intensity": "medium",
+      "tags": [
+        "no-equipment"
+      ]
+    },
+    {
+      "id": "L_xrDAtykMI",
+      "title": "15 Min Beginner Stretch Flexibility Routine",
+      "channel": "Tom Merrick",
+      "durationMin": 15,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "beginner",
+        "follow-along"
+      ]
+    },
+    {
+      "id": "0VrLgzwTmTg",
+      "title": "10 Min Morning Mobility Routine",
+      "channel": "Tom Merrick",
+      "durationMin": 10,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "mobility",
+        "morning",
+        "follow-along"
+      ]
+    },
+    {
+      "id": "efSYxLyAAlw",
+      "title": "20 Min Hip & Spine Flexibility Routine",
+      "channel": "Tom Merrick",
+      "durationMin": 20,
+      "category": "stretching",
+      "intensity": "medium",
+      "tags": [
+        "mobility",
+        "hips",
+        "follow-along"
+      ]
+    },
+    {
+      "id": "_IoYLhrTBqY",
+      "title": "15 Min Daily Stretch",
+      "channel": "Pamela Reif",
+      "durationMin": 15,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body"
+      ]
+    },
+    {
+      "id": "xOqGI7EDe6U",
+      "title": "10 Min Full Body Stretch",
+      "channel": "Pamela Reif",
+      "durationMin": 10,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body"
+      ]
+    },
+    {
+      "id": "AV2GRKU_PHk",
+      "title": "10 Min Full Body Stretching – Cool Down",
+      "channel": "Pamela Reif",
+      "durationMin": 10,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "lJUIDBBqJOE",
+      "title": "30 Min Full Body Stretching – Rest Day",
+      "channel": "Pamela Reif",
+      "durationMin": 30,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "rest-day"
+      ]
+    },
+    {
+      "id": "TUx-tEg2Xac",
+      "title": "8 Min Everyday Stretch",
+      "channel": "Pamela Reif",
+      "durationMin": 8,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "evening"
+      ]
+    },
+    {
+      "id": "d-wDxnTPdns",
+      "title": "10 Min Leg Stretch",
+      "channel": "Pamela Reif",
+      "durationMin": 10,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "legs"
+      ]
+    },
+    {
+      "id": "3N_8ioZ4jdk",
+      "title": "8 Min Full Body Cool Down & Stretch",
+      "channel": "MadFit",
+      "durationMin": 8,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "SbURodJWeMM",
+      "title": "5 Min Full Body Stretch & Cool Down",
+      "channel": "MadFit",
+      "durationMin": 5,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "8GL73mrsvJ8",
+      "title": "15 Min Full Body Stretch – Cool Down",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "7KSoWzbznhk",
+      "title": "15 Min Full Body Stretch & Cool Down Routine",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "gfzC9XMEypg",
+      "title": "5 Min Full Body Cool Down Stretches",
+      "channel": "MadFit",
+      "durationMin": 5,
+      "category": "stretching",
+      "intensity": "low",
+      "tags": [
+        "full-body",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "4C-gxOE0j7s",
+      "title": "5-Minute Morning Yoga",
+      "channel": "Yoga With Adriene",
+      "durationMin": 5,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "morning"
+      ]
+    },
+    {
+      "id": "r7xsYgTeM2Q",
+      "title": "Sunrise Yoga – 15 Min Morning Practice",
+      "channel": "Yoga With Adriene",
+      "durationMin": 15,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "morning"
+      ]
+    },
+    {
+      "id": "BPK9WNtpBgk",
+      "title": "Yoga To Feel Your Best",
+      "channel": "Yoga With Adriene",
+      "durationMin": 22,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": []
+    },
+    {
+      "id": "v7AYKMP6rOE",
+      "title": "Yoga For Complete Beginners",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "beginner"
+      ]
+    },
+    {
+      "id": "oMOgnSMcfM0",
+      "title": "Yoga for Core (and Booty!)",
+      "channel": "Yoga With Adriene",
+      "durationMin": 30,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "core"
+      ]
+    },
+    {
+      "id": "VvYCKlkLhNQ",
+      "title": "Yoga For The Future",
+      "channel": "Yoga With Adriene",
+      "durationMin": 30,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "flow"
+      ]
+    },
+    {
+      "id": "WltkvVB_lfM",
+      "title": "Power And Balance",
+      "channel": "Yoga With Adriene",
+      "durationMin": 30,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "flow",
+        "balance"
+      ]
+    },
+    {
+      "id": "ZbtVVYBLCug",
+      "title": "20-Minute Intermediate Power Yoga",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "yoga",
+      "intensity": "high",
+      "tags": [
+        "flow",
+        "power"
+      ]
+    },
+    {
+      "id": "AF9d2Icl4fA",
+      "title": "Yoga Stretch",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "stretch"
+      ]
+    },
+    {
+      "id": "xmeNZI8inWI",
+      "title": "Yoga Flow – 20 Minute Vinyasa",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "flow",
+        "vinyasa"
+      ]
+    },
+    {
+      "id": "Nnd5Slo02us",
+      "title": "Yoga For Focus & Productivity",
+      "channel": "Yoga With Adriene",
+      "durationMin": 10,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": []
+    },
+    {
+      "id": "X3-gKPNyrTA",
+      "title": "Yoga For Neck, Shoulders, Upper Back",
+      "channel": "Yoga With Adriene",
+      "durationMin": 10,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "upper-body"
+      ]
+    },
+    {
+      "id": "j7rKKpwdXNE",
+      "title": "10-Minute Yoga For Beginners",
+      "channel": "Yoga With Adriene",
+      "durationMin": 10,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "beginner"
+      ]
+    },
+    {
+      "id": "g6DdOHaAmSQ",
+      "title": "Wake Up – Gentle Morning Yoga",
+      "channel": "Yoga With Adriene",
+      "durationMin": 10,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "morning"
+      ]
+    },
+    {
+      "id": "GffXQl3zvUI",
+      "title": "Hip Mobility – Open Your Hips",
+      "channel": "Yoga With Adriene",
+      "durationMin": 13,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "hips"
+      ]
+    },
+    {
+      "id": "zwoVcrdmLOE",
+      "title": "20-Minute Yoga For Hips",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "hips",
+        "flow"
+      ]
+    },
+    {
+      "id": "LNOucekw2co",
+      "title": "Heart And Hips Practice",
+      "channel": "Yoga With Adriene",
+      "durationMin": 26,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "hips",
+        "hands-free"
+      ]
+    },
+    {
+      "id": "GLy2rYHwUqY",
+      "title": "Total Body Yoga – Deep Stretch",
+      "channel": "Yoga With Adriene",
+      "durationMin": 45,
+      "category": "yoga",
+      "intensity": "low",
+      "tags": [
+        "stretch"
+      ]
+    },
+    {
+      "id": "9kOCY0KNByw",
+      "title": "Yoga For Strength – 40 Minute Vinyasa",
+      "channel": "Yoga With Adriene",
+      "durationMin": 40,
+      "category": "yoga",
+      "intensity": "high",
+      "tags": [
+        "flow",
+        "vinyasa",
+        "strength"
+      ]
+    },
+    {
+      "id": "5v1wqxnrmrk",
+      "title": "30 Min Yoga Flow – Deep Stretching and Strength",
+      "channel": "Pamela Reif",
+      "durationMin": 30,
+      "category": "yoga",
+      "intensity": "medium",
+      "tags": [
+        "flow"
+      ]
+    },
+    {
+      "id": "bJJWArRfKa0",
+      "title": "Yoga for Anxiety",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "anxiety",
+        "floor"
+      ]
+    },
+    {
+      "id": "_zbtKeeAa-Y",
+      "title": "Yoga For Stress Management",
+      "channel": "Yoga With Adriene",
+      "durationMin": 32,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "tD_l3fDTFyg",
+      "title": "Yoga To Heal Stress",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "4pLUleLdwY4",
+      "title": "Meditation for Anxiety",
+      "channel": "Yoga With Adriene",
+      "durationMin": 15,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "meditation",
+        "anxiety"
+      ]
+    },
+    {
+      "id": "v7SN-d4qXx0",
+      "title": "Bedtime Yoga",
+      "channel": "Yoga With Adriene",
+      "durationMin": 20,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "evening",
+        "sleep"
+      ]
+    },
+    {
+      "id": "wwPzwZo6vdk",
+      "title": "Gift of Relaxation",
+      "channel": "Yoga With Adriene",
+      "durationMin": 33,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "relaxation"
+      ]
+    },
+    {
+      "id": "xLS9uQQQyB0",
+      "title": "6-Minute Yoga Chill",
+      "channel": "Yoga With Adriene",
+      "durationMin": 6,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "relaxation"
+      ]
+    },
+    {
+      "id": "LI9upn4t9n8",
+      "title": "7 Minute Bedtime Yoga",
+      "channel": "Yoga With Adriene",
+      "durationMin": 7,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "evening",
+        "sleep"
+      ]
+    },
+    {
+      "id": "Enz98dDXQfY",
+      "title": "Movement Medicine – Calming Practice",
+      "channel": "Yoga With Adriene",
+      "durationMin": 15,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "relaxation"
+      ]
+    },
+    {
+      "id": "tRLAZbz3NUs",
+      "title": "20 Min Relaxing Stretch/Yoga for Stress Relief",
+      "channel": "MadFit",
+      "durationMin": 20,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "stress",
+        "stretch"
+      ]
+    },
+    {
+      "id": "utrAlZf_Pjs",
+      "title": "15 Min Stretch/Yoga for Stress & Anxiety Relief",
+      "channel": "MadFit",
+      "durationMin": 15,
+      "category": "calm",
+      "intensity": "low",
+      "tags": [
+        "stress",
+        "anxiety",
+        "stretch"
+      ]
+    }
+  ]
+}
