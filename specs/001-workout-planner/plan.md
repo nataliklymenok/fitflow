@@ -32,6 +32,7 @@ fitflow/
     data/
       catalog.json          # curated videos (FR-1, FR-2)
     domain/                 # pure JS, fully unit-tested
+      catalog.js            # categories, intensities, catalog validation
       quiz.js               # questions, options, answer validation
       weights.js            # answers → category weights + intensity filter
       random.js             # seeded PRNG (mulberry32)

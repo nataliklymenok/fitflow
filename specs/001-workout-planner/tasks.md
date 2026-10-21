@@ -25,7 +25,7 @@ Legend: `[ ]` to do · `[x]` done · **Checkpoint** = stop and review together b
 - [x] **T011** `domain/random.js`: seeded PRNG (mulberry32), `pick`, `weightedPick`, `shuffle`. Tests: same seed → same sequence.
 - [x] **T012** `domain/quiz.js`: the 6 questions and options from spec.md, `isComplete(answers)`, `validate(answers)`. Tests for valid and invalid answers. *(US-1)*
 - [x] **T013** `src/data/catalog.json`: draft catalog from the 5 channels, at least 10 videos per category, durations 5–45 min, with intensity and tags. Claude drafts it from public video pages; the user reviews the list. *(FR-1, FR-2)*
-- [ ] **T014** `scripts/check-catalog.mjs` + `npm run check:catalog`: schema check, per-category minimums, duplicate IDs, oEmbed availability check for every ID.
+- [x] **T014** `scripts/check-catalog.mjs` + `npm run check:catalog`: schema check, per-category minimums, duplicate IDs, oEmbed availability check for every ID.
   Done when: the script passes on the catalog from T013 (fix or replace any failing videos).
 - [ ] **T015** `domain/weights.js`: answer → category points table, minimum weight 1, intensity filter by energy. Tests: stressed + low energy favors Calm/Stretching; motivated + high energy + strength favors Functional/Cardio. *(US-2)*
 - [ ] **T016** `domain/pickVideos.js`: fill a session to its target duration within tolerance (single video first, then 2–3 combined), respecting the 7-day no-repeat list with fallback. Tests for each branch. *(US-2)*
