@@ -26,7 +26,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 2 — Today and navigation
 
-- [ ] **T120** `domain/today.js`: `todayStatus(plan, today)` and `planProgress(plan, minutesOf)` with unit tests for training day, rest day (with and without a next session), before the start, after the end, nothing done, all done. *(US-1, FR-1, FR-2)*
+- [x] **T120** `domain/today.js`: `todayStatus(plan, today)` and `planProgress(plan, minutesOf)` with unit tests for training day, rest day (with and without a next session), before the start, after the end, nothing done, all done. *(US-1, FR-1, FR-2)*
 - [ ] **T121** `TodayPage` at `/today`: hero card (Start, Swap), rest / finished / upcoming states, progress tiles, compact week with a link to the calendar. Move `SwapOptions` to `components/`; add a `compact` prop to `WeekView`. Routing: `/` redirects to `/today` when a plan exists; the quiz finishes on `/today`. *(US-1)*
   Done when: e2e covers each Today state and the new redirects; the 001 e2e checks are updated only where the spec changed behavior (quiz → Today).
 - [ ] **T122** Navigation: header `NavLink`s Today and Calendar; `BottomTabBar` below 640 px when a plan exists, header nav hidden there; content padding includes `env(safe-area-inset-bottom)`. *(US-2)*
