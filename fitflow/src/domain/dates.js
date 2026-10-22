@@ -2,10 +2,14 @@
 // Keys compare correctly as plain strings and never shift with the time zone.
 import {
   addDays as addDaysToDate,
+  addMonths as addMonthsToDate,
   differenceInCalendarDays,
+  endOfMonth,
+  endOfWeek,
   format,
   isValid,
   parse,
+  startOfMonth,
   startOfWeek,
 } from 'date-fns'
 
@@ -54,6 +58,24 @@ export function isWithin(key, start, end) {
 // Weeks start on Monday.
 export function startOfWeekKey(key) {
   return toKey(startOfWeek(fromKey(key), { weekStartsOn: 1 }))
+}
+
+export function startOfMonthKey(key) {
+  return toKey(startOfMonth(fromKey(key)))
+}
+
+export function addMonths(key, months) {
+  return toKey(addMonthsToDate(fromKey(key), months))
+}
+
+// Every day shown on a month calendar: whole weeks (Monday to Sunday)
+// covering the month of `key`.
+export function monthGridKeys(key) {
+  const date = fromKey(key)
+  return rangeKeys(
+    toKey(startOfWeek(startOfMonth(date), { weekStartsOn: 1 })),
+    toKey(endOfWeek(endOfMonth(date), { weekStartsOn: 1 })),
+  )
 }
 
 export function weekdayName(key, style = 'short') {

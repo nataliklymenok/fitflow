@@ -1,11 +1,14 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import {
   addDays,
+  addMonths,
   daysBetween,
   formatDay,
   isKey,
   isWithin,
+  monthGridKeys,
   rangeKeys,
+  startOfMonthKey,
   startOfWeekKey,
   todayKey,
   weekdayName,
@@ -98,5 +101,24 @@ describe('formatting', () => {
     expect(weekdayName('2026-10-21')).toBe('Wed')
     expect(weekdayName('2026-10-21', 'long')).toBe('Wednesday')
     expect(formatDay('2026-10-21')).toBe('Oct 21')
+  })
+})
+
+describe('months', () => {
+  it('finds the first day of the month', () => {
+    expect(startOfMonthKey('2026-10-21')).toBe('2026-10-01')
+  })
+
+  it('adds months, clamping to the last day', () => {
+    expect(addMonths('2026-10-01', 1)).toBe('2026-11-01')
+    expect(addMonths('2026-01-31', 1)).toBe('2026-02-28')
+    expect(addMonths('2026-01-15', -1)).toBe('2025-12-15')
+  })
+
+  it('builds a month grid of whole Monday-to-Sunday weeks', () => {
+    const grid = monthGridKeys('2026-10-21')
+    expect(grid[0]).toBe('2026-09-28')
+    expect(grid.at(-1)).toBe('2026-11-01')
+    expect(grid.length % 7).toBe(0)
   })
 })

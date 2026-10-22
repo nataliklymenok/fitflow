@@ -1,0 +1,88 @@
+.week {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 72px;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  border: 1px solid transparent;
+}
+
+@media (min-width: 900px) {
+  .day {
+    min-height: 200px;
+    padding: var(--space-2);
+  }
+}
+
+.today {
+  border-color: var(--color-brand);
+  background: var(--color-brand-soft);
+}
+
+.outside {
+  opacity: 0.45;
+}
+
+/* On phones the list is vertical, so days outside the plan are just noise. */
+@media (max-width: 899px) {
+  .outside {
+    display: none;
+  }
+}
+
+.dayHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.weekday {
+  font-weight: 700;
+}
+
+.date {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.todayLabel {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.outsideLabel {
+  font-style: italic;
+}
