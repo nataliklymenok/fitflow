@@ -22,9 +22,16 @@ function ThemeProvider({ children }) {
   // Only an explicit choice is saved; until then the device setting applies.
   const toggleTheme = useCallback(() => {
     const next = theme === 'dark' ? 'light' : 'dark'
-    applyTheme(next)
     saveTheme(next)
     setTheme(next)
+    // Cross-fade the whole page where the browser supports it and motion is
+    // allowed (spec 002, US-5); otherwise switch at once.
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (document.startViewTransition && !reduceMotion) {
+      document.startViewTransition(() => applyTheme(next))
+    } else {
+      applyTheme(next)
+    }
   }, [theme])
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme])

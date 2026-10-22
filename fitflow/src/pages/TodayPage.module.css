@@ -285,3 +285,16 @@
     font-size: 2rem;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .fill {
+    transform-origin: left;
+    animation: fill-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    transform: scaleX(0);
+  }
+}

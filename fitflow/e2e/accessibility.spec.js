@@ -3,6 +3,10 @@ import { coverAllCategories, createPlan, expect, test } from './helpers.js'
 
 // The YouTube player is third-party content inside an iframe; it is excluded.
 async function expectNoViolations(page, name) {
+  // Audit the settled page: mid-animation colors are not what users read.
+  await page.waitForFunction(() =>
+    document.getAnimations().every((a) => a.playState !== 'running'),
+  )
   const { violations } = await new AxeBuilder({ page })
     .exclude('iframe')
     .analyze()

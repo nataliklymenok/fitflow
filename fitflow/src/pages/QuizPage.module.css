@@ -74,9 +74,6 @@
   color: var(--text);
   text-align: left;
   cursor: pointer;
-  transition:
-    border-color 0.15s,
-    background-color 0.15s;
 }
 
 .option:hover {
@@ -116,5 +113,11 @@
   .option {
     min-height: 0;
     padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .segment {
+    transition: background-color 0.3s ease-out;
   }
 }

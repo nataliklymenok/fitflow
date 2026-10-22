@@ -47,3 +47,24 @@ select {
   background: var(--accent);
   color: var(--on-accent);
 }
+
+/* Motion (spec 002, US-5). Everything that moves lives inside this query, so
+   "reduce motion" in the system settings turns it all off. */
+@media (prefers-reduced-motion: no-preference) {
+  button,
+  a {
+    transition-property: background-color, border-color, color, transform;
+    transition-duration: 0.15s;
+  }
+
+  button:active:not(:disabled),
+  a[class]:active {
+    transform: scale(0.97);
+  }
+
+  /* Theme switch: cross-fade the whole page (see ThemeProvider). */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+  }
+}

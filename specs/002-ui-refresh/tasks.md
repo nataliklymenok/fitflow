@@ -41,7 +41,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T132** Quiz: segmented progress with "N to go", option tiles with hints (`hint` on every option in `domain/quiz.js`, with a unit test). *(US-3)*
 - [x] **T133** Calendar: header actions, period navigation, segmented Week/Month, day cells with top-colored session cards, Done badge, highlighted today, month view and legend. *(US-3)*
 - [x] **T134** Workout page: large title, player frame, action row, "In this session" list and swap options. *(US-3)*
-- [ ] **T135** Motion inside `prefers-reduced-motion: no-preference`: progress fill, press effect, dialog entrance, theme cross-fade. *(US-5)*
+- [x] **T135** Motion inside `prefers-reduced-motion: no-preference`: progress fill, press effect, dialog entrance, theme cross-fade. *(US-5)*
   Done when: e2e with `reducedMotion: 'reduce'` finds no running transitions.
 
 **Checkpoint B:** screenshots of every screen in both themes at 360 px and 1280 px, side by side with the mockups.

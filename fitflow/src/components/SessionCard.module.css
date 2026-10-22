@@ -10,9 +10,6 @@
   box-shadow: var(--shadow);
   color: var(--text);
   text-decoration: none;
-  transition:
-    border-color 0.15s,
-    transform 0.15s;
 }
 
 .card:hover {
