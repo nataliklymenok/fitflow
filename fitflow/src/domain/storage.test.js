@@ -4,11 +4,14 @@ import { generatePlan } from './generatePlan.js'
 import {
   SCHEMA_VERSION,
   STORAGE_KEY,
+  THEME_KEY,
   clear,
   isValidState,
   load,
+  loadTheme,
   migrate,
   save,
+  saveTheme,
 } from './storage.js'
 
 const answers = {
@@ -143,5 +146,39 @@ describe('migrate', () => {
     expect(migrate(data)).toBe(data)
     expect(migrate({ version: 0 })).toBeNull()
     expect(migrate(undefined)).toBeNull()
+  })
+})
+
+describe('theme preference (002 FR-4)', () => {
+  it('saves and loads dark or light', () => {
+    const storage = memoryStorage()
+    expect(loadTheme(storage)).toBeNull()
+    expect(saveTheme('light', storage)).toBe(true)
+    expect(loadTheme(storage)).toBe('light')
+    expect(saveTheme('dark', storage)).toBe(true)
+    expect(loadTheme(storage)).toBe('dark')
+  })
+
+  it('ignores unknown values', () => {
+    const storage = memoryStorage({ [THEME_KEY]: 'sepia' })
+    expect(loadTheme(storage)).toBeNull()
+    expect(saveTheme('sepia', storage)).toBe(false)
+    expect(storage.data.get(THEME_KEY)).toBe('sepia')
+  })
+
+  it('survives clear(), which only removes the plan', () => {
+    const storage = memoryStorage()
+    save(makeState(), storage)
+    saveTheme('light', storage)
+    clear(storage)
+    expect(load(storage)).toBeNull()
+    expect(loadTheme(storage)).toBe('light')
+  })
+
+  it('works without storage', () => {
+    expect(loadTheme(null)).toBeNull()
+    expect(loadTheme(brokenStorage)).toBeNull()
+    expect(saveTheme('dark', null)).toBe(false)
+    expect(saveTheme('dark', brokenStorage)).toBe(false)
   })
 })

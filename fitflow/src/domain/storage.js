@@ -9,6 +9,11 @@ import { isComplete } from './quiz.js'
 export const STORAGE_KEY = 'fitflow'
 export const SCHEMA_VERSION = 1
 
+// The theme is kept apart from the plan, so Reset does not change it (002 FR-4).
+// index.html reads the same key before the app loads; keep the two in sync.
+export const THEME_KEY = 'fitflow:theme'
+export const THEMES = ['dark', 'light']
+
 // Reading `window.localStorage` itself can throw (e.g. blocked cookies).
 function defaultStorage() {
   try {
@@ -89,5 +94,27 @@ export function clear(storage = defaultStorage()) {
     storage?.removeItem(STORAGE_KEY)
   } catch {
     // Nothing to clear if storage is unavailable.
+  }
+}
+
+// Returns 'dark', 'light', or null when no valid choice is saved.
+export function loadTheme(storage = defaultStorage()) {
+  try {
+    const theme = storage?.getItem(THEME_KEY)
+    return THEMES.includes(theme) ? theme : null
+  } catch {
+    return null
+  }
+}
+
+// Returns true if the theme was saved.
+export function saveTheme(theme, storage = defaultStorage()) {
+  if (!THEMES.includes(theme)) return false
+  try {
+    if (!storage) return false
+    storage.setItem(THEME_KEY, theme)
+    return true
+  } catch {
+    return false
   }
 }
