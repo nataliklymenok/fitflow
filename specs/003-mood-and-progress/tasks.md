@@ -25,7 +25,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
   Done when: e2e covers Low → Swap → Undo, Ready on a rest day → Add it, Okay → no suggestion, and Keep my plan staying dismissed after a reload.
 - [x] **T212** Today tiles: **Streak** and **This week** (sessions and minutes), with an encouraging empty state. *(US-3)*
   Done when: e2e checks both tiles change after marking a session done.
-- [ ] **T213** **Add to calendar** button on the calendar page that downloads `fitflow-plan.ics`. *(US-4)*
+- [x] **T213** **Add to calendar** button on the calendar page that downloads `fitflow-plan.ics`. *(US-4)*
   Done when: e2e captures the download and finds one event per session with the right dates.
 - [ ] **T214** Mood marks in week and month views, with accessible labels ("Felt low"). *(US-5)*
 

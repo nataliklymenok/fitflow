@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import AddSessionDialog from '../components/AddSessionDialog.jsx'
+import ExportButton from '../components/ExportButton.jsx'
 import MonthView from '../components/MonthView.jsx'
 import PlanActions from '../components/PlanActions.jsx'
 import WeekView from '../components/WeekView.jsx'
@@ -80,11 +81,14 @@ function CalendarPage() {
             {plan.sessions.length} sessions done
           </p>
         </div>
-        <PlanActions
-          actions={['regenerate', 'retake', 'reset']}
-          className={styles.actions}
-          onRegenerated={setAnchor}
-        />
+        <div className={styles.actions}>
+          <ExportButton />
+          <PlanActions
+            actions={['regenerate', 'retake', 'reset']}
+            className={styles.actions}
+            onRegenerated={setAnchor}
+          />
+        </div>
       </header>
 
       <div className={styles.toolbar}>
