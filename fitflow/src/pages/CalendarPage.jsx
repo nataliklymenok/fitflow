@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
+import AddSessionDialog from '../components/AddSessionDialog.jsx'
 import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import MonthView from '../components/MonthView.jsx'
 import WeekView from '../components/WeekView.jsx'
@@ -74,6 +75,7 @@ function CalendarPage() {
   const { plan } = state
   const navigate = useNavigate()
   const [confirming, setConfirming] = useState(null)
+  const [addingOn, setAddingOn] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const view = searchParams.get('view') === 'month' ? 'month' : 'week'
   const today = todayKey()
@@ -201,8 +203,20 @@ function CalendarPage() {
           plan={plan}
           sessionsByDate={sessionsByDate}
           today={today}
+          renderRest={(date) => (
+            <button
+              type="button"
+              className={`${ui.button} ${ui.ghost} ${ui.small}`}
+              onClick={() => setAddingOn(date)}
+              aria-label={`Add a session on ${formatDay(date, 'EEEE, MMMM d')}`}
+            >
+              + Add
+            </button>
+          )}
         />
       )}
+
+      <AddSessionDialog date={addingOn} onClose={() => setAddingOn(null)} />
 
       <ConfirmDialog
         open={confirming !== null}

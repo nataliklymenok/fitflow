@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
+import SessionEditor from '../components/SessionEditor.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
 import VideoPlayer from '../components/VideoPlayer.jsx'
 import { sessionMinutes, videos, videosById } from '../data/videos.js'
@@ -15,6 +16,7 @@ function SessionPage() {
   const { state, dispatch } = usePlan()
   const [current, setCurrent] = useState(0)
   const [swapping, setSwapping] = useState(null)
+  const [editing, setEditing] = useState(false)
 
   const session = state.plan.sessions.find((s) => s.id === id)
   if (!session) return <Navigate to="/calendar" replace />
@@ -104,6 +106,13 @@ function SessionPage() {
                 </button>
               </>
             )}
+            <button
+              type="button"
+              className={`${ui.button} ${ui.ghost} ${styles.edit}`}
+              onClick={() => setEditing(true)}
+            >
+              ✎ Edit session
+            </button>
           </div>
         </section>
 
@@ -163,6 +172,13 @@ function SessionPage() {
           </ol>
         </section>
       </div>
+
+      <SessionEditor
+        key={`${session.id}-${session.date}-${session.category}`}
+        open={editing}
+        onClose={() => setEditing(false)}
+        session={session}
+      />
     </div>
   )
 }

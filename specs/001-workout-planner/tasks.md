@@ -53,7 +53,7 @@ Done when (whole phase): `npm test` passes and `npm run lint` passes.
 - [x] **T044** Calendar actions: Regenerate, Retake quiz, Reset, each behind a `ConfirmDialog`. *(US-2, US-6)*
 - [x] **T045** `VideoPlayer`: lazy-load the IFrame API, `youtube-nocookie.com`, error state for codes 100/101/150. *(US-4, NFR-1)*
 - [x] **T046** Session page: player, video list with titles/channels/durations, Done / Skipped, Swap video from suggestions. *(US-4)*
-- [ ] **T047** `SessionEditor` dialog: move to another day, change category, delete; "Add session" on rest days in the calendar. *(US-5)*
+- [x] **T047** `SessionEditor` dialog: move to another day, change category, delete; "Add session" on rest days in the calendar. *(US-5)*
 
 **Checkpoint B:** walk through the full flow together in the browser.
 

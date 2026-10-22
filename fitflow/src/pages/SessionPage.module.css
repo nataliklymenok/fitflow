@@ -64,6 +64,10 @@
   gap: var(--space-3);
 }
 
+.edit {
+  margin-left: auto;
+}
+
 .statusText {
   font-weight: 600;
 }
