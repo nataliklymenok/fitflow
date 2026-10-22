@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "answers": {
+    "mood": "tired",
+    "energy": "low",
+    "goal": "flexibility",
+    "daysPerWeek": 3,
+    "sessionMinutes": 20,
+    "weeks": 1
+  },
+  "plan": {
+    "startDate": "2026-10-22",
+    "endDate": "2026-10-28",
+    "seed": 2539102180,
+    "sessions": [
+      {
+        "id": "s-15zprs4-0",
+        "date": "2026-10-22",
+        "category": "stretching",
+        "videoIds": [
+          "_IoYLhrTBqY"
+        ],
+        "status": "done"
+      },
+      {
+        "id": "s-15zprs4-1",
+        "date": "2026-10-24",
+        "category": "stretching",
+        "videoIds": [
+          "L_xrDAtykMI"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "s-15zprs4-2",
+        "date": "2026-10-26",
+        "category": "calm",
+        "videoIds": [
+          "4pLUleLdwY4"
+        ],
+        "status": "planned"
+      }
+    ]
+  }
+}

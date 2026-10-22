@@ -24,6 +24,7 @@ function makeState() {
   return {
     answers,
     plan: generatePlan(answers, catalog, { seed: 11, today: TODAY }),
+    checkIns: {},
   }
 }
 
@@ -44,6 +45,32 @@ describe('REPLACE_PLAN and RESET', () => {
     const replaced = planReducer(EMPTY_STATE, { type: 'REPLACE_PLAN', ...state })
     expect(replaced).toEqual(state)
     expect(planReducer(replaced, { type: 'RESET' })).toEqual(EMPTY_STATE)
+  })
+
+  it('keeps how the user felt but not suggestion outcomes (003 FR-2)', () => {
+    const state = makeState()
+    state.checkIns = {
+      '2026-10-21': {
+        mood: 'low',
+        decision: 'adapted',
+        previous: state.plan.sessions[0],
+        sessionId: 'x',
+      },
+    }
+    const fresh = makeState()
+    const next = planReducer(state, {
+      type: 'REPLACE_PLAN',
+      answers: fresh.answers,
+      plan: fresh.plan,
+    })
+    expect(next.checkIns).toEqual({
+      '2026-10-21': { mood: 'low', decision: null, previous: null, sessionId: null },
+    })
+  })
+
+  it('RESET clears check-ins too (003 FR-2)', () => {
+    const state = { ...makeState(), checkIns: { '2026-10-21': { mood: 'ok' } } }
+    expect(planReducer(state, { type: 'RESET' }).checkIns).toEqual({})
   })
 
   it('ignores edits when there is no plan', () => {

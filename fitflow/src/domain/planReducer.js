@@ -9,7 +9,7 @@ import { createRandom } from './random.js'
 
 export const STATUSES = ['planned', 'done', 'skipped']
 
-export const EMPTY_STATE = { answers: null, plan: null }
+export const EMPTY_STATE = { answers: null, plan: null, checkIns: {} }
 
 function byDate(a, b) {
   return a.date.localeCompare(b.date)
@@ -32,7 +32,18 @@ function updateSession(state, id, update) {
 
 export function planReducer(state, action) {
   if (action.type === 'REPLACE_PLAN') {
-    return { answers: action.answers, plan: action.plan }
+    // A new plan keeps how the user felt each day (003 FR-2), but not what
+    // they did with suggestions, which pointed at the old plan's sessions.
+    return {
+      answers: action.answers,
+      plan: action.plan,
+      checkIns: Object.fromEntries(
+        Object.entries(state.checkIns ?? {}).map(([date, { mood }]) => [
+          date,
+          { mood, decision: null, previous: null, sessionId: null },
+        ]),
+      ),
+    }
   }
   if (action.type === 'RESET') return EMPTY_STATE
   if (!state.plan) return state

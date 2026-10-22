@@ -2,12 +2,13 @@
 // Every function survives missing, blocked or corrupted storage: the app then
 // simply starts fresh.
 import { CATEGORIES } from './catalog.js'
+import { DECISIONS, MOODS } from './checkIn.js'
 import { isKey, isWithin } from './dates.js'
 import { STATUSES } from './planReducer.js'
 import { isComplete } from './quiz.js'
 
 export const STORAGE_KEY = 'fitflow'
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 // The theme is kept apart from the plan, so Reset does not change it (002 FR-4).
 // index.html reads the same key before the app loads; keep the two in sync.
@@ -47,24 +48,53 @@ function isValidPlan(plan) {
   )
 }
 
+function isValidCheckIn(record, plan) {
+  return (
+    MOODS.includes(record?.mood) &&
+    DECISIONS.includes(record.decision) &&
+    (record.previous === null || isValidSession(record.previous, plan)) &&
+    (record.sessionId === null || typeof record.sessionId === 'string')
+  )
+}
+
+function isValidCheckIns(checkIns, plan) {
+  return (
+    checkIns !== null &&
+    typeof checkIns === 'object' &&
+    !Array.isArray(checkIns) &&
+    Object.entries(checkIns).every(
+      ([date, record]) => isKey(date) && isValidCheckIn(record, plan),
+    )
+  )
+}
+
 export function isValidState(state) {
-  return isComplete(state?.answers) && isValidPlan(state.plan)
+  return (
+    isComplete(state?.answers) &&
+    isValidPlan(state.plan) &&
+    isValidCheckIns(state.checkIns, state.plan)
+  )
 }
 
-// Upgrades older saved data to SCHEMA_VERSION; null if it cannot.
+// Upgrades older saved data to SCHEMA_VERSION, one version at a time; null if
+// it cannot.
 export function migrate(data) {
-  if (data?.version === SCHEMA_VERSION) return data
-  return null
+  let current = data
+  if (current?.version === 1) {
+    // 003: daily check-ins were added.
+    current = { ...current, version: 2, checkIns: {} }
+  }
+  return current?.version === SCHEMA_VERSION ? current : null
 }
 
-// Returns { answers, plan } or null when there is nothing usable.
+// Returns { answers, plan, checkIns } or null when there is nothing usable.
 export function load(storage = defaultStorage()) {
   try {
     const raw = storage?.getItem(STORAGE_KEY)
     if (!raw) return null
     const data = migrate(JSON.parse(raw))
     if (!data) return null
-    const state = { answers: data.answers, plan: data.plan }
+    const state = { answers: data.answers, plan: data.plan, checkIns: data.checkIns }
     return isValidState(state) ? state : null
   } catch {
     return null
@@ -81,6 +111,7 @@ export function save(state, storage = defaultStorage()) {
         version: SCHEMA_VERSION,
         answers: state.answers,
         plan: state.plan,
+        checkIns: state.checkIns ?? {},
       }),
     )
     return true

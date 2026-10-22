@@ -1,6 +1,6 @@
 # 003 — Daily Mood Check-in and Progress: Tasks
 
-**Status:** Draft · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
+**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
 
 Tasks run in order, numbered from T201 so commit messages never clash with earlier specs. A task is done when its **Done when** check passes; each ends with a commit naming the task ID.
 
@@ -10,7 +10,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 1 — Domain logic (pure JS, tested)
 
-- [ ] **T201** Schema version 2: `checkIns` in state and storage; `migrate()` upgrades version 1; `isValidState` checks check-ins; `REPLACE_PLAN` keeps them, `RESET` clears them. *(FR-1, FR-2)*
+- [x] **T201** Schema version 2: `checkIns` in state and storage; `migrate()` upgrades version 1; `isValidState` checks check-ins; `REPLACE_PLAN` keeps them, `RESET` clears them. *(FR-1, FR-2)*
   Done when: a version 1 fixture (real saved data from 001/002) loads as version 2 with empty check-ins; invalid check-ins are rejected; reducer tests cover keep and clear.
 - [ ] **T202** `domain/progress.js`: `streak(plan, today)` and `weekProgress(plan, today, minutesOf)`. Tests: streak over rest days, broken by a skip and by a missed past day, today pending vs done, empty plan, week boundaries (Monday, Sunday, plan starting mid-week). *(US-3)*
 - [ ] **T203** `domain/checkIn.js`: `MOODS`, `isDemanding`, `isGentle`, `suggestFor()`. Tests: every mood × session type, rest day add (length `max(10, minutes / 2)`), no suggestion outside the plan, same date and plan seed give the same suggestion, length within tolerance, no avoidable repeats. *(US-2, FR-3)*

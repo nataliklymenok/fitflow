@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import catalog from '../data/catalog.json'
+import v1SavedState from './fixtures/v1-saved-state.json'
 import { generatePlan } from './generatePlan.js'
 import {
   SCHEMA_VERSION,
@@ -28,6 +29,7 @@ function makeState() {
   return {
     answers,
     plan: generatePlan(answers, catalog, { seed: 99, today: '2026-10-21' }),
+    checkIns: {},
   }
 }
 
@@ -188,5 +190,48 @@ describe('theme key', () => {
   it('is the same in index.html, which reads it before the app loads', () => {
     const html = readFileSync(new URL('../../index.html', import.meta.url), 'utf8')
     expect(html).toContain(`localStorage.getItem('${THEME_KEY}')`)
+  })
+})
+
+describe('schema version 2 (003 FR-1)', () => {
+  it('migrates data saved by version 1 (001/002) with no check-ins', () => {
+    const loaded = load(stored(v1SavedState))
+    expect(loaded).not.toBeNull()
+    expect(loaded.checkIns).toEqual({})
+    expect(loaded.plan).toEqual(v1SavedState.plan)
+    expect(loaded.answers).toEqual(v1SavedState.answers)
+  })
+
+  it('saves as version 2 after a migrated load', () => {
+    const storage = stored(v1SavedState)
+    save(load(storage), storage)
+    expect(JSON.parse(storage.data.get(STORAGE_KEY)).version).toBe(2)
+  })
+
+  it('round-trips check-ins', () => {
+    const storage = memoryStorage()
+    const state = makeState()
+    const session = state.plan.sessions[0]
+    state.checkIns = {
+      [session.date]: { mood: 'low', decision: 'adapted', previous: session, sessionId: 'new-id' },
+      '2026-10-22': { mood: 'ready', decision: null, previous: null, sessionId: null },
+    }
+    save(state, storage)
+    expect(load(storage)).toEqual(state)
+  })
+
+  it('rejects invalid check-ins', () => {
+    const state = makeState()
+    const bad = [
+      { '2026-10-21': { mood: 'sleepy', decision: null, previous: null, sessionId: null } },
+      { '2026-10-21': { mood: 'low', decision: 'maybe', previous: null, sessionId: null } },
+      { '2026-10-21': { mood: 'low', decision: null, previous: { id: 1 }, sessionId: null } },
+      { 'not-a-date': { mood: 'low', decision: null, previous: null, sessionId: null } },
+      [],
+      null,
+    ]
+    for (const checkIns of bad) {
+      expect(isValidState({ ...state, checkIns })).toBe(false)
+    }
   })
 })
