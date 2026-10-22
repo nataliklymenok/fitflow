@@ -1,4 +1,4 @@
-import { createPlan, expect, test } from './helpers.js'
+import { answerQuiz, createPlan, expect, test } from './helpers.js'
 
 const html = (page) => page.locator('html')
 
@@ -50,7 +50,7 @@ test('the choice survives a reload and overrides the device setting (US-4)', asy
 
 test('switching keeps the page as it is (US-4)', async ({ page }) => {
   await page.goto('/quiz')
-  await page.getByRole('button', { name: 'Okay', exact: true }).click()
+  await answerQuiz(page, ['Okay'])
   await expect(page.getByText('Question 2 of 6')).toBeVisible()
   await page.getByRole('button', { name: /^Switch to / }).click()
   await expect(page.getByText('Question 2 of 6')).toBeVisible()

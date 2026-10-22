@@ -2,6 +2,7 @@ import {
   STRESSED,
   answerQuiz,
   expect,
+  quizAnswer,
   stored,
   test,
   todayKey,
@@ -23,7 +24,7 @@ test('quiz shows one question at a time with progress and Back (US-1)', async ({
 
   await page.getByRole('button', { name: '← Back' }).click()
   await expect(page.getByText('Question 1 of 6')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Stressed' })).toHaveAttribute(
+  await expect(quizAnswer(page, 'Stressed')).toHaveAttribute(
     'aria-pressed',
     'true',
   )

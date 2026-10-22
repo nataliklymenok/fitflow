@@ -15,9 +15,16 @@ export { expect }
 export const STRESSED = ['Stressed', 'Low', 'Reduce stress', '3', '20 min', '2 weeks']
 export const FITNESS = ['Okay', 'Medium', 'Get fitter / lose weight', '4', '30 min', '1 week']
 
+// An answer's accessible name is its label followed by its hint
+// ("Stressed Wound up or anxious"), so match the label at the start.
+export function quizAnswer(page, label) {
+  const escaped = label.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')
+  return page.getByRole('button', { name: new RegExp(`^${escaped}(\\s|$)`) })
+}
+
 export async function answerQuiz(page, answers) {
   for (const answer of answers) {
-    await page.getByRole('button', { name: answer, exact: true }).click()
+    await quizAnswer(page, answer).click()
   }
 }
 

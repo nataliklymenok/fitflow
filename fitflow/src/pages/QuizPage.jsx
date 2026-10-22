@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import catalog from '../data/catalog.json'
 import { todayKey } from '../domain/dates.js'
@@ -15,7 +15,6 @@ function QuizPage() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
   const headingRef = useRef(null)
-  const idPrefix = useId()
 
   const question = QUESTIONS[step]
   const isLast = step === QUESTIONS.length - 1
@@ -70,25 +69,18 @@ function QuizPage() {
       </h1>
 
       <div className={styles.options} role="group" aria-label={question.title}>
-        {question.options.map((option, i) => {
+        {question.options.map((option) => {
           const selected = answers[question.id] === option.value
-          const labelId = `${idPrefix}-${question.id}-${i}`
           return (
             <button
               key={option.value}
               type="button"
               className={`${styles.option} ${selected ? styles.selected : ''}`}
               aria-pressed={selected}
-              aria-labelledby={labelId}
-              aria-describedby={`${labelId}-hint`}
               onClick={() => choose(option.value)}
             >
-              <span id={labelId} className={styles.optionLabel}>
-                {option.label}
-              </span>
-              <span id={`${labelId}-hint`} className={styles.optionHint}>
-                {option.hint}
-              </span>
+              <span className={styles.optionLabel}>{option.label}</span>
+              <span className={styles.optionHint}>{option.hint}</span>
             </button>
           )
         })}
