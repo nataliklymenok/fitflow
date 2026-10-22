@@ -1,6 +1,6 @@
 # 002 — UI Refresh: Implementation Plan
 
-**Status:** Draft · **Spec:** [spec.md](spec.md) · **Mockups:** [canvas, page "002 · Screens"](https://claude.ai/artifact/5XuEQLh8ThpgJtcHiPpPKF) · **Created:** 2026-10-22
+**Status:** Approved · **Spec:** [spec.md](spec.md) · **Mockups:** [canvas, page "002 · Screens"](https://claude.ai/artifact/5XuEQLh8ThpgJtcHiPpPKF) · **Created:** 2026-10-22
 
 ## Overview
 
