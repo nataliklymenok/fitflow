@@ -1,6 +1,6 @@
 # 001 — Mood-based Workout Planner: Acceptance
 
-**Run:** 2026-10-22 · **Build:** production build (`npm run build`) served by `vite preview` · **Spec:** [spec.md](spec.md)
+**Run:** 2026-10-22 · **Build:** production build (`npm run build`) served by `vite preview`, then repeated on the live site https://fitflow-nk-lymenok.vercel.app · **Spec:** [spec.md](spec.md)
 
 Every acceptance criterion in the spec was checked against the running app. Browser checks were scripted with Playwright, which clicks through the UI the way a user would and then inspects the page and the saved data. Rules that cover all possible plans are checked by unit tests instead.
 
@@ -51,7 +51,7 @@ Each cell shows desktop, then phone.
 | **FR-4** Plans only use catalog videos | ✅ | unit tests: all combinations |
 | **FR-5** Local storage with a schema version | ✅ | unit tests |
 | **FR-6** Missing or corrupted data starts fresh without crashing | ✅ in all 6 browser runs | browser + unit tests |
-| **NFR-1** First load under 2 s | ✅ 52–212 ms locally; recheck on the deployed site | browser |
+| **NFR-1** First load under 2 s | ✅ 52–212 ms locally, 255–332 ms on the live site | browser |
 | **NFR-1** YouTube player loads only when a workout is opened | ✅ in all 6 browser runs | browser |
 | **NFR-2** Usable from 360 px to desktop, no horizontal scrolling | ✅ in all 6 browser runs; also 360 px in Chrome | browser |
 | **NFR-3** Keyboard access and accessible labels | ✅ axe-core: 0 violations on every page and dialog; full flow done with the keyboard only (Chrome) | browser |
@@ -64,10 +64,13 @@ Each cell shows desktop, then phone.
 |---|---|
 | A new visitor gets from the landing page to a calendar in under 60 s | ✅ The quiz is 6 taps; the scripted run took 0.7 s. A person reading each question should take 20–40 s. |
 | 100% of generated plans pass the US-2 rules in automated tests | ✅ 8,640 plans (2,880 answer combinations × 3 seeds) |
-| Works on the latest Chrome, Safari and Firefox, desktop and mobile | ✅ Chrome, Firefox and WebKit. **Still to check by hand: real Safari on macOS and iOS**, after deployment. |
+| Works on the latest Chrome, Safari and Firefox, desktop and mobile | ✅ Chrome, Firefox and WebKit, locally and on the live site. **Still to check by hand: real Safari on macOS and iOS.** |
 
 ## Not covered
 
-- Real Safari and real phones. WebKit is Safari's engine but not Safari itself; check the deployed site on an iPhone and in Safari on a Mac.
+- Real Safari and real phones. WebKit is Safari's engine but not Safari itself; check the live site on an iPhone and in Safari on a Mac.
 - Unavailable-video handling was tested in Chrome only.
-- Load time was measured locally. Recheck it on the deployed site.
+
+## Live site
+
+All 23 browser checks above were repeated on https://fitflow-nk-lymenok.vercel.app after deployment, in all six browser and viewport combinations: no failures.

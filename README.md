@@ -2,7 +2,7 @@
 
 **Workouts that match your mood.** Answer six quick questions about how you feel, and FitFlow builds a workout calendar from curated YouTube videos: strength, cardio, stretching, yoga and calm sessions, with rest days built in.
 
-**Live demo:** _coming soon_
+**Live demo:** [fitflow-nk-lymenok.vercel.app](https://fitflow-nk-lymenok.vercel.app)
 
 ![FitFlow calendar](docs/screenshots/calendar-week.png)
 

@@ -1,6 +1,6 @@
 # 001 — Mood-based Workout Planner
 
-**Status:** Approved · **Created:** 2026-10-21 · **Approved:** 2026-10-21
+**Status:** Released (https://fitflow-nk-lymenok.vercel.app) · **Created:** 2026-10-21 · **Approved:** 2026-10-21
 
 ## Summary
 

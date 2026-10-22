@@ -1,6 +1,6 @@
 # 001 — Mood-based Workout Planner: Tasks
 
-**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-21
+**Status:** Done · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-21
 
 Tasks run in order. A task is done when its **Done when** check passes. Each one ends with a commit that names the task ID (e.g. `T012: quiz questions and validation`).
 
@@ -62,5 +62,5 @@ Done when (whole phase): `npm test` passes and `npm run lint` passes.
 - [x] **T050** Responsive and accessibility pass: 360px to desktop, keyboard-only walkthrough, visible focus, labels on all controls, dialogs trap focus and close on Esc. *(NFR-2, NFR-3)*
 - [x] **T051** Portfolio `README.md`: what FitFlow does, screenshots, how it was built (SDD + AI, links to specs), how to run and test.
 - [x] **T052** Manual acceptance run: every acceptance criterion in spec.md on Chrome, Safari, Firefox and mobile; record results in `specs/001-workout-planner/acceptance.md`.
-- [ ] **T053** Deploy to Vercel (root directory `fitflow/`, auto-deploy from `main`). Needs the user's Vercel and GitHub accounts.
+- [x] **T053** Deploy to Vercel (root directory `fitflow/`, auto-deploy from `main`). Needs the user's Vercel and GitHub accounts.
   Done when: the public URL passes a smoke test of the full flow; the URL is added to the README.
