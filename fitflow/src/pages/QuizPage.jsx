@@ -36,7 +36,7 @@ function QuizPage() {
       today: todayKey(),
     })
     dispatch({ type: 'REPLACE_PLAN', answers: next, plan })
-    navigate('/calendar')
+    navigate('/today')
   }
 
   return (

@@ -3,11 +3,12 @@ import SessionCard from './SessionCard.jsx'
 import styles from './WeekView.module.css'
 
 // Seven days from `weekStart`. `renderRest(date)` adds controls to rest days.
-function WeekView({ weekStart, plan, sessionsByDate, today, renderRest }) {
+// `compact` makes shorter tiles, for the overview on the Today screen.
+function WeekView({ weekStart, plan, sessionsByDate, today, renderRest, compact = false }) {
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
   return (
-    <ol className={styles.week}>
+    <ol className={`${styles.week} ${compact ? styles.compact : ''}`}>
       {days.map((date) => {
         const session = sessionsByDate.get(date)
         const inPlan = isWithin(date, plan.startDate, plan.endDate)

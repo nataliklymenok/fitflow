@@ -30,6 +30,10 @@
     min-height: 200px;
     padding: var(--space-2);
   }
+
+  .compact .day {
+    min-height: 150px;
+  }
 }
 
 .today {

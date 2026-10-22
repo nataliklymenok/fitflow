@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import SessionEditor from '../components/SessionEditor.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
+import SwapOptions from '../components/SwapOptions.jsx'
 import VideoPlayer from '../components/VideoPlayer.jsx'
 import { sessionMinutes, videos, videosById } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay } from '../domain/dates.js'
 import { suggestAlternatives } from '../domain/suggestions.js'
-import { usePlan } from '../state/planContext.js'
 import { categoryVars } from '../lib/categoryVars.js'
+import { usePlan } from '../state/planContext.js'
 import ui from '../styles/ui.module.css'
 import styles from './SessionPage.module.css'
 
@@ -180,45 +181,6 @@ function SessionPage() {
         onClose={() => setEditing(false)}
         session={session}
       />
-    </div>
-  )
-}
-
-function SwapOptions({ options, onChoose, onCancel }) {
-  return (
-    <div className={styles.swap}>
-      <p className={styles.swapTitle}>Choose another video</p>
-      {options.length === 0 ? (
-        <p className={ui.muted}>No other videos in this category.</p>
-      ) : (
-        <ul className={styles.options}>
-          {options.map((option) => (
-            <li key={option.id} className={styles.option}>
-              <span className={styles.videoInfo}>
-                <span className={styles.videoTitle}>{option.title}</span>
-                <span className={`${ui.muted} ${styles.videoMeta}`}>
-                  {option.channel} · {option.durationMin} min
-                </span>
-              </span>
-              <button
-                type="button"
-                className={`${ui.button} ${ui.secondary} ${ui.small}`}
-                onClick={() => onChoose(option)}
-                aria-label={`Use ${option.title}`}
-              >
-                Use
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button
-        type="button"
-        className={`${ui.button} ${ui.ghost} ${ui.small}`}
-        onClick={onCancel}
-      >
-        Cancel
-      </button>
     </div>
   )
 }

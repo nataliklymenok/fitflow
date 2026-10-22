@@ -29,10 +29,10 @@ test('quiz shows one question at a time with progress and Back (US-1)', async ({
   )
 })
 
-test('finishing the quiz creates a plan from today (US-1, US-2)', async ({ page }) => {
+test('finishing the quiz creates a plan from today and opens Today (US-1, US-2; 002 US-1)', async ({ page }) => {
   await page.goto('/quiz')
   await answerQuiz(page, STRESSED)
-  await expect(page).toHaveURL(/\/calendar$/)
+  await expect(page).toHaveURL(/\/today$/)
 
   const { plan, answers } = await stored(page)
   const today = await todayKey(page)

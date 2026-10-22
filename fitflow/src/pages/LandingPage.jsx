@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
-import ConfirmDialog from '../components/ConfirmDialog.jsx'
+import { Link, Navigate } from 'react-router'
 import { CATEGORIES, CATEGORY_LABELS } from '../domain/catalog.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
@@ -32,9 +30,9 @@ const CHANNELS = [
 
 function LandingPage() {
   const { state } = usePlan()
-  const navigate = useNavigate()
-  const [confirmRetake, setConfirmRetake] = useState(false)
-  const hasPlan = Boolean(state.plan)
+
+  // Returning users go straight to their day (spec 002, US-1).
+  if (state.plan) return <Navigate to="/today" replace />
 
   return (
     <div className={styles.page}>
@@ -46,24 +44,9 @@ function LandingPage() {
           sessions, picked for how you feel.
         </p>
         <div className={styles.cta}>
-          {hasPlan ? (
-            <>
-              <Link to="/calendar" className={`${ui.button} ${ui.primary}`}>
-                Continue my plan
-              </Link>
-              <button
-                type="button"
-                className={`${ui.button} ${ui.secondary}`}
-                onClick={() => setConfirmRetake(true)}
-              >
-                Retake the quiz
-              </button>
-            </>
-          ) : (
-            <Link to="/quiz" className={`${ui.button} ${ui.primary}`}>
-              Start the quiz
-            </Link>
-          )}
+          <Link to="/quiz" className={`${ui.button} ${ui.primary}`}>
+            Start the quiz
+          </Link>
         </div>
         <ul className={styles.categories} aria-label="Workout types">
           {CATEGORIES.map((category) => (
@@ -99,15 +82,6 @@ function LandingPage() {
         Videos by {CHANNELS.join(', ')}. All videos belong to their creators and
         play through YouTube.
       </p>
-
-      <ConfirmDialog
-        open={confirmRetake}
-        title="Retake the quiz?"
-        message="You'll get a new plan when you finish. Your current plan, edits and progress will be replaced."
-        confirmLabel="Retake quiz"
-        onConfirm={() => navigate('/quiz')}
-        onCancel={() => setConfirmRetake(false)}
-      />
     </div>
   )
 }

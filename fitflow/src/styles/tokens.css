@@ -34,7 +34,7 @@
   --border: #262b28;
   --text: #f2f5f3;
   --text-muted: #9aa39e;
-  --text-faint: #5c655f;
+  --text-faint: #6b746e; /* large text only: 3:1 on surfaces */
 
   --accent: #c8f031;
   --accent-hover: #d7f86a;
@@ -89,7 +89,7 @@
   --border: #e4e2ee;
   --text: #17152a;
   --text-muted: #5e5a73;
-  --text-faint: #a9a6bb;
+  --text-faint: #86829b; /* large text only: 3:1 on surfaces */
 
   --accent: #5b4cf0;
   --accent-hover: #4a3bd6;

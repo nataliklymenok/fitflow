@@ -47,3 +47,22 @@ export async function hasHorizontalScroll(page) {
     () => document.documentElement.scrollWidth > window.innerWidth,
   )
 }
+
+// Moves every date of the saved plan by `days` (negative = into the past),
+// then reloads, to show Today on a different day of the plan.
+export async function shiftPlan(page, days) {
+  await page.evaluate((offset) => {
+    const pad = (n) => String(n).padStart(2, '0')
+    const shift = (key) => {
+      const [y, m, d] = key.split('-').map(Number)
+      const date = new Date(y, m - 1, d + offset)
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+    }
+    const data = JSON.parse(localStorage.getItem('fitflow'))
+    data.plan.startDate = shift(data.plan.startDate)
+    data.plan.endDate = shift(data.plan.endDate)
+    data.plan.sessions.forEach((session) => (session.date = shift(session.date)))
+    localStorage.setItem('fitflow', JSON.stringify(data))
+  }, days)
+  await page.reload()
+}

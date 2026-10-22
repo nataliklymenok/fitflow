@@ -31,10 +31,14 @@ for (const theme of ['dark', 'light']) {
       await expectNoViolations(page, 'quiz')
     })
 
-    test('calendar, workout page and dialogs have no accessibility violations (NFR-3)', async ({
+    test('today, calendar, workout page and dialogs have no accessibility violations (NFR-3)', async ({
       page,
     }) => {
       const { plan } = await createPlan(page)
+
+      await page.goto('/today')
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+      await expectNoViolations(page, 'today')
 
       await page.goto('/calendar')
       await expect(page.locator('a[href^="/session/"]').first()).toBeVisible()

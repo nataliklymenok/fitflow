@@ -5,6 +5,7 @@ import CalendarPage from './pages/CalendarPage.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
 import SessionPage from './pages/SessionPage.jsx'
+import TodayPage from './pages/TodayPage.jsx'
 
 function App() {
   return (
@@ -12,6 +13,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/quiz" element={<QuizPage />} />
+        <Route
+          path="/today"
+          element={
+            <RequirePlan>
+              <TodayPage />
+            </RequirePlan>
+          }
+        />
         <Route
           path="/calendar"
           element={
