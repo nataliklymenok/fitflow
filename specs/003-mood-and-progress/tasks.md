@@ -27,7 +27,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
   Done when: e2e checks both tiles change after marking a session done.
 - [x] **T213** **Add to calendar** button on the calendar page that downloads `fitflow-plan.ics`. *(US-4)*
   Done when: e2e captures the download and finds one event per session with the right dates.
-- [ ] **T214** Mood marks in week and month views, with accessible labels ("Felt low"). *(US-5)*
+- [x] **T214** Mood marks in week and month views, with accessible labels ("Felt low"). *(US-5)*
 
 **Checkpoint A:** review the check-in, suggestion, progress tiles, export and mood marks in both themes, desktop and phone.
 

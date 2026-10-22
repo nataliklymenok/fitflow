@@ -48,7 +48,14 @@
   background: transparent;
 }
 
-.outside .dayNumber {
+.outside .cellTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.dayNumber {
   color: var(--text-muted);
 }
 

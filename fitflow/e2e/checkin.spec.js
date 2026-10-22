@@ -101,3 +101,11 @@ test('okay, or a mood that fits, suggests nothing (003 US-2)', async ({ page }) 
   await checkIn(page).getByRole('button', { name: 'Ready' }).click()
   await expect(suggestion(page)).toHaveCount(0)
 })
+
+test('the calendar shows how you felt (003 US-5)', async ({ page }) => {
+  await checkIn(page).getByRole('button', { name: 'Low' }).click()
+  await page.goto('/calendar')
+  await expect(page.getByRole('img', { name: 'Felt low' })).toHaveCount(1)
+  await page.goto('/calendar?view=month')
+  await expect(page.getByRole('img', { name: 'Felt low' })).toHaveCount(1)
+})

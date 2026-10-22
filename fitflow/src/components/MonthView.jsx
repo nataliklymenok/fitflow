@@ -10,11 +10,12 @@ import {
 } from '../domain/dates.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import ui from '../styles/ui.module.css'
+import MoodMark from './MoodMark.jsx'
 import styles from './MonthView.module.css'
 
 const STATUS_TEXT = { planned: '', done: ', done', skipped: ', skipped' }
 
-function MonthView({ month, plan, sessionsByDate, today }) {
+function MonthView({ month, plan, sessionsByDate, today, checkIns = {} }) {
   const days = monthGridKeys(month)
   const monthStart = startOfMonthKey(month)
 
@@ -44,7 +45,10 @@ function MonthView({ month, plan, sessionsByDate, today }) {
               className={classes}
               aria-current={isToday ? 'date' : undefined}
             >
-              <span className={styles.dayNumber}>{formatDay(date, 'd')}</span>
+              <span className={styles.cellTop}>
+                <span className={styles.dayNumber}>{formatDay(date, 'd')}</span>
+                <MoodMark mood={checkIns[date]?.mood} />
+              </span>
               {session && (
                 <Link
                   to={`/session/${session.id}`}

@@ -1,0 +1,4 @@
+.mark {
+  display: inline-grid;
+  color: var(--text-muted);
+}

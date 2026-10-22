@@ -133,6 +133,7 @@ function CalendarPage() {
 
       {view === 'month' ? (
         <MonthView
+          checkIns={state.checkIns}
           month={period.start}
           plan={plan}
           sessionsByDate={sessionsByDate}
@@ -140,6 +141,7 @@ function CalendarPage() {
         />
       ) : (
         <WeekView
+          checkIns={state.checkIns}
           weekStart={period.start}
           plan={plan}
           sessionsByDate={sessionsByDate}

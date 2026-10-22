@@ -140,6 +140,7 @@ function TodayPage() {
           </Link>
         </div>
         <WeekView
+          checkIns={state.checkIns}
           weekStart={startOfWeekKey(weekAnchor)}
           plan={plan}
           sessionsByDate={sessionsByDate}

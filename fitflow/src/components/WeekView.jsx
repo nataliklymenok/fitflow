@@ -1,10 +1,19 @@
 import { addDays, formatDay, isWithin, weekdayName } from '../domain/dates.js'
+import MoodMark from './MoodMark.jsx'
 import SessionCard from './SessionCard.jsx'
 import styles from './WeekView.module.css'
 
 // Seven days from `weekStart`. `renderRest(date)` adds controls to rest days.
 // `compact` makes shorter tiles, for the overview on the Today screen.
-function WeekView({ weekStart, plan, sessionsByDate, today, renderRest, compact = false }) {
+function WeekView({
+  weekStart,
+  plan,
+  sessionsByDate,
+  today,
+  renderRest,
+  checkIns = {},
+  compact = false,
+}) {
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
   return (
@@ -22,6 +31,7 @@ function WeekView({ weekStart, plan, sessionsByDate, today, renderRest, compact 
             <div className={styles.dayHeader}>
               <span className={styles.weekday}>{weekdayName(date)}</span>
               <span className={styles.date}>{formatDay(date)}</span>
+              <MoodMark mood={checkIns[date]?.mood} />
               {isToday && <span className={styles.todayLabel}>Today</span>}
             </div>
             {session ? (
