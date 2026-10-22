@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
+import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import MonthView from '../components/MonthView.jsx'
 import WeekView from '../components/WeekView.jsx'
+import catalog from '../data/catalog.json'
 import {
   addDays,
   addMonths,
@@ -11,9 +13,34 @@ import {
   startOfWeekKey,
   todayKey,
 } from '../domain/dates.js'
+import { generatePlan } from '../domain/generatePlan.js'
+import { newSeed } from '../domain/random.js'
 import { usePlan } from '../state/planContext.js'
 import ui from '../styles/ui.module.css'
 import styles from './CalendarPage.module.css'
+
+// Plan-wide actions, each confirmed first (US-2 Regenerate, US-6).
+const CONFIRMATIONS = {
+  regenerate: {
+    title: 'Regenerate your plan?',
+    message:
+      'You get a new plan from today with the same answers. Your current sessions, edits and progress will be replaced.',
+    confirmLabel: 'Regenerate',
+  },
+  retake: {
+    title: 'Retake the quiz?',
+    message:
+      "You'll get a new plan when you finish. Your current plan, edits and progress will be replaced.",
+    confirmLabel: 'Retake quiz',
+  },
+  reset: {
+    title: 'Reset everything?',
+    message:
+      'This deletes your plan, answers and progress from this browser. You can take the quiz again afterwards.',
+    confirmLabel: 'Reset',
+    danger: true,
+  },
+}
 
 const VIEWS = [
   { id: 'week', label: 'Week' },
@@ -43,8 +70,10 @@ function periodFor(view, anchor) {
 }
 
 function CalendarPage() {
-  const { state } = usePlan()
+  const { state, dispatch } = usePlan()
   const { plan } = state
+  const navigate = useNavigate()
+  const [confirming, setConfirming] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const view = searchParams.get('view') === 'month' ? 'month' : 'week'
   const today = todayKey()
@@ -63,6 +92,23 @@ function CalendarPage() {
   const canGoForward = period.end < plan.endDate
   const unit = view === 'month' ? 'month' : 'week'
 
+  function confirmAction() {
+    setConfirming(null)
+    if (confirming === 'regenerate') {
+      const next = generatePlan(state.answers, catalog, {
+        seed: newSeed(),
+        today,
+      })
+      dispatch({ type: 'REPLACE_PLAN', answers: state.answers, plan: next })
+      setAnchor(today)
+    } else if (confirming === 'retake') {
+      navigate('/quiz')
+    } else if (confirming === 'reset') {
+      dispatch({ type: 'RESET' })
+      navigate('/')
+    }
+  }
+
   function setView(next) {
     setSearchParams(next === 'week' ? {} : { view: next }, { replace: true })
   }
@@ -76,6 +122,29 @@ function CalendarPage() {
             {formatDay(plan.startDate)} – {formatDay(plan.endDate)} · {done} of{' '}
             {plan.sessions.length} sessions done
           </p>
+        </div>
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={`${ui.button} ${ui.secondary} ${ui.small}`}
+            onClick={() => setConfirming('regenerate')}
+          >
+            ↻ Regenerate
+          </button>
+          <button
+            type="button"
+            className={`${ui.button} ${ui.secondary} ${ui.small}`}
+            onClick={() => setConfirming('retake')}
+          >
+            Retake quiz
+          </button>
+          <button
+            type="button"
+            className={`${ui.button} ${ui.ghost} ${ui.small}`}
+            onClick={() => setConfirming('reset')}
+          >
+            Reset
+          </button>
         </div>
       </header>
 
@@ -134,6 +203,13 @@ function CalendarPage() {
           today={today}
         />
       )}
+
+      <ConfirmDialog
+        open={confirming !== null}
+        {...CONFIRMATIONS[confirming ?? 'regenerate']}
+        onConfirm={confirmAction}
+        onCancel={() => setConfirming(null)}
+      />
     </div>
   )
 }

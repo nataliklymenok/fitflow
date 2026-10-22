@@ -64,3 +64,9 @@
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

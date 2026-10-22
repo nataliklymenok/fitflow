@@ -50,7 +50,7 @@ Done when (whole phase): `npm test` passes and `npm run lint` passes.
 - [x] **T041** Quiz page: one question per step, button options, progress bar, Back; on finish generate the plan, dispatch `REPLACE_PLAN`, go to `/calendar`. *(US-1, US-2)*
 - [x] **T042** Calendar week view: 7 days with session (category, title, duration, status) or "Rest", today highlighted, previous/next week within the plan range. *(US-3)*
 - [x] **T043** Month view and the `?view=week|month` toggle. *(US-3)*
-- [ ] **T044** Calendar actions: Regenerate, Retake quiz, Reset, each behind a `ConfirmDialog`. *(US-2, US-6)*
+- [x] **T044** Calendar actions: Regenerate, Retake quiz, Reset, each behind a `ConfirmDialog`. *(US-2, US-6)*
 - [ ] **T045** `VideoPlayer`: lazy-load the IFrame API, `youtube-nocookie.com`, error state for codes 100/101/150. *(US-4, NFR-1)*
 - [ ] **T046** Session page: player, video list with titles/channels/durations, Done / Skipped, Swap video from suggestions. *(US-4)*
 - [ ] **T047** `SessionEditor` dialog: move to another day, change category, delete; "Add session" on rest days in the calendar. *(US-5)*
