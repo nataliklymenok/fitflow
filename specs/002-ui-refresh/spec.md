@@ -1,6 +1,6 @@
 # 002 — UI Refresh: "Night Training" + light theme
 
-**Status:** Draft — all questions answered, waiting for approval · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md)
+**Status:** Approved · **Created:** 2026-10-22 · **Approved:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md)
 
 ## Summary
 
@@ -44,6 +44,7 @@ Exact values may be adjusted in the plan to meet contrast requirements (NFR-2).
 As a returning user, I see today's workout first, so that I can start it right away.
 
 - With a plan, the app opens on Today. Without a plan, it opens on the landing page as before.
+- Finishing the quiz opens Today (in 001 it opened the calendar).
 - On a training day, Today shows the session big: category, title, channel, total minutes, a **Start** button (opens the workout page) and a **Swap** button.
 - On a rest day it says so, and shows the next planned session with its day.
 - After the last day of the plan, it says the plan is finished and offers **Regenerate** and **Retake quiz**.
@@ -60,7 +61,12 @@ As a user, I can always reach Today and the Calendar.
 **US-3. Restyle every screen**
 As a user, every screen looks like one consistent product.
 
-- Landing, quiz, calendar (week and month), workout page, and all dialogs use the new design language.
+- Landing, quiz, calendar (week and month), workout page, and all dialogs use the new design language, as drawn on the canvas page "002 · Screens".
+- Small additions from the mockups:
+  - each quiz answer has a one-line hint of what it means (e.g. "Flexibility — more stretching and mobility");
+  - the quiz progress is a segmented bar with "N to go";
+  - the landing page has a short line above the headline: "Free · No sign-up · 60 seconds";
+  - finished sessions carry a "Done" badge in the calendar, and today's column is highlighted with the accent.
 - All behavior from spec 001 stays the same: every 001 acceptance check still passes, with only button labels updated where the new copy differs.
 
 **US-4. Light and dark theme**
