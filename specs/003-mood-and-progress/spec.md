@@ -1,6 +1,6 @@
 # 003 — Daily Mood Check-in and Progress
 
-**Status:** Draft — all questions answered, waiting for approval · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md)
+**Status:** Approved · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md)
 
 ## Summary
 
