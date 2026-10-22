@@ -1,8 +1,8 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  max-width: 560px;
+  gap: var(--space-6);
+  max-width: 720px;
   margin: 0 auto;
   padding-top: var(--space-4);
 }
@@ -10,25 +10,42 @@
 .progress {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
+  gap: var(--space-3);
 }
 
-.bar {
-  height: 6px;
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.segments {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.segment {
+  height: 8px;
   border-radius: 999px;
   background: var(--border);
-  overflow: hidden;
 }
 
-.fill {
-  height: 100%;
+.filled {
   background: var(--accent);
-  transition: width 0.2s;
 }
 
 .question {
-  font-size: var(--text-xl);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  line-height: 0.92;
+  text-transform: uppercase;
 }
 
 .question:focus {
@@ -37,19 +54,25 @@
 
 .options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-3);
 }
 
 .option {
-  min-height: 64px;
-  padding: var(--space-3) var(--space-4);
+  min-height: 112px;
+  box-sizing: border-box;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
   border: 2px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--surface);
+  box-shadow: var(--shadow);
   color: var(--text);
-  font-weight: 600;
-  font-size: var(--text-md);
+  text-align: left;
   cursor: pointer;
   transition:
     border-color 0.15s,
@@ -57,18 +80,41 @@
 }
 
 .option:hover {
-  border-color: var(--accent);
+  border-color: var(--text-muted);
 }
 
-.selected {
+.selected,
+.selected:hover {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
 
+.optionLabel {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.625rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.optionHint {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
 .nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--text-sm);
+}
+
+/* Phones: more options fit on screen. */
+@media (max-width: 639px) {
+  .option {
+    min-height: 0;
+    padding: var(--space-4);
+  }
 }

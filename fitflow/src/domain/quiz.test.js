@@ -17,6 +17,15 @@ describe('QUESTIONS', () => {
       expect(question.options.length).toBeGreaterThan(1)
     }
   })
+
+  it('gives every option a one-line hint (002 US-3)', () => {
+    for (const question of QUESTIONS) {
+      for (const option of question.options) {
+        expect(typeof option.hint, `${question.id}: ${option.label}`).toBe('string')
+        expect(option.hint.length).toBeGreaterThan(0)
+      }
+    }
+  })
 })
 
 describe('isComplete and validate', () => {
