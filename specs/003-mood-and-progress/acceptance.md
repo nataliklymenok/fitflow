@@ -41,6 +41,10 @@
 | **FR-4** `.ics` follows RFC 5545 (CRLF, escaping, folding at 75 octets, all-day dates) | `ics.test.js`, external parser | ✅ |
 | Everything from 001 and 002 still holds | all earlier e2e and accessibility tests pass | ✅ |
 
+## Live site
+
+After deployment, the full end-to-end suite ran against https://fitflow-nk-lymenok.vercel.app: **342 passed, 12 skipped by design**, in all six browser and viewport combinations, including the migration of version 1 data.
+
 ## Not covered yet
 
 - Import into Google Calendar and Apple Calendar (T221).
