@@ -2,7 +2,7 @@
   width: min(480px, calc(100vw - 32px));
   max-height: calc(100vh - 32px);
   padding: 0;
-  border: none;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
   color: var(--text);
@@ -28,8 +28,12 @@
 }
 
 .title {
-  font-size: var(--text-lg);
   padding-top: var(--space-1);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .actions {
