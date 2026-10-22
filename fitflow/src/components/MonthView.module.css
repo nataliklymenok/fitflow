@@ -48,7 +48,6 @@
 
 .outside .dayNumber {
   color: var(--color-text-muted);
-  opacity: 0.6;
 }
 
 .today {
@@ -66,6 +65,7 @@
 }
 
 .session {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 2px 4px;
@@ -107,7 +107,11 @@
    The color (with the legend) and the link's aria-label carry the category. */
 @media (max-width: 479px) {
   .label {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
   }
 }
 

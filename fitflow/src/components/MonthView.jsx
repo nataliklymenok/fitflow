@@ -8,6 +8,7 @@ import {
   startOfMonthKey,
   weekdayName,
 } from '../domain/dates.js'
+import ui from '../styles/ui.module.css'
 import styles from './MonthView.module.css'
 
 const STATUS_TEXT = { planned: '', done: ', done', skipped: ', skipped' }
@@ -48,13 +49,20 @@ function MonthView({ month, plan, sessionsByDate, today }) {
                   to={`/session/${session.id}`}
                   className={`${styles.session} ${styles[session.status]}`}
                   style={{ '--category-color': `var(--color-${session.category})` }}
-                  aria-label={`${formatDay(date, 'EEEE, MMMM d')}: ${CATEGORY_LABELS[session.category]}, ${sessionMinutes(session)} min${STATUS_TEXT[session.status]}`}
                 >
                   <span className={styles.label}>
-                    {session.status === 'done' && '✓ '}
+                    {session.status === 'done' && <span aria-hidden="true">✓ </span>}
                     {CATEGORY_LABELS[session.category]}
                   </span>
-                  <span className={styles.minutes}>{sessionMinutes(session)}′</span>
+                  <span className={styles.minutes}>
+                    <span className={ui.visuallyHidden}>, </span>
+                    {sessionMinutes(session)}
+                    <span aria-hidden="true">′</span>
+                    <span className={ui.visuallyHidden}>
+                      {' '}min, {formatDay(date, 'EEEE, MMMM d')}
+                      {STATUS_TEXT[session.status]}
+                    </span>
+                  </span>
                 </Link>
               )}
             </li>

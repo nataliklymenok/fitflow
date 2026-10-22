@@ -38,7 +38,12 @@
 }
 
 .outside {
-  opacity: 0.45;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.outside .weekday {
+  font-weight: 600;
 }
 
 /* On phones the list is vertical, so days outside the plan are just noise. */
