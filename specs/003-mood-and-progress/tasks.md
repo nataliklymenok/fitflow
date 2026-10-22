@@ -15,7 +15,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T202** `domain/progress.js`: `streak(plan, today)` and `weekProgress(plan, today, minutesOf)`. Tests: streak over rest days, broken by a skip and by a missed past day, today pending vs done, empty plan, week boundaries (Monday, Sunday, plan starting mid-week). *(US-3)*
 - [x] **T203** `domain/checkIn.js`: `MOODS`, `isDemanding`, `isGentle`, `suggestFor()`. Tests: every mood × session type, rest day add (length `max(10, minutes / 2)`), no suggestion outside the plan, same date and plan seed give the same suggestion, length within tolerance, no avoidable repeats. *(US-2, FR-3)*
 - [x] **T204** Reducer actions `SET_CHECK_IN`, `KEEP_PLAN`, `ADAPT_TODAY`, `UNDO_ADAPTATION`, one test group each, including undo of a swap and of an added session. *(US-1, US-2)*
-- [ ] **T205** `domain/ics.js`: `buildIcs()`. Tests: calendar and event structure, all-day dates, UID and URL, escaping, folding of long lines with multi-byte characters, CRLF endings. *(US-4, FR-4)*
+- [x] **T205** `domain/ics.js`: `buildIcs()`. Tests: calendar and event structure, all-day dates, UID and URL, escaping, folding of long lines with multi-byte characters, CRLF endings. *(US-4, FR-4)*
 
 ## Phase 2 — Screens
 
