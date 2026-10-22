@@ -1,6 +1,6 @@
 # 004 — Trainers: Browse and Choose Who You Train With
 
-**Status:** Draft · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md), [003](../003-mood-and-progress/spec.md)
+**Status:** Approved · **Approved:** 2026-10-22 · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md), [003](../003-mood-and-progress/spec.md)
 
 ## Summary
 
@@ -132,6 +132,4 @@ Alternates if a trainer lacks enough short videos: **Move with Dasha** (yoga, Uk
 
 Pilates is not a FitFlow category; Pilates sessions are filed under Functional (low or medium intensity).
 
-## Open questions
-
-- [NEEDS CLARIFICATION] Approve the trainer list above, or swap names.
+The list above was approved by the user on 2026-10-22.
