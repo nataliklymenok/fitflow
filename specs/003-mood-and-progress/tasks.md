@@ -33,7 +33,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 3 — Release
 
-- [ ] **T220** Verification: accessibility audits for the new states (unanswered, answered, suggestion, applied) in both themes; e2e with version 1 data in storage; full unit and e2e run. Record results in `specs/003-mood-and-progress/acceptance.md`.
+- [x] **T220** Verification: accessibility audits for the new states (unanswered, answered, suggestion, applied) in both themes; e2e with version 1 data in storage; full unit and e2e run. Record results in `specs/003-mood-and-progress/acceptance.md`.
 - [ ] **T221** Import the downloaded `.ics` into Google Calendar and Apple Calendar (the user checks Apple Calendar on their Mac or iPhone); update the README ("What it does", screenshots, the 003 docs in the SDD table, test counts).
 - [ ] **T222** Push to `main`, run the e2e suite against the live site, and ask the user to check the check-in on their iPhone.
   Done when: live run is green and the user has checked it.

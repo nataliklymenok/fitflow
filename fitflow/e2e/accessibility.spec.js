@@ -1,5 +1,11 @@
 import AxeBuilder from '@axe-core/playwright'
-import { coverAllCategories, createPlan, expect, test } from './helpers.js'
+import {
+  coverAllCategories,
+  createPlan,
+  expect,
+  setFirstSession,
+  test,
+} from './helpers.js'
 
 // The YouTube player is third-party content inside an iframe; it is excluded.
 async function expectNoViolations(page, name) {
@@ -71,3 +77,23 @@ for (const theme of ['dark', 'light']) {
     })
   })
 }
+
+test('check-in, suggestion and applied states have no accessibility violations (003)', async ({ page }) => {
+  for (const theme of ['dark', 'light']) {
+    await page.addInitScript((t) => localStorage.setItem('fitflow:theme', t), theme)
+    await page.goto('/')
+    await page.evaluate(() => localStorage.removeItem('fitflow'))
+    await createPlan(page)
+    await setFirstSession(page, 'cardio', ['zBTz636KeMA'])
+    await expectNoViolations(page, `${theme}: check-in`)
+    await page
+      .getByRole('group', { name: 'How do you feel today?' })
+      .getByRole('button', { name: 'Low' })
+      .click()
+    await expectNoViolations(page, `${theme}: suggestion`)
+    await page.getByRole('button', { name: 'Swap to this' }).click()
+    await expectNoViolations(page, `${theme}: swapped`)
+    await page.goto('/calendar')
+    await expectNoViolations(page, `${theme}: calendar with mood mark`)
+  }
+})
