@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
+import CheckIn from '../components/CheckIn.jsx'
 import PlanActions from '../components/PlanActions.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
@@ -47,6 +48,10 @@ function TodayPage() {
         <p className={styles.eyebrow}>{formatDay(today, 'EEEE · MMMM d')}</p>
         <h1 className={styles.title}>{HEADINGS[status.kind]}</h1>
       </header>
+
+      {(status.kind === 'training' || status.kind === 'rest') && (
+        <CheckIn date={today} record={state.checkIns[today]} />
+      )}
 
       <div className={styles.top}>
         {status.kind === 'training' && <WorkoutCard session={status.session} />}
