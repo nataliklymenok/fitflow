@@ -30,6 +30,12 @@
   text-decoration: none;
 }
 
+.headerEnd {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
 .navLink {
   color: var(--text);
   font-weight: 600;

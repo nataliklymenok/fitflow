@@ -9,13 +9,16 @@ import '@fontsource-variable/inter/wght.css'
 import './index.css'
 import App from './App.jsx'
 import PlanProvider from './state/PlanProvider.jsx'
+import ThemeProvider from './state/ThemeProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <PlanProvider>
-        <App />
-      </PlanProvider>
+      <ThemeProvider>
+        <PlanProvider>
+          <App />
+        </PlanProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 )

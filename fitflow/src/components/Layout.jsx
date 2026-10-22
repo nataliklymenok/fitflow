@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { usePlan } from '../state/planContext.js'
 import styles from './Layout.module.css'
+import ThemeToggle from './ThemeToggle.jsx'
 
 function Layout({ children }) {
   const { state } = usePlan()
@@ -12,13 +13,16 @@ function Layout({ children }) {
           <Link to="/" className={styles.logo}>
             FitFlow
           </Link>
-          {state.plan && (
-            <nav aria-label="Main">
-              <Link to="/calendar" className={styles.navLink}>
-                My plan
-              </Link>
-            </nav>
-          )}
+          <div className={styles.headerEnd}>
+            {state.plan && (
+              <nav aria-label="Main">
+                <Link to="/calendar" className={styles.navLink}>
+                  My plan
+                </Link>
+              </nav>
+            )}
+            <ThemeToggle />
+          </div>
         </div>
       </header>
       <main className={styles.main}>

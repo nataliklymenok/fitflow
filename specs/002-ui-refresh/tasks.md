@@ -21,7 +21,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T111** Semantic tokens: rewrite `tokens.css` with the dark and light token sets from the plan, keyed by `:root[data-theme]`; replace the old token names in every CSS module. `color-scheme` per theme. Category tokens per theme and a `categoryVars(category)` helper used wherever `--category-color` is set today.
   Done when: the app renders correctly with `data-theme="dark"` and with `"light"` set by hand; e2e still green.
 - [x] **T112** `storage.js`: `loadTheme()` / `saveTheme()` under `fitflow:theme`; `clear()` leaves it alone. Unit tests, including unavailable storage. *(FR-4)*
-- [ ] **T113** Inline theme script in `index.html` (saved choice, else system setting), `ThemeProvider` + `useTheme()`, `ThemeToggle` in the header, `<meta name="theme-color">` kept in sync. A unit test checks the script and `storage.js` use the same key. *(US-4, FR-5)*
+- [x] **T113** Inline theme script in `index.html` (saved choice, else system setting), `ThemeProvider` + `useTheme()`, `ThemeToggle` in the header, `<meta name="theme-color">` kept in sync. A unit test checks the script and `storage.js` use the same key. *(US-4, FR-5)*
   Done when: e2e checks that the toggle switches theme, the choice survives a reload and a Reset, a first visit follows the system setting, and `data-theme` is already set before React mounts.
 
 ## Phase 2 — Today and navigation

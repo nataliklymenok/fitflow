@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import catalog from '../data/catalog.json'
 import { generatePlan } from './generatePlan.js'
@@ -180,5 +181,12 @@ describe('theme preference (002 FR-4)', () => {
     expect(loadTheme(brokenStorage)).toBeNull()
     expect(saveTheme('dark', null)).toBe(false)
     expect(saveTheme('dark', brokenStorage)).toBe(false)
+  })
+})
+
+describe('theme key', () => {
+  it('is the same in index.html, which reads it before the app loads', () => {
+    const html = readFileSync(new URL('../../index.html', import.meta.url), 'utf8')
+    expect(html).toContain(`localStorage.getItem('${THEME_KEY}')`)
   })
 })
