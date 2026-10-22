@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import CheckIn from '../components/CheckIn.jsx'
 import PlanActions from '../components/PlanActions.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
+import Suggestion from '../components/Suggestion.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
 import WeekView from '../components/WeekView.jsx'
 import { sessionMinutes, sessionVideos, videos } from '../data/videos.js'
@@ -50,7 +51,10 @@ function TodayPage() {
       </header>
 
       {(status.kind === 'training' || status.kind === 'rest') && (
-        <CheckIn date={today} record={state.checkIns[today]} />
+        <>
+          <CheckIn date={today} record={state.checkIns[today]} />
+          <Suggestion date={today} record={state.checkIns[today]} />
+        </>
       )}
 
       <div className={styles.top}>

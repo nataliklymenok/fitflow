@@ -87,3 +87,16 @@ export async function coverAllCategories(page) {
   })
   await page.reload()
 }
+
+// Sets the type and videos of the first session (today, on a fresh plan).
+export async function setFirstSession(page, category, videoIds) {
+  await page.evaluate(
+    ([c, ids]) => {
+      const data = JSON.parse(localStorage.getItem('fitflow'))
+      Object.assign(data.plan.sessions[0], { category: c, videoIds: ids })
+      localStorage.setItem('fitflow', JSON.stringify(data))
+    },
+    [category, videoIds],
+  )
+  await page.reload()
+}
