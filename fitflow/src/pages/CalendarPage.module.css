@@ -45,7 +45,7 @@
   display: inline-flex;
   padding: 3px;
   border-radius: var(--radius-md);
-  background: var(--color-border);
+  background: var(--border);
 }
 
 .segment {
@@ -54,15 +54,15 @@
   border: none;
   border-radius: calc(var(--radius-md) - 3px);
   background: transparent;
-  color: var(--color-text);
+  color: var(--text);
   font-weight: 600;
   font-size: var(--text-sm);
   cursor: pointer;
 }
 
 .active {
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .actions {

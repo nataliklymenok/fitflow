@@ -4,13 +4,13 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  color: var(--color-text);
-  box-shadow: 0 20px 50px rgb(0 0 0 / 0.2);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
 }
 
 .dialog::backdrop {
-  background: rgb(15 23 22 / 0.45);
+  background: var(--backdrop);
 }
 
 .body {

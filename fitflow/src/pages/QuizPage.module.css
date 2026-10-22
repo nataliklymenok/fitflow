@@ -17,13 +17,13 @@
 .bar {
   height: 6px;
   border-radius: 999px;
-  background: var(--color-border);
+  background: var(--border);
   overflow: hidden;
 }
 
 .fill {
   height: 100%;
-  background: var(--color-brand);
+  background: var(--accent);
   transition: width 0.2s;
 }
 
@@ -44,10 +44,10 @@
 .option {
   min-height: 64px;
   padding: var(--space-3) var(--space-4);
-  border: 2px solid var(--color-border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-md);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--surface);
+  color: var(--text);
   font-weight: 600;
   font-size: var(--text-md);
   cursor: pointer;
@@ -57,12 +57,12 @@
 }
 
 .option:hover {
-  border-color: var(--color-brand);
+  border-color: var(--accent);
 }
 
 .selected {
-  border-color: var(--color-brand);
-  background: var(--color-brand-soft);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .nav {

@@ -8,6 +8,7 @@ import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay } from '../domain/dates.js'
 import { suggestAlternatives } from '../domain/suggestions.js'
 import { usePlan } from '../state/planContext.js'
+import { categoryVars } from '../lib/categoryVars.js'
 import ui from '../styles/ui.module.css'
 import styles from './SessionPage.module.css'
 
@@ -36,7 +37,7 @@ function SessionPage() {
   return (
     <div
       className={styles.page}
-      style={{ '--category-color': `var(--color-${session.category})` }}
+      style={categoryVars(session.category)}
     >
       <Link to="/calendar" className={styles.back}>
         ← Back to calendar

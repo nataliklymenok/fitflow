@@ -8,6 +8,7 @@ import {
   startOfMonthKey,
   weekdayName,
 } from '../domain/dates.js'
+import { categoryVars } from '../lib/categoryVars.js'
 import ui from '../styles/ui.module.css'
 import styles from './MonthView.module.css'
 
@@ -48,7 +49,7 @@ function MonthView({ month, plan, sessionsByDate, today }) {
                 <Link
                   to={`/session/${session.id}`}
                   className={`${styles.session} ${styles[session.status]}`}
-                  style={{ '--category-color': `var(--color-${session.category})` }}
+                  style={categoryVars(session.category)}
                 >
                   <span className={styles.label}>
                     {session.status === 'done' && <span aria-hidden="true">✓ </span>}
@@ -74,7 +75,7 @@ function MonthView({ month, plan, sessionsByDate, today }) {
           <li key={category}>
             <span
               className={styles.swatch}
-              style={{ '--category-color': `var(--color-${category})` }}
+              style={categoryVars(category)}
             />
             {CATEGORY_LABELS[category]}
           </li>

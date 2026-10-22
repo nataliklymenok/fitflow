@@ -21,7 +21,7 @@
   min-height: 72px;
   padding: var(--space-3);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
   border: 1px solid transparent;
 }
 
@@ -33,13 +33,13 @@
 }
 
 .today {
-  border-color: var(--color-brand);
-  background: var(--color-brand-soft);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .outside {
   background: transparent;
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .outside .weekday {
@@ -66,14 +66,14 @@
 
 .date {
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .todayLabel {
   margin-left: auto;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-brand);
+  color: var(--accent-text);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -85,7 +85,7 @@
   justify-content: space-between;
   gap: var(--space-2);
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .outsideLabel {

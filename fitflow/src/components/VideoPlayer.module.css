@@ -4,7 +4,7 @@
   width: 100%;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #111;
+  background: var(--player-bg);
 }
 
 .player,

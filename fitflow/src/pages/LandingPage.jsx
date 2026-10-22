@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import { CATEGORIES, CATEGORY_LABELS } from '../domain/catalog.js'
+import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
 import ui from '../styles/ui.module.css'
 import styles from './LandingPage.module.css'
@@ -69,7 +70,7 @@ function LandingPage() {
             <li
               key={category}
               className={ui.chip}
-              style={{ '--category-color': `var(--color-${category})` }}
+              style={categoryVars(category)}
             >
               {CATEGORY_LABELS[category]}
             </li>

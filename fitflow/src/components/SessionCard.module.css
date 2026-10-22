@@ -3,17 +3,17 @@
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-3);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--category-color);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat);
   border-radius: var(--radius-md);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--surface);
+  color: var(--text);
   text-decoration: none;
   transition: box-shadow 0.15s;
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  box-shadow: var(--shadow-lg);
 }
 
 .top {
@@ -32,11 +32,11 @@
 
 .meta {
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .done {
-  background: color-mix(in srgb, var(--category-color) 6%, white);
+  background: var(--cat-soft);
 }
 
 .skipped {

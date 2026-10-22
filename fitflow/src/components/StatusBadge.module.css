@@ -7,11 +7,11 @@
 }
 
 .done {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--success-soft);
+  color: var(--success-text);
 }
 
 .skipped {
-  background: #f1f1ef;
-  color: var(--color-text-muted);
+  background: var(--surface-2);
+  color: var(--text-muted);
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { sessionMinutes, sessionVideos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
+import { categoryVars } from '../lib/categoryVars.js'
 import ui from '../styles/ui.module.css'
 import StatusBadge from './StatusBadge.jsx'
 import styles from './SessionCard.module.css'
@@ -13,7 +14,7 @@ function SessionCard({ session }) {
     <Link
       to={`/session/${session.id}`}
       className={`${styles.card} ${styles[session.status]}`}
-      style={{ '--category-color': `var(--color-${session.category})` }}
+      style={categoryVars(session.category)}
     >
       <span className={styles.top}>
         <span className={ui.chip}>{CATEGORY_LABELS[session.category]}</span>

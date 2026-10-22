@@ -20,7 +20,7 @@
 .lead {
   margin: 0;
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .cta {
@@ -68,8 +68,8 @@
   height: 32px;
   margin-bottom: var(--space-3);
   border-radius: 50%;
-  background: var(--color-brand-soft);
-  color: var(--color-brand);
+  background: var(--accent-soft);
+  color: var(--accent-text);
   font-weight: 700;
 }
 

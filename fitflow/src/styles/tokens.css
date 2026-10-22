@@ -1,23 +1,7 @@
+/* Design tokens (spec 002). Components use only these names; the theme is
+   chosen by data-theme on <html>, set before first paint by index.html. */
+
 :root {
-  /* Colors */
-  --color-bg: #f7f7f5;
-  --color-surface: #ffffff;
-  --color-text: #1c1f1e;
-  --color-text-muted: #5f6664;
-  --color-border: #e2e4e1;
-  --color-brand: #0f766e;
-  --color-brand-strong: #0b5d56;
-  --color-brand-soft: #e0f2ef;
-  --color-danger: #b42318;
-  --color-focus: #2563eb;
-
-  /* One color per workout category */
-  --color-functional: #9a3412;
-  --color-cardio: #be123c;
-  --color-stretching: #7c3aed;
-  --color-yoga: #0f766e;
-  --color-calm: #1d4ed8;
-
   /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
@@ -26,11 +10,6 @@
   --space-5: 24px;
   --space-6: 32px;
   --space-7: 48px;
-
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
 
   /* Type */
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -41,6 +20,115 @@
   --text-xl: 1.75rem;
   --text-2xl: 2.25rem;
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
-  --content-width: 1100px;
+  --content-width: 1180px;
+}
+
+/* Dark, "Night Training". Also the fallback when no theme is set. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0c0e0d;
+  --surface: #161a18;
+  --surface-2: #1d2220;
+  --border: #262b28;
+  --text: #f2f5f3;
+  --text-muted: #9aa39e;
+  --text-faint: #5c655f;
+
+  --accent: #c8f031;
+  --accent-hover: #d7f86a;
+  --on-accent: #0c0e0d;
+  --accent-text: #c8f031;
+  --accent-soft: rgb(200 240 49 / 0.08);
+
+  --danger: #ff6b6b;
+  --on-danger: #0c0e0d;
+  --success-soft: rgb(200 240 49 / 0.16);
+  --success-text: #c8f031;
+  --focus: #c8f031;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow: none;
+  --shadow-lg: 0 20px 50px rgb(0 0 0 / 0.6);
+  --backdrop: rgb(0 0 0 / 0.65);
+  --player-bg: #111413;
+
+  /* Categories: text/bars, chip background, big block, text on the block */
+  --cat-functional: #ff8a3d;
+  --cat-functional-soft: rgb(255 138 61 / 0.14);
+  --cat-functional-solid: #ff8a3d;
+  --cat-functional-on-solid: #0c0e0d;
+  --cat-cardio: #ff4d6d;
+  --cat-cardio-soft: rgb(255 77 109 / 0.14);
+  --cat-cardio-solid: #ff4d6d;
+  --cat-cardio-on-solid: #0c0e0d;
+  --cat-stretching: #b18cff;
+  --cat-stretching-soft: rgb(177 140 255 / 0.14);
+  --cat-stretching-solid: #b18cff;
+  --cat-stretching-on-solid: #0c0e0d;
+  --cat-yoga: #3ddbb0;
+  --cat-yoga-soft: rgb(61 219 176 / 0.14);
+  --cat-yoga-solid: #3ddbb0;
+  --cat-yoga-on-solid: #0c0e0d;
+  --cat-calm: #5aa9ff;
+  --cat-calm-soft: rgb(90 169 255 / 0.14);
+  --cat-calm-solid: #5aa9ff;
+  --cat-calm-on-solid: #0c0e0d;
+}
+
+/* Light, "Soft Glow" colors and shapes. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f6f5fb;
+  --surface: #ffffff;
+  --surface-2: #f0eff7;
+  --border: #e4e2ee;
+  --text: #17152a;
+  --text-muted: #5e5a73;
+  --text-faint: #a9a6bb;
+
+  --accent: #5b4cf0;
+  --accent-hover: #4a3bd6;
+  --on-accent: #ffffff;
+  --accent-text: #4a3bd6;
+  --accent-soft: #eeebff;
+
+  --danger: #b42318;
+  --on-danger: #ffffff;
+  --success-soft: #dcfce7;
+  --success-text: #166534;
+  --focus: #5b4cf0;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgb(23 21 42 / 0.07);
+  --shadow-lg: 0 24px 60px rgb(23 21 42 / 0.18);
+  --backdrop: rgb(23 21 42 / 0.45);
+  --player-bg: #1b1a26;
+
+  --cat-functional: #9a3412;
+  --cat-functional-soft: #ffe8dc;
+  --cat-functional-solid: #ffe8dc;
+  --cat-functional-on-solid: #9a3412;
+  --cat-cardio: #b4123c;
+  --cat-cardio-soft: #ffe1e7;
+  --cat-cardio-solid: #ffe1e7;
+  --cat-cardio-on-solid: #b4123c;
+  --cat-stretching: #6d28d9;
+  --cat-stretching-soft: #ede6ff;
+  --cat-stretching-solid: #ede6ff;
+  --cat-stretching-on-solid: #6d28d9;
+  --cat-yoga: #0f6b5c;
+  --cat-yoga-soft: #ddf3ec;
+  --cat-yoga-solid: #ddf3ec;
+  --cat-yoga-on-solid: #0f6b5c;
+  --cat-calm: #1d4ed8;
+  --cat-calm-soft: #e1ebff;
+  --cat-calm-solid: #e1ebff;
+  --cat-calm-on-solid: #1d4ed8;
 }
