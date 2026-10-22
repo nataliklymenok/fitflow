@@ -1,6 +1,6 @@
 # FitFlow
 
-**Workouts that match your mood.** Answer six quick questions about how you feel, and FitFlow builds a workout plan from curated YouTube videos: strength, cardio, stretching, yoga and calm sessions, with rest days built in. Every day it tells you what to do today.
+**Workouts that match your mood.** Answer six quick questions about how you feel, and FitFlow builds a workout plan from curated YouTube videos: strength, cardio, stretching, yoga and calm sessions, with rest days built in. Every day it asks how you feel and adjusts today's workout.
 
 **Live demo:** [fitflow-nk-lymenok.vercel.app](https://fitflow-nk-lymenok.vercel.app)
 
@@ -12,7 +12,10 @@ This is a portfolio project, built with an AI coding assistant (Claude Code) usi
 
 - **Mood quiz.** Six one-tap questions: mood, energy, goal, days per week, minutes per session, plan length. Each answer explains what it means.
 - **Generated plan.** Sessions are spread over the chosen days and filled with videos that add up to the chosen length. The mix of workout types follows the answers: a stressed, low-energy user gets mostly calm, yoga and stretching sessions, and a motivated, high-energy user gets mostly strength and cardio.
-- **Today.** The home screen shows today's workout with one-tap Start, or tells you it's a rest day and what's next. Sessions done, minutes trained and the week at a glance.
+- **Today.** The home screen shows today's workout with one-tap Start, or tells you it's a rest day and what's next.
+- **Daily check-in.** One tap: Low, Okay or Ready. Feeling low on a cardio day? FitFlow offers something gentler of the same length; ready on a rest day, a short extra session. Swap in two taps, undo any time that day.
+- **Progress.** A streak of training days, this week's sessions and minutes, and how you felt each day marked in the calendar.
+- **Add to calendar.** Download the plan as an `.ics` file for Google Calendar, Apple Calendar or Outlook.
 - **Calendar.** Week and month views, today highlighted, finished sessions marked.
 - **Workout page.** Videos play in an embedded YouTube player; the next video starts when one ends. Mark a session done or skipped.
 - **Editing.** Swap any video for a similar one, change a session's type, move it to another day (moving onto a busy day swaps the two), delete it, or add a session on a rest day.
@@ -24,6 +27,10 @@ This is a portfolio project, built with an AI coding assistant (Claude Code) usi
 |---|---|---|
 | ![Today, light theme](docs/screenshots/today-light.png) | ![Quiz with answer hints](docs/screenshots/quiz-dark.png) | ![Today on a phone](docs/screenshots/phone-today-dark.png) |
 
+| Daily check-in | After a swap | |
+|---|---|---|
+| ![Check-in with a gentler suggestion](docs/screenshots/today-checkin-dark.png) | ![Swapped session on a phone, light theme](docs/screenshots/phone-swapped-light.png) | |
+
 | Week | Month | Workout |
 |---|---|---|
 | ![Calendar week view](docs/screenshots/calendar-week-dark.png) | ![Calendar month view, light theme](docs/screenshots/calendar-month-light.png) | ![Workout page with the YouTube player](docs/screenshots/workout-light.png) |
@@ -32,25 +39,26 @@ This is a portfolio project, built with an AI coding assistant (Claude Code) usi
 
 ### Spec-driven development with AI
 
-Two features so far, each with the same four documents, under one shared [constitution](specs/constitution.md) (stack, no backend, no API keys, testing, quality bar):
+Three features so far, each with the same four documents, under one shared [constitution](specs/constitution.md) (stack, no backend, no API keys, testing, quality bar):
 
-| Step | [001 · Workout planner](specs/001-workout-planner/) | [002 · UI refresh](specs/002-ui-refresh/) |
-|---|---|---|
-| Spec: user stories, acceptance criteria, out of scope | [spec.md](specs/001-workout-planner/spec.md) | [spec.md](specs/002-ui-refresh/spec.md) |
-| Plan: architecture, data, trade-offs, risks | [plan.md](specs/001-workout-planner/plan.md) | [plan.md](specs/002-ui-refresh/plan.md) |
-| Tasks: ordered, each with a "done when" check | [tasks.md](specs/001-workout-planner/tasks.md) (26) | [tasks.md](specs/002-ui-refresh/tasks.md) (17) |
-| Acceptance: every criterion checked | [acceptance.md](specs/001-workout-planner/acceptance.md) | [acceptance.md](specs/002-ui-refresh/acceptance.md) |
+| Step | [001 · Workout planner](specs/001-workout-planner/) | [002 · UI refresh](specs/002-ui-refresh/) | [003 · Mood and progress](specs/003-mood-and-progress/) |
+|---|---|---|---|
+| Spec: user stories, acceptance criteria, out of scope | [spec.md](specs/001-workout-planner/spec.md) | [spec.md](specs/002-ui-refresh/spec.md) | [spec.md](specs/003-mood-and-progress/spec.md) |
+| Plan: architecture, data, trade-offs, risks | [plan.md](specs/001-workout-planner/plan.md) | [plan.md](specs/002-ui-refresh/plan.md) | [plan.md](specs/003-mood-and-progress/plan.md) |
+| Tasks: ordered, each with a "done when" check | [tasks.md](specs/001-workout-planner/tasks.md) (26) | [tasks.md](specs/002-ui-refresh/tasks.md) (17) | [tasks.md](specs/003-mood-and-progress/tasks.md) (13) |
+| Acceptance: every criterion checked | [acceptance.md](specs/001-workout-planner/acceptance.md) | [acceptance.md](specs/002-ui-refresh/acceptance.md) | [acceptance.md](specs/003-mood-and-progress/acceptance.md) |
 
 I made the product decisions: the idea, the five YouTube channels, the quiz, the scope of each release, the visual direction (picked from four mockups) and when to move on. The AI drafted the documents, mockups and code, and I reviewed them at checkpoints. When implementation showed the plan was wrong (for example, no high-intensity yoga video was short enough for a 10-minute session), the plan was updated first and the code second. The git history shows this: one commit per task.
 
-Spec 002 started with a safety net: before any visual change, all of 001's acceptance checks became automated end-to-end tests, so the redesign could not quietly break a feature.
+Spec 002 started with a safety net: before any visual change, all of 001's acceptance checks became automated end-to-end tests, so the redesign could not quietly break a feature. Spec 003 changed the saved-data format for the first time: a `migrate()` hook planned back in 001 upgrades existing users' plans, tested against real data saved by the previous release.
 
 ### Architecture
 
 ```
 src/
   domain/      pure JavaScript, no React: quiz, weights, plan generation,
-               video picking, edits (reducer), today, storage, dates — all unit-tested
+               video picking, edits (reducer), today, check-in suggestions,
+               streaks, .ics export, storage with migrations, dates — all unit-tested
   data/        catalog.json: 76 curated videos from 5 channels
   state/       plan and theme providers; the plan is saved to localStorage on every change
   styles/      design tokens: one set of names, two themes (dark, light)
@@ -72,8 +80,8 @@ All decisions live in `src/domain/`; React components only render state and disp
 
 ### Quality
 
-- **109 unit tests** (Vitest). One test generates a plan for every possible set of quiz answers (2,880 combinations) with 3 seeds and checks every rule from the spec: session days, length tolerance, no avoidable video repeats, valid catalog IDs.
-- **End-to-end tests** (Playwright) for every acceptance criterion, in Chromium, Firefox and WebKit, at desktop and phone sizes: 264 runs. They also run against the live site after each deploy.
+- **152 unit tests** (Vitest). One test generates a plan for every possible set of quiz answers (2,880 combinations) with 3 seeds and checks every rule from the spec: session days, length tolerance, no avoidable video repeats, valid catalog IDs.
+- **End-to-end tests** (Playwright) for every acceptance criterion, in Chromium, Firefox and WebKit, at desktop and phone sizes: 342 runs. They also run against the live site after each deploy.
 - **Accessibility:** axe-core reports no violations on any page or dialog in either theme; contrast meets WCAG AA; the whole flow is tested with the keyboard alone; dialogs use the native `<dialog>` element for focus handling; all motion respects "reduce motion".
 - **Responsive** from 360px phones to desktop, with no sideways scrolling.
 - **Catalog check:** `npm run check:catalog` confirms through YouTube's public oEmbed endpoint (no API key) that every video still exists, allows embedding and belongs to the expected channel.
@@ -104,11 +112,7 @@ npm run sample:plans     # print a few generated plans
 
 ## What's next
 
-Spec 003 (planned):
-
-- a daily mood check-in that suggests a lighter or harder session when today's mood doesn't fit the plan;
-- streaks and weekly progress;
-- calendar export (.ics).
+Ideas for later specs: reminders, a history of moods and workouts across plans, and sharing a plan with a friend.
 
 ## Credits
 
