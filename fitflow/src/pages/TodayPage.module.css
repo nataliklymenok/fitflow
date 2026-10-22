@@ -265,3 +265,23 @@
 .link:hover {
   text-decoration: underline;
 }
+
+/* Phones: a shorter block keeps Start within the first screen. */
+@media (max-width: 639px) {
+  .block {
+    min-height: 150px;
+    padding: var(--space-4);
+  }
+
+  .minutes {
+    font-size: 5rem;
+  }
+
+  .info {
+    padding: var(--space-4);
+  }
+
+  .workoutTitle {
+    font-size: 2rem;
+  }
+}
