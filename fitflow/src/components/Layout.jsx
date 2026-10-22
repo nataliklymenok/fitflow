@@ -1,11 +1,24 @@
+import { Link } from 'react-router'
+import { usePlan } from '../state/planContext.js'
 import styles from './Layout.module.css'
 
 function Layout({ children }) {
+  const { state } = usePlan()
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.inner}>
-          <span className={styles.logo}>FitFlow</span>
+          <Link to="/" className={styles.logo}>
+            FitFlow
+          </Link>
+          {state.plan && (
+            <nav aria-label="Main">
+              <Link to="/calendar" className={styles.navLink}>
+                My plan
+              </Link>
+            </nav>
+          )}
         </div>
       </header>
       <main className={styles.main}>
