@@ -40,7 +40,7 @@ Done when (whole phase): `npm test` passes and `npm run lint` passes.
 
 ## Phase 2 — State and routing
 
-- [ ] **T030** `state/PlanProvider.jsx`: Context + `useReducer(planReducer)`, initial state from `storage.load()`, saves after every change. Hook `usePlan()`.
+- [x] **T030** `state/PlanProvider.jsx`: Context + `useReducer(planReducer)`, initial state from `storage.load()`, saves after every change. Hook `usePlan()`.
 - [ ] **T031** Routes `/`, `/quiz`, `/calendar`, `/session/:id` with placeholder pages; redirects for unknown routes, missing plan and unknown session ID.
   Done when: every route renders its placeholder, and redirects behave as in plan.md.
 
