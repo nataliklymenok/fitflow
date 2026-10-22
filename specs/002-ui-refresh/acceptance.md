@@ -46,7 +46,7 @@ Unlike 001, every check below is now an automated test in the repo (`fitflow/e2e
 | **NFR-1** Accessibility in both themes; keyboard; visible focus | `accessibility.spec.js` (axe, plan covering every category), `keyboard.spec.js` (whole flow by keyboard, including WebKit with Option+Tab) | ✅ |
 | **NFR-2** Contrast ≥ 4.5:1 (3:1 for large text) | axe color-contrast in both themes | ✅ |
 | **NFR-3** 360 px to desktop, no sideways scrolling | `persistence.spec.js` overflow check on every page | ✅ |
-| **NFR-4** First load under 2 s; fonts don't block rendering | 30–42 ms locally, 182 KB transferred; fonts use `font-display: swap`, only the 2 latin files used on the page are downloaded | ✅ (recheck on the live site) |
+| **NFR-4** First load under 2 s; fonts don't block rendering | Live site: first paint 0.28–0.32 s, load 0.26–0.29 s, 185 KB transferred (locally 30–42 ms). Fonts use `font-display: swap`; only the 2 latin files used on the page are downloaded | ✅ |
 
 ## Found and fixed during this release
 
@@ -54,7 +54,10 @@ Unlike 001, every check below is now an automated test in the repo (`fitflow/e2e
 - **Quiz answers** had an accessible name shorter than their visible text (`label-content-name-mismatch`): the name now includes the hint.
 - **Month view on today's cell**: two translucent backgrounds lowered cardio text to 3.9:1. Chips now have an opaque background; the accessibility test was made deterministic so it always covers this case.
 
+## Live site
+
+After deployment, the full end-to-end suite ran against https://fitflow-nk-lymenok.vercel.app with `BASE_URL`: **264 passed, 12 skipped by design**, in all six browser and viewport combinations. Direct links (`/today`, `/calendar`, `/session/…`) return the app.
+
 ## Not covered
 
-- Real Safari on macOS and iOS: WebKit is Safari's engine, not Safari itself. Checked by hand after deployment (T142).
-- Load time on the live site: measured after deployment (T142).
+- Real Safari on macOS and iOS: WebKit is Safari's engine, not Safari itself. Checked by hand by the user (T142).
