@@ -48,7 +48,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 4 — Release
 
-- [ ] **T140** Full verification: unit tests, e2e in all 6 combinations, axe-core in both themes with 0 violations, keyboard-only flow, load time under 2 s. Record results in `specs/002-ui-refresh/acceptance.md`.
+- [x] **T140** Full verification: unit tests, e2e in all 6 combinations, axe-core in both themes with 0 violations, keyboard-only flow, load time under 2 s. Record results in `specs/002-ui-refresh/acceptance.md`.
 - [ ] **T141** README: new screenshots in both themes, Today and theme switch in "What it does", e2e tests in "Quality", the 002 docs in the SDD table.
 - [ ] **T142** Push to `main` (Vercel deploys automatically), run the e2e suite against the live URL, and ask the user to check real Safari and an iPhone.
   Done when: live e2e run is green and the user has checked Safari and iPhone.
