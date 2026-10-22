@@ -1,9 +1,13 @@
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router'
+import MonthView from '../components/MonthView.jsx'
 import WeekView from '../components/WeekView.jsx'
 import {
   addDays,
+  addMonths,
   formatDay,
   isWithin,
+  startOfMonthKey,
   startOfWeekKey,
   todayKey,
 } from '../domain/dates.js'
@@ -11,9 +15,38 @@ import { usePlan } from '../state/planContext.js'
 import ui from '../styles/ui.module.css'
 import styles from './CalendarPage.module.css'
 
+const VIEWS = [
+  { id: 'week', label: 'Week' },
+  { id: 'month', label: 'Month' },
+]
+
+// The visible period for a view: its first and last day, label and neighbours.
+function periodFor(view, anchor) {
+  if (view === 'month') {
+    const start = startOfMonthKey(anchor)
+    return {
+      start,
+      end: addDays(addMonths(start, 1), -1),
+      label: formatDay(start, 'MMMM yyyy'),
+      previous: addMonths(start, -1),
+      next: addMonths(start, 1),
+    }
+  }
+  const start = startOfWeekKey(anchor)
+  return {
+    start,
+    end: addDays(start, 6),
+    label: `${formatDay(start)} – ${formatDay(addDays(start, 6))}`,
+    previous: addDays(start, -7),
+    next: addDays(start, 7),
+  }
+}
+
 function CalendarPage() {
   const { state } = usePlan()
   const { plan } = state
+  const [searchParams, setSearchParams] = useSearchParams()
+  const view = searchParams.get('view') === 'month' ? 'month' : 'week'
   const today = todayKey()
   const [anchor, setAnchor] = useState(() =>
     isWithin(today, plan.startDate, plan.endDate) ? today : plan.startDate,
@@ -25,10 +58,14 @@ function CalendarPage() {
   )
   const done = plan.sessions.filter((s) => s.status === 'done').length
 
-  const weekStart = startOfWeekKey(anchor)
-  const weekEnd = addDays(weekStart, 6)
-  const canGoBack = weekStart > plan.startDate
-  const canGoForward = weekEnd < plan.endDate
+  const period = periodFor(view, anchor)
+  const canGoBack = period.start > plan.startDate
+  const canGoForward = period.end < plan.endDate
+  const unit = view === 'month' ? 'month' : 'week'
+
+  function setView(next) {
+    setSearchParams(next === 'week' ? {} : { view: next }, { replace: true })
+  }
 
   return (
     <div className={styles.page}>
@@ -47,33 +84,56 @@ function CalendarPage() {
           <button
             type="button"
             className={`${ui.button} ${ui.secondary} ${ui.small}`}
-            onClick={() => setAnchor(addDays(weekStart, -7))}
+            onClick={() => setAnchor(period.previous)}
             disabled={!canGoBack}
-            aria-label="Previous week"
+            aria-label={`Previous ${unit}`}
           >
             ‹
           </button>
           <h2 className={styles.period} aria-live="polite">
-            {formatDay(weekStart)} – {formatDay(weekEnd)}
+            {period.label}
           </h2>
           <button
             type="button"
             className={`${ui.button} ${ui.secondary} ${ui.small}`}
-            onClick={() => setAnchor(addDays(weekStart, 7))}
+            onClick={() => setAnchor(period.next)}
             disabled={!canGoForward}
-            aria-label="Next week"
+            aria-label={`Next ${unit}`}
           >
             ›
           </button>
         </div>
+
+        <div className={styles.segmented} role="group" aria-label="Calendar view">
+          {VIEWS.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              className={`${styles.segment} ${view === id ? styles.active : ''}`}
+              aria-pressed={view === id}
+              onClick={() => setView(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <WeekView
-        weekStart={weekStart}
-        plan={plan}
-        sessionsByDate={sessionsByDate}
-        today={today}
-      />
+      {view === 'month' ? (
+        <MonthView
+          month={period.start}
+          plan={plan}
+          sessionsByDate={sessionsByDate}
+          today={today}
+        />
+      ) : (
+        <WeekView
+          weekStart={period.start}
+          plan={plan}
+          sessionsByDate={sessionsByDate}
+          today={today}
+        />
+      )}
     </div>
   )
 }

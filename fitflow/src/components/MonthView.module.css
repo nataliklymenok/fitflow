@@ -1,0 +1,136 @@
+.month {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.weekdays {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 64px;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+@media (min-width: 700px) {
+  .cell {
+    min-height: 96px;
+    padding: var(--space-2);
+  }
+}
+
+.otherMonth {
+  background: transparent;
+}
+
+.outside .dayNumber {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.today {
+  border-color: var(--color-brand);
+  box-shadow: inset 0 0 0 1px var(--color-brand);
+}
+
+.today .dayNumber {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+
+.dayNumber {
+  font-size: var(--text-sm);
+}
+
+.session {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border-left: 3px solid var(--category-color);
+  background: color-mix(in srgb, var(--category-color) 12%, white);
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  overflow: hidden;
+}
+
+.session:hover {
+  background: color-mix(in srgb, var(--category-color) 20%, white);
+}
+
+.label {
+  font-weight: 700;
+  color: var(--category-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.minutes {
+  color: var(--color-text-muted);
+}
+
+.skipped {
+  opacity: 0.55;
+}
+
+.skipped .label {
+  text-decoration: line-through;
+}
+
+/* Phones: a 7-column grid leaves ~45px per day, too narrow for a label.
+   The color (with the legend) and the link's aria-label carry the category. */
+@media (max-width: 479px) {
+  .label {
+    display: none;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--category-color);
+}

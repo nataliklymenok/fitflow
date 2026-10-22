@@ -40,3 +40,27 @@
   font-size: var(--text-md);
   text-align: center;
 }
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-md);
+  background: var(--color-border);
+}
+
+.segment {
+  min-height: 36px;
+  padding: var(--space-1) var(--space-4);
+  border: none;
+  border-radius: calc(var(--radius-md) - 3px);
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.active {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
