@@ -27,9 +27,9 @@ This is a portfolio project, built with an AI coding assistant (Claude Code) usi
 |---|---|---|
 | ![Today, light theme](docs/screenshots/today-light.png) | ![Quiz with answer hints](docs/screenshots/quiz-dark.png) | ![Today on a phone](docs/screenshots/phone-today-dark.png) |
 
-| Daily check-in | After a swap | |
-|---|---|---|
-| ![Check-in with a gentler suggestion](docs/screenshots/today-checkin-dark.png) | ![Swapped session on a phone, light theme](docs/screenshots/phone-swapped-light.png) | |
+| Daily check-in | After a swap |
+|---|---|
+| ![Check-in with a gentler suggestion](docs/screenshots/today-checkin-dark.png) | ![Swapped session on a phone, light theme](docs/screenshots/phone-swapped-light.png) |
 
 | Week | Month | Workout |
 |---|---|---|
