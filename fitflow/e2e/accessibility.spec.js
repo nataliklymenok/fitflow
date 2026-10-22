@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright'
-import { createPlan, expect, test } from './helpers.js'
+import { coverAllCategories, createPlan, expect, test } from './helpers.js'
 
 // The YouTube player is third-party content inside an iframe; it is excluded.
 async function expectNoViolations(page, name) {
@@ -34,7 +34,10 @@ for (const theme of ['dark', 'light']) {
     test('today, calendar, workout page and dialogs have no accessibility violations (NFR-3)', async ({
       page,
     }) => {
-      const { plan } = await createPlan(page)
+      const { plan } = await createPlan(page, [
+        'Okay', 'Medium', 'Get fitter / lose weight', '6', '30 min', '1 week',
+      ])
+      await coverAllCategories(page)
 
       await page.goto('/today')
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()

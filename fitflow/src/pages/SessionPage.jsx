@@ -45,9 +45,7 @@ function SessionPage() {
       </Link>
 
       <header className={styles.header}>
-        <p className={`${ui.muted} ${styles.date}`}>
-          {formatDay(session.date, 'EEEE, MMMM d')}
-        </p>
+        <p className={styles.date}>{formatDay(session.date, 'EEEE · MMMM d')}</p>
         <h1 className={styles.title}>
           {CATEGORY_LABELS[session.category]} · {sessionMinutes(session)} min
         </h1>

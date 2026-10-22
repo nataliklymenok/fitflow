@@ -1,14 +1,16 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 .back {
   align-self: flex-start;
   color: var(--text-muted);
-  font-weight: 600;
-  font-size: var(--text-sm);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   text-decoration: none;
 }
 
@@ -24,11 +26,19 @@
 
 .date {
   margin: 0;
-  font-size: var(--text-sm);
+  color: var(--cat);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: var(--text-xl);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: 0.92;
+  text-transform: uppercase;
 }
 
 .badges {
@@ -69,7 +79,10 @@
 }
 
 .statusText {
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-transform: uppercase;
 }
 
 .side {
@@ -79,7 +92,11 @@
 }
 
 .sideTitle {
-  font-size: var(--text-md);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .videos {
@@ -95,8 +112,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding: var(--space-3);
+  padding: var(--space-4);
   border-left: 4px solid var(--border);
+  border-radius: var(--radius-md);
 }
 
 .playing {
@@ -128,8 +146,10 @@
 }
 
 .nowPlaying {
-  font-size: var(--text-sm);
-  font-weight: 700;
+  padding-right: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--cat);
-  padding: 0 var(--space-2);
 }

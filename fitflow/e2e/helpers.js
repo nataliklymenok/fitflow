@@ -73,3 +73,17 @@ export async function shiftPlan(page, days) {
   }, days)
   await page.reload()
 }
+
+// Gives the saved plan's sessions every category in turn, starting with
+// cardio today, so contrast checks cover all category colors every run.
+export async function coverAllCategories(page) {
+  await page.evaluate(() => {
+    const order = ['cardio', 'functional', 'stretching', 'yoga', 'calm']
+    const data = JSON.parse(localStorage.getItem('fitflow'))
+    data.plan.sessions.forEach((session, i) => {
+      session.category = order[i % order.length]
+    })
+    localStorage.setItem('fitflow', JSON.stringify(data))
+  })
+  await page.reload()
+}
