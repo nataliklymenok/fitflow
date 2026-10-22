@@ -31,8 +31,9 @@ export function isGentle(session) {
 // change when the page is reloaded.
 export function suggestionSeed(planSeed, date) {
   let hash = planSeed >>> 0
-  for (const char of date)
+  for (const char of date) {
     hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0
+  }
   return hash
 }
 
@@ -66,8 +67,9 @@ function pickSession({
       recentIds,
     })
     if (videoIds.length === 0) continue
-    if (isWithinTolerance(minutesOf(videoIds), targetMinutes))
+    if (isWithinTolerance(minutesOf(videoIds), targetMinutes)) {
       return { category, videoIds }
+    }
     fallback ??= { category, videoIds }
   }
   return fallback

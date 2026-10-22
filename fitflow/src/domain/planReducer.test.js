@@ -257,3 +257,102 @@ it('ignores unknown actions', () => {
   const state = makeState()
   expect(planReducer(state, { type: 'NOPE' })).toBe(state)
 })
+
+describe('daily check-in actions (003 US-1, US-2)', () => {
+  const checkIn = (state, mood, date = TODAY) =>
+    planReducer(state, { type: 'SET_CHECK_IN', date, mood })
+
+  it('SET_CHECK_IN saves and changes the mood', () => {
+    const state = checkIn(makeState(), 'low')
+    expect(state.checkIns[TODAY]).toEqual({
+      mood: 'low',
+      decision: null,
+      previous: null,
+      sessionId: null,
+    })
+    expect(checkIn(state, 'okay').checkIns[TODAY].mood).toBe('okay')
+  })
+
+  it('SET_CHECK_IN ignores unknown moods and days outside the plan', () => {
+    const state = makeState()
+    expect(checkIn(state, 'sleepy')).toBe(state)
+    expect(checkIn(state, 'low', '2026-11-30')).toBe(state)
+  })
+
+  it('KEEP_PLAN dismisses the suggestion, and a new mood brings it back', () => {
+    let state = checkIn(makeState(), 'low')
+    state = planReducer(state, { type: 'KEEP_PLAN', date: TODAY })
+    expect(state.checkIns[TODAY].decision).toBe('kept')
+    expect(checkIn(state, 'ready').checkIns[TODAY].decision).toBeNull()
+  })
+
+  it('ADAPT_TODAY swaps the session and UNDO_ADAPTATION restores it', () => {
+    let state = checkIn(makeState(), 'low')
+    const previous = sessionOn(state, TODAY)
+    const session = { ...previous, category: 'calm', videoIds: ['calm-video'] }
+    state = planReducer(state, { type: 'ADAPT_TODAY', date: TODAY, session, previous })
+    expect(sessionOn(state, TODAY)).toEqual(session)
+    expect(state.checkIns[TODAY]).toMatchObject({
+      decision: 'adapted',
+      previous,
+      sessionId: previous.id,
+    })
+
+    // Changing the mood afterwards keeps the swap, so it can still be undone.
+    state = checkIn(state, 'okay')
+    expect(state.checkIns[TODAY].decision).toBe('adapted')
+
+    state = planReducer(state, { type: 'UNDO_ADAPTATION', date: TODAY })
+    expect(sessionOn(state, TODAY)).toEqual(previous)
+    expect(state.checkIns[TODAY]).toEqual({
+      mood: 'okay',
+      decision: null,
+      previous: null,
+      sessionId: null,
+    })
+  })
+
+  it('ADAPT_TODAY adds a session on a rest day and UNDO_ADAPTATION removes it', () => {
+    const restDay = '2026-10-22'
+    let state = checkIn(makeState(), 'ready', restDay)
+    const session = {
+      id: 'added',
+      date: restDay,
+      category: 'cardio',
+      videoIds: ['v'],
+      status: 'planned',
+    }
+    state = planReducer(state, { type: 'ADAPT_TODAY', date: restDay, session, previous: null })
+    expect(sessionOn(state, restDay).id).toBe('added')
+    expect(state.plan.sessions.map((s) => s.date)).toEqual([
+      '2026-10-21',
+      '2026-10-22',
+      '2026-10-23',
+      '2026-10-25',
+    ])
+
+    state = planReducer(state, { type: 'UNDO_ADAPTATION', date: restDay })
+    expect(sessionOn(state, restDay)).toBeUndefined()
+  })
+
+  it('ADAPT_TODAY needs an unanswered check-in and a matching day', () => {
+    const state = makeState()
+    const previous = sessionOn(state, TODAY)
+    const session = { ...previous, category: 'calm' }
+    const adapt = (s, extra = {}) =>
+      planReducer(s, { type: 'ADAPT_TODAY', date: TODAY, session, previous, ...extra })
+
+    expect(adapt(state)).toBe(state) // no check-in yet
+    const kept = planReducer(checkIn(state, 'low'), { type: 'KEEP_PLAN', date: TODAY })
+    expect(adapt(kept)).toBe(kept) // already decided
+    const answered = checkIn(state, 'low')
+    expect(adapt(answered, { session: { ...session, date: '2026-10-23' } })).toBe(answered)
+    // Adding on a day that already has a session is refused.
+    expect(adapt(answered, { previous: null })).toBe(answered)
+  })
+
+  it('UNDO_ADAPTATION does nothing without an applied suggestion', () => {
+    const state = checkIn(makeState(), 'low')
+    expect(planReducer(state, { type: 'UNDO_ADAPTATION', date: TODAY })).toBe(state)
+  })
+})

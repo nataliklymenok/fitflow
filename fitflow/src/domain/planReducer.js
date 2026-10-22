@@ -2,6 +2,7 @@
 // It is pure: anything random (choosing new videos) happens in the action
 // creators below, and the reducer only applies their result.
 import { CATEGORIES } from './catalog.js'
+import { MOODS } from './checkIn.js'
 import { isKey, isWithin } from './dates.js'
 import { candidatePools, recentVideoIds } from './generatePlan.js'
 import { pickVideos } from './pickVideos.js'
@@ -28,6 +29,16 @@ function updateSession(state, id, update) {
   return updateSessions(state, (sessions) =>
     sessions.map((session) => (session.id === id ? update(session) : session)),
   )
+}
+
+const NO_DECISION = { decision: null, previous: null, sessionId: null }
+
+function setCheckIn(state, date, record) {
+  return { ...state, checkIns: { ...state.checkIns, [date]: record } }
+}
+
+function replaceSession(sessions, id, replacement) {
+  return sessions.map((session) => (session.id === id ? replacement : session))
 }
 
 export function planReducer(state, action) {
@@ -106,6 +117,64 @@ export function planReducer(state, action) {
         ...session,
         status: action.status,
       }))
+
+    // Daily check-in (spec 003, US-1, US-2)
+
+    case 'SET_CHECK_IN': {
+      if (!MOODS.includes(action.mood) || !inPlanRange(state.plan, action.date)) {
+        return state
+      }
+      const current = state.checkIns[action.date]
+      // Changing the mood keeps an applied suggestion (it can still be undone)
+      // but brings back an unanswered one.
+      const outcome = current?.decision === 'adapted' ? current : NO_DECISION
+      return setCheckIn(state, action.date, {
+        mood: action.mood,
+        decision: outcome.decision,
+        previous: outcome.previous,
+        sessionId: outcome.sessionId,
+      })
+    }
+
+    case 'KEEP_PLAN': {
+      const current = state.checkIns[action.date]
+      if (!current || current.decision !== null) return state
+      return setCheckIn(state, action.date, { ...current, decision: 'kept' })
+    }
+
+    case 'ADAPT_TODAY': {
+      const current = state.checkIns[action.date]
+      const { session, previous } = action
+      if (!current || current.decision !== null || session.date !== action.date) {
+        return state
+      }
+      const sessions = state.plan.sessions
+      if (previous) {
+        if (!sessions.some((s) => s.id === previous.id)) return state
+      } else if (sessions.some((s) => s.date === action.date)) {
+        return state
+      }
+      const next = updateSessions(state, (all) =>
+        previous ? replaceSession(all, previous.id, session) : [...all, session].sort(byDate),
+      )
+      return setCheckIn(next, action.date, {
+        ...current,
+        decision: 'adapted',
+        previous: previous ?? null,
+        sessionId: session.id,
+      })
+    }
+
+    case 'UNDO_ADAPTATION': {
+      const current = state.checkIns[action.date]
+      if (current?.decision !== 'adapted') return state
+      const next = updateSessions(state, (all) =>
+        current.previous
+          ? replaceSession(all, current.sessionId, current.previous)
+          : all.filter((session) => session.id !== current.sessionId),
+      )
+      return setCheckIn(next, action.date, { mood: current.mood, ...NO_DECISION })
+    }
 
     default:
       return state
