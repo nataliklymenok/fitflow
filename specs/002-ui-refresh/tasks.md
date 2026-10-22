@@ -1,6 +1,6 @@
 # 002 — UI Refresh: Tasks
 
-**Status:** Draft · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
+**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
 
 Tasks run in order. Numbering starts at T101 so commit messages never clash with spec 001's tasks. A task is done when its **Done when** check passes; each ends with a commit naming the task ID.
 
@@ -10,7 +10,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 0 — Safety net (before any visual change)
 
-- [ ] **T101** Add `@playwright/test`. Move the 001 acceptance checks into `fitflow/e2e/` with a config that builds the app, starts `vite preview` and runs Chromium, Firefox and WebKit at 1280×900 and 390×844. Add `npm run test:e2e`.
+- [x] **T101** Add `@playwright/test`. Move the 001 acceptance checks into `fitflow/e2e/` with a config that builds the app, starts `vite preview` and runs Chromium, Firefox and WebKit at 1280×900 and 390×844. Add `npm run test:e2e`.
   Done when: every 001 acceptance check passes on the current UI in all 6 combinations.
 - [ ] **T102** Add `@axe-core/playwright` and an accessibility test that audits landing, quiz, calendar (week and month), workout page, the edit dialog and a confirm dialog.
   Done when: 0 violations on the current UI.
