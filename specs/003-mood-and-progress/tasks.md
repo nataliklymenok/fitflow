@@ -1,6 +1,6 @@
 # 003 — Daily Mood Check-in and Progress: Tasks
 
-**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
+**Status:** Done · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
 
 Tasks run in order, numbered from T201 so commit messages never clash with earlier specs. A task is done when its **Done when** check passes; each ends with a commit naming the task ID.
 
@@ -35,5 +35,5 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 - [x] **T220** Verification: accessibility audits for the new states (unanswered, answered, suggestion, applied) in both themes; e2e with version 1 data in storage; full unit and e2e run. Record results in `specs/003-mood-and-progress/acceptance.md`.
 - [x] **T221** Update the README ("What it does", screenshots, the 003 docs in the SDD table, test counts).
-- [ ] **T222** Push to `main`, run the e2e suite against the live site, and ask the user to check the check-in on their iPhone and to import the downloaded `.ics` into Apple Calendar (and Google Calendar).
+- [x] **T222** Push to `main`, run the e2e suite against the live site, and ask the user to check the check-in on their iPhone and to import the downloaded `.ics` into Apple Calendar (and Google Calendar).
   Done when: live run is green and the user has checked it.

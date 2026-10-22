@@ -1,6 +1,6 @@
 # 003 — Daily Mood Check-in and Progress
 
-**Status:** Approved · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md)
+**Status:** Released (https://fitflow-nk-lymenok.vercel.app) · **Created:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md), [002](../002-ui-refresh/spec.md)
 
 ## Summary
 

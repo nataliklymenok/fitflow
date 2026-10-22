@@ -28,7 +28,7 @@
 | **US-3** Streak across rest days, broken by a skip or a missed day; this week's sessions and minutes | unit tests, `today.spec.js` | ✅ |
 | **US-3** Encouraging empty state instead of a zero streak | `today.spec.js` | ✅ |
 | **US-4** Add to calendar downloads an `.ics` with one all-day event per session | unit tests, `export.spec.js`; parsed with the Python `icalendar` library | ✅ |
-| **US-4** Imports into Google Calendar and Apple Calendar | by hand (T221) | pending |
+| **US-4** Imports into calendar apps | by hand by the user (T222) | ✅ |
 | **US-5** Mood marks in week and month views, with accessible labels | `checkin.spec.js` | ✅ |
 
 ## Requirements
@@ -45,7 +45,6 @@
 
 After deployment, the full end-to-end suite ran against https://fitflow-nk-lymenok.vercel.app: **342 passed, 12 skipped by design**, in all six browser and viewport combinations, including the migration of version 1 data.
 
-## Not covered yet
+## Manual checks
 
-- Import into Google Calendar and Apple Calendar (T221).
-- The check-in on a real iPhone (T222).
+- The check-in, swap and undo on a real iPhone, and importing the downloaded `.ics` into a calendar app: checked by the user on 2026-10-22 (T222): OK.
