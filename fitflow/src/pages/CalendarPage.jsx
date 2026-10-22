@@ -91,7 +91,7 @@ function CalendarPage() {
         <div className={styles.periodNav}>
           <button
             type="button"
-            className={`${ui.button} ${ui.secondary} ${ui.small}`}
+            className={`${ui.button} ${ui.secondary} ${ui.small} ${styles.step}`}
             onClick={() => setAnchor(period.previous)}
             disabled={!canGoBack}
             aria-label={`Previous ${unit}`}
@@ -103,7 +103,7 @@ function CalendarPage() {
           </h2>
           <button
             type="button"
-            className={`${ui.button} ${ui.secondary} ${ui.small}`}
+            className={`${ui.button} ${ui.secondary} ${ui.small} ${styles.step}`}
             onClick={() => setAnchor(period.next)}
             disabled={!canGoForward}
             aria-label={`Next ${unit}`}
@@ -143,7 +143,7 @@ function CalendarPage() {
           renderRest={(date) => (
             <button
               type="button"
-              className={`${ui.button} ${ui.ghost} ${ui.small}`}
+              className={`${ui.button} ${ui.ghost} ${ui.small} ${styles.add}`}
               onClick={() => setAddingOn(date)}
               aria-label={`Add a session on ${formatDay(date, 'EEEE, MMMM d')}`}
             >

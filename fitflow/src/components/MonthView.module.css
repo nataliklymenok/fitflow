@@ -12,8 +12,10 @@
 }
 
 .weekdays {
-  font-size: var(--text-sm);
+  font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
 }
@@ -53,15 +55,18 @@
 .today {
   border-color: var(--accent);
   box-shadow: inset 0 0 0 1px var(--accent);
+  background: var(--accent-soft);
 }
 
 .today .dayNumber {
   color: var(--accent-text);
-  font-weight: 700;
 }
 
 .dayNumber {
-  font-size: var(--text-sm);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .session {
@@ -84,7 +89,9 @@
 }
 
 .label {
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--cat);
   white-space: nowrap;
   overflow: hidden;
@@ -122,7 +129,10 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--text-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--text-muted);
 }
 

@@ -4,16 +4,19 @@
   gap: var(--space-2);
   padding: var(--space-3);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--cat);
+  border-top: 4px solid var(--cat);
   border-radius: var(--radius-md);
   background: var(--surface);
+  box-shadow: var(--shadow);
   color: var(--text);
   text-decoration: none;
-  transition: box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
+  border-color: var(--cat);
 }
 
 .top {
@@ -31,12 +34,9 @@
 }
 
 .meta {
-  font-size: var(--text-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--text-muted);
-}
-
-.done {
-  background: var(--cat-soft);
 }
 
 .skipped {
