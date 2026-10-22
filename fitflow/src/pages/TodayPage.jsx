@@ -10,6 +10,7 @@ import { sessionMinutes, sessionVideos, videos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay, isWithin, startOfWeekKey, todayKey } from '../domain/dates.js'
 import { suggestAlternatives } from '../domain/suggestions.js'
+import { streak, weekProgress } from '../domain/progress.js'
 import { planProgress, todayStatus } from '../domain/today.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
@@ -32,6 +33,8 @@ function TodayPage() {
   const today = todayKey()
   const status = todayStatus(plan, today)
   const progress = planProgress(plan, sessionMinutes)
+  const days = streak(plan, today)
+  const week = weekProgress(plan, today, sessionMinutes)
 
   const sessionsByDate = useMemo(
     () => new Map(plan.sessions.map((session) => [session.date, session])),
@@ -85,19 +88,33 @@ function TodayPage() {
 
         <section className={styles.progress} aria-label="Plan progress">
           <div className={styles.tile}>
-            <span className={styles.tileLabel}>Sessions</span>
-            <span className={styles.big}>
-              {twoDigits(progress.done)}
-              <span className={styles.faint}>/{twoDigits(progress.total)}</span>
-            </span>
+            <span className={styles.tileLabel}>Streak</span>
+            {days > 0 ? (
+              <span className={styles.big}>
+                {days}
+                <span className={styles.bigUnit}> {days === 1 ? 'day' : 'days'}</span>
+              </span>
+            ) : (
+              <span className={styles.empty}>Finish a workout to start one</span>
+            )}
           </div>
           <div className={styles.tile}>
-            <span className={styles.tileLabel}>Minutes</span>
-            <span className={styles.big}>{progress.minutesDone}</span>
+            <span className={styles.tileLabel}>This week</span>
+            <span className={styles.big}>
+              {twoDigits(week.done)}
+              <span className={styles.faint}>/{twoDigits(week.planned)}</span>
+            </span>
+            <span className={styles.tileNote}>{week.minutesDone} min trained</span>
           </div>
           <div className={`${styles.tile} ${styles.wide}`}>
             <span className={styles.tileLabel}>
               Plan · {formatDay(plan.startDate)} – {formatDay(plan.endDate)}
+            </span>
+            <span className={styles.planLine}>
+              <strong>
+                {twoDigits(progress.done)}/{twoDigits(progress.total)}
+              </strong>{' '}
+              sessions · {progress.minutesDone} min trained
             </span>
             <div
               className={styles.bar}
