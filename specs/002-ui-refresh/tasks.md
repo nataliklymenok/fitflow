@@ -1,6 +1,6 @@
 # 002 — UI Refresh: Tasks
 
-**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
+**Status:** Done · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-10-22
 
 Tasks run in order. Numbering starts at T101 so commit messages never clash with spec 001's tasks. A task is done when its **Done when** check passes; each ends with a commit naming the task ID.
 
@@ -50,5 +50,5 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 - [x] **T140** Full verification: unit tests, e2e in all 6 combinations, axe-core in both themes with 0 violations, keyboard-only flow, load time under 2 s. Record results in `specs/002-ui-refresh/acceptance.md`.
 - [x] **T141** README: new screenshots in both themes, Today and theme switch in "What it does", e2e tests in "Quality", the 002 docs in the SDD table.
-- [ ] **T142** Push to `main` (Vercel deploys automatically), run the e2e suite against the live URL, and ask the user to check real Safari and an iPhone.
+- [x] **T142** Push to `main` (Vercel deploys automatically), run the e2e suite against the live URL, and ask the user to check real Safari and an iPhone.
   Done when: live e2e run is green and the user has checked Safari and iPhone.

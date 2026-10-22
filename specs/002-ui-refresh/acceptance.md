@@ -60,4 +60,4 @@ After deployment, the full end-to-end suite ran against https://fitflow-nk-lymen
 
 ## Not covered
 
-- Real Safari on macOS and iOS: WebKit is Safari's engine, not Safari itself. Checked by hand by the user (T142).
+- Real Safari on macOS and iOS: WebKit is Safari's engine, not Safari itself. Checked by hand by the user on 2026-10-22 (T142): OK.

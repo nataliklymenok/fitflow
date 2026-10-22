@@ -1,6 +1,6 @@
 # 002 — UI Refresh: "Night Training" + light theme
 
-**Status:** Approved · **Created:** 2026-10-22 · **Approved:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md)
+**Status:** Released (https://fitflow-nk-lymenok.vercel.app) · **Created:** 2026-10-22 · **Approved:** 2026-10-22 · **Builds on:** [001](../001-workout-planner/spec.md)
 
 ## Summary
 
