@@ -1,6 +1,6 @@
 # 004 — Trainers: Implementation Plan
 
-**Status:** Draft · **Spec:** [spec.md](spec.md) · **Created:** 2026-10-22
+**Status:** Approved · **Spec:** [spec.md](spec.md) · **Created:** 2026-10-22
 
 ## Overview
 
