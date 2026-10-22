@@ -37,7 +37,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 ## Phase 3 — Restyle
 
 - [x] **T130** Base styles and shared pieces: `index.css`, `ui.module.css` (buttons, chips, cards, focus ring), `Layout`, `Dialog`, `ConfirmDialog`, `SessionEditor`, `AddSessionDialog`. *(US-3)*
-- [ ] **T131** Landing page: tagline, two-tone headline, outlined category chips, numbered steps, credits. *(US-3)*
+- [x] **T131** Landing page: tagline, two-tone headline, outlined category chips, numbered steps, credits. *(US-3)*
 - [ ] **T132** Quiz: segmented progress with "N to go", option tiles with hints (`hint` on every option in `domain/quiz.js`, with a unit test). *(US-3)*
 - [ ] **T133** Calendar: header actions, period navigation, segmented Week/Month, day cells with top-colored session cards, Done badge, highlighted today, month view and legend. *(US-3)*
 - [ ] **T134** Workout page: large title, player frame, action row, "In this session" list and swap options. *(US-3)*
