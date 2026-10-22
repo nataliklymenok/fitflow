@@ -46,7 +46,7 @@ Done when (whole phase): `npm test` passes and `npm run lint` passes.
 
 ## Phase 3 — Screens
 
-- [ ] **T040** Landing page: what FitFlow is, "Start quiz", or "Continue my plan" when a plan exists. *(US-1, US-6)*
+- [x] **T040** Landing page: what FitFlow is, "Start quiz", or "Continue my plan" when a plan exists. *(US-1, US-6)*
 - [ ] **T041** Quiz page: one question per step, button options, progress bar, Back; on finish generate the plan, dispatch `REPLACE_PLAN`, go to `/calendar`. *(US-1, US-2)*
 - [ ] **T042** Calendar week view: 7 days with session (category, title, duration, status) or "Rest", today highlighted, previous/next week within the plan range. *(US-3)*
 - [ ] **T043** Month view and the `?view=week|month` toggle. *(US-3)*
