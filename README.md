@@ -1,55 +1,67 @@
 # FitFlow
 
-**Workouts that match your mood.** Answer six quick questions about how you feel, and FitFlow builds a workout calendar from curated YouTube videos: strength, cardio, stretching, yoga and calm sessions, with rest days built in.
+**Workouts that match your mood.** Answer six quick questions about how you feel, and FitFlow builds a workout plan from curated YouTube videos: strength, cardio, stretching, yoga and calm sessions, with rest days built in. Every day it tells you what to do today.
 
 **Live demo:** [fitflow-nk-lymenok.vercel.app](https://fitflow-nk-lymenok.vercel.app)
 
-![FitFlow calendar](docs/screenshots/calendar-week.png)
+![FitFlow Today screen, dark theme](docs/screenshots/today-dark.png)
 
 This is a portfolio project, built with an AI coding assistant (Claude Code) using **spec-driven development**: every feature started as a written spec, then a technical plan, then a task list, and only then code. The specs are in [`specs/`](specs/), and each commit names the task it implements.
 
 ## What it does
 
-- **Mood quiz.** Six one-tap questions: mood, energy, goal, days per week, minutes per session, plan length.
+- **Mood quiz.** Six one-tap questions: mood, energy, goal, days per week, minutes per session, plan length. Each answer explains what it means.
 - **Generated plan.** Sessions are spread over the chosen days and filled with videos that add up to the chosen length. The mix of workout types follows the answers: a stressed, low-energy user gets mostly calm, yoga and stretching sessions, and a motivated, high-energy user gets mostly strength and cardio.
-- **Calendar.** Week and month views, today highlighted, progress at a glance.
+- **Today.** The home screen shows today's workout with one-tap Start, or tells you it's a rest day and what's next. Sessions done, minutes trained and the week at a glance.
+- **Calendar.** Week and month views, today highlighted, finished sessions marked.
 - **Workout page.** Videos play in an embedded YouTube player; the next video starts when one ends. Mark a session done or skipped.
 - **Editing.** Swap any video for a similar one, change a session's type, move it to another day (moving onto a busy day swaps the two), delete it, or add a session on a rest day.
+- **Two themes.** A dark, sporty "Night Training" theme and a light "Soft Glow" theme. The first visit follows the device setting; the switch is remembered.
+- **Made for phones too.** A bottom tab bar on small screens; motion turns off when the system asks for reduced motion.
 - **No sign-up.** Everything is saved in the browser and survives reloads.
 
-| Quiz | Month view | Phone |
+| Light theme | Quiz | Phone |
 |---|---|---|
-| ![Quiz](docs/screenshots/quiz.png) | ![Month view](docs/screenshots/calendar-month.png) | ![Phone](docs/screenshots/mobile-calendar.png) |
+| ![Today, light theme](docs/screenshots/today-light.png) | ![Quiz with answer hints](docs/screenshots/quiz-dark.png) | ![Today on a phone](docs/screenshots/phone-today-dark.png) |
 
-![Workout page](docs/screenshots/session.png)
+| Week | Month | Workout |
+|---|---|---|
+| ![Calendar week view](docs/screenshots/calendar-week-dark.png) | ![Calendar month view, light theme](docs/screenshots/calendar-month-light.png) | ![Workout page with the YouTube player](docs/screenshots/workout-light.png) |
 
 ## How it was built
 
 ### Spec-driven development with AI
 
-| Step | Document | What it holds |
-|---|---|---|
-| 0 | [Constitution](specs/constitution.md) | Project-wide rules: stack, no backend, no API keys, testing, quality bar |
-| 1 | [Spec](specs/001-workout-planner/spec.md) | User stories with acceptance criteria, requirements, out of scope |
-| 2 | [Plan](specs/001-workout-planner/plan.md) | Architecture, data model, generation algorithm, risks |
-| 3 | [Tasks](specs/001-workout-planner/tasks.md) | 26 ordered tasks, each with a "done when" check |
-| 4 | [Acceptance](specs/001-workout-planner/acceptance.md) | Every acceptance criterion checked against the running app |
+Two features so far, each with the same four documents, under one shared [constitution](specs/constitution.md) (stack, no backend, no API keys, testing, quality bar):
 
-I made the product decisions: the idea, the five YouTube channels, the quiz, the scope of the first release and when to move on. The AI drafted the documents and the code, and I reviewed them at checkpoints after the domain logic and after the UI. When implementation showed the plan was wrong (for example, no high-intensity yoga video was short enough for a 10-minute session), the plan was updated first and the code second. The git history shows this: one commit per task.
+| Step | [001 · Workout planner](specs/001-workout-planner/) | [002 · UI refresh](specs/002-ui-refresh/) |
+|---|---|---|
+| Spec: user stories, acceptance criteria, out of scope | [spec.md](specs/001-workout-planner/spec.md) | [spec.md](specs/002-ui-refresh/spec.md) |
+| Plan: architecture, data, trade-offs, risks | [plan.md](specs/001-workout-planner/plan.md) | [plan.md](specs/002-ui-refresh/plan.md) |
+| Tasks: ordered, each with a "done when" check | [tasks.md](specs/001-workout-planner/tasks.md) (26) | [tasks.md](specs/002-ui-refresh/tasks.md) (17) |
+| Acceptance: every criterion checked | [acceptance.md](specs/001-workout-planner/acceptance.md) | [acceptance.md](specs/002-ui-refresh/acceptance.md) |
+
+I made the product decisions: the idea, the five YouTube channels, the quiz, the scope of each release, the visual direction (picked from four mockups) and when to move on. The AI drafted the documents, mockups and code, and I reviewed them at checkpoints. When implementation showed the plan was wrong (for example, no high-intensity yoga video was short enough for a 10-minute session), the plan was updated first and the code second. The git history shows this: one commit per task.
+
+Spec 002 started with a safety net: before any visual change, all of 001's acceptance checks became automated end-to-end tests, so the redesign could not quietly break a feature.
 
 ### Architecture
 
 ```
 src/
   domain/      pure JavaScript, no React: quiz, weights, plan generation,
-               video picking, edits (reducer), storage, dates — all unit-tested
+               video picking, edits (reducer), today, storage, dates — all unit-tested
   data/        catalog.json: 76 curated videos from 5 channels
-  state/       React context + useReducer, saved to localStorage on every change
-  pages/       Landing, Quiz, Calendar, Session
-  components/  week/month views, player, dialogs, editors
+  state/       plan and theme providers; the plan is saved to localStorage on every change
+  styles/      design tokens: one set of names, two themes (dark, light)
+  pages/       Landing, Quiz, Today, Calendar, Session
+  components/  week/month views, player, tab bar, dialogs, editors
+e2e/           Playwright tests: user flows, accessibility, keyboard, themes, motion
 ```
 
 All decisions live in `src/domain/`; React components only render state and dispatch actions. That keeps the logic easy to test and the UI thin.
+
+**Theming.** Every color, radius and shadow is a semantic token (`--surface`, `--accent`, `--cat-yoga`…) defined once per theme under `:root[data-theme]`, so components carry no theme logic. A tiny inline script in `index.html` sets the theme before any CSS loads, so the page never flashes the wrong theme.
 
 **Plan generation** is a pure function of the quiz answers, the catalog and a random seed, so the same inputs always give the same plan:
 
@@ -60,15 +72,16 @@ All decisions live in `src/domain/`; React components only render state and disp
 
 ### Quality
 
-- **94 unit tests** (Vitest). One test generates a plan for every possible set of quiz answers (2,880 combinations) with 3 seeds and checks every rule from the spec: session days, length tolerance, no avoidable video repeats, valid catalog IDs.
-- **Accessibility:** axe-core reports no violations on any page or dialog; the whole flow works with the keyboard alone; dialogs use the native `<dialog>` element for focus handling.
-- **Responsive** from 360px phones to desktop.
+- **109 unit tests** (Vitest). One test generates a plan for every possible set of quiz answers (2,880 combinations) with 3 seeds and checks every rule from the spec: session days, length tolerance, no avoidable video repeats, valid catalog IDs.
+- **End-to-end tests** (Playwright) for every acceptance criterion, in Chromium, Firefox and WebKit, at desktop and phone sizes: 264 runs. They also run against the live site after each deploy.
+- **Accessibility:** axe-core reports no violations on any page or dialog in either theme; contrast meets WCAG AA; the whole flow is tested with the keyboard alone; dialogs use the native `<dialog>` element for focus handling; all motion respects "reduce motion".
+- **Responsive** from 360px phones to desktop, with no sideways scrolling.
 - **Catalog check:** `npm run check:catalog` confirms through YouTube's public oEmbed endpoint (no API key) that every video still exists, allows embedding and belongs to the expected channel.
-- The YouTube player script loads only when a workout is opened.
+- **Fast:** self-hosted fonts, and the YouTube player script loads only when a workout is opened.
 
 ## Tech stack
 
-React 19 · Vite · React Router · date-fns · CSS Modules · Vitest · ESLint · Vercel
+React 19 · Vite · React Router · date-fns · CSS Modules · Vitest · Playwright · axe-core · ESLint · Vercel
 
 No backend, no accounts and no API keys: the app is static, and user data stays in the browser.
 
@@ -81,6 +94,8 @@ cd fitflow
 npm install
 npm run dev              # start the dev server
 npm test                 # unit tests
+npx playwright install   # once: browsers for the e2e tests
+npm run test:e2e         # end-to-end tests (builds and serves the app)
 npm run lint             # ESLint
 npm run build            # production build
 npm run check:catalog    # check every catalog video on YouTube
@@ -89,11 +104,11 @@ npm run sample:plans     # print a few generated plans
 
 ## What's next
 
-The first release covers the core flow. Planned for a follow-up spec:
+Spec 003 (planned):
 
 - a daily mood check-in that suggests a lighter or harder session when today's mood doesn't fit the plan;
-- simple progress stats: streak, sessions and minutes per week;
-- calendar export (.ics) and a dark theme.
+- streaks and weekly progress;
+- calendar export (.ics).
 
 ## Credits
 
