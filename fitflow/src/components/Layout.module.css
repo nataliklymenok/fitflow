@@ -12,7 +12,7 @@
 }
 
 .header {
-  background: var(--surface);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 
@@ -20,35 +20,67 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  gap: var(--space-4);
+  height: 68px;
 }
 
 .logo {
-  font-weight: 700;
-  font-size: var(--text-lg);
-  color: var(--accent-text);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text);
   text-decoration: none;
+}
+
+.logoAccent {
+  color: var(--accent-text);
 }
 
 .headerEnd {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-5);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-5);
 }
 
 .navLink {
-  color: var(--text);
+  padding: var(--space-1) 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
   font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
 }
 
 .navLink:hover {
-  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
 }
 
 .main {
   flex: 1;
   padding: var(--space-5) 0 var(--space-7);
+}
+
+/* Phones: the tab bar replaces the header nav (spec 002, US-2). */
+@media (max-width: 639px) {
+  .nav {
+    display: none;
+  }
+
+  .withTabBar .main {
+    padding-bottom: calc(var(--tab-bar-height) + var(--space-5) + env(safe-area-inset-bottom));
+  }
 }

@@ -21,6 +21,7 @@
   --text-2xl: 2.25rem;
 
   --content-width: 1180px;
+  --tab-bar-height: 72px;
 }
 
 /* Dark, "Night Training". Also the fallback when no theme is set. */
