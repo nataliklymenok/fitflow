@@ -51,7 +51,7 @@ Found and fixed by the new accessibility audit:
 
 ## Live site
 
-To be filled in after deployment (T332).
+After deployment, the full end-to-end suite ran against https://fitflow-nk-lymenok.vercel.app on 2026-10-23: **414 passed, 12 skipped by design**, in all six browser and viewport combinations, including the accessibility audits of the trainers screens.
 
 ## Manual checks
 
