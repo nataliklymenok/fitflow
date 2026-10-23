@@ -18,7 +18,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 2 — Domain logic
 
-- [ ] **T310** `domain/preferences.js`: `allowedVideos`, `availableCategories`, `validatePreferences`, `coverage`, `trainerSummary`, with tests. *(US-2, US-4, US-6)*
+- [x] **T310** `domain/preferences.js`: `allowedVideos`, `availableCategories`, `validatePreferences`, `coverage`, `trainerSummary`, with tests. *(US-2, US-4, US-6)*
 - [ ] **T311** `generatePlan` with preferences: `fillSessions` split out, unavailable categories at weight 0, the "2 in a row" rule relaxed for a single type. Tests: every trainer alone × every third answer combination passes all 001 rules and uses only that trainer; type-restricted selections never produce other types. *(US-3, FR-3, FR-4)*
 - [ ] **T312** Schema version 3 with `preferences` (migration 2 → 3, and 1 → 3 through both steps); `rebuildFromToday`; `SET_PREFERENCES`; `REPLACE_PLAN` with preferences. Tests for each. *(US-5, FR-2)*
 - [ ] **T313** Everything that picks videos uses the allowed list: `suggestAlternatives`, `changeCategory`, `addSession`, `suggestFor`; editors list only available categories. Tests for each with a restricted selection. *(US-3)*
