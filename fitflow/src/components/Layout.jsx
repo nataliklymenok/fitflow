@@ -6,8 +6,9 @@ import ThemeToggle from './ThemeToggle.jsx'
 
 // Main sections, shared by the header nav (desktop) and the tab bar (phones).
 const SECTIONS = [
-  { to: '/today', label: 'Today', icon: 'bolt' },
-  { to: '/calendar', label: 'Calendar', icon: 'calendar' },
+  { to: '/today', label: 'Today', icon: 'bolt', needsPlan: true },
+  { to: '/calendar', label: 'Calendar', icon: 'calendar', needsPlan: true },
+  { to: '/trainers', label: 'Trainers', icon: 'people', needsPlan: false },
 ]
 
 function Layout({ children }) {
@@ -22,21 +23,19 @@ function Layout({ children }) {
             Fit<span className={styles.logoAccent}>Flow</span>
           </Link>
           <div className={styles.headerEnd}>
-            {hasPlan && (
-              <nav aria-label="Main" className={styles.nav}>
-                {SECTIONS.map(({ to, label }) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    className={({ isActive }) =>
-                      `${styles.navLink} ${isActive ? styles.active : ''}`
-                    }
-                  >
-                    {label}
-                  </NavLink>
-                ))}
-              </nav>
-            )}
+            <nav aria-label="Main" className={styles.nav}>
+              {SECTIONS.filter((s) => hasPlan || !s.needsPlan).map(({ to, label }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  className={({ isActive }) =>
+                    `${styles.navLink} ${isActive ? styles.active : ''}`
+                  }
+                >
+                  {label}
+                </NavLink>
+              ))}
+            </nav>
             <ThemeToggle />
           </div>
         </div>

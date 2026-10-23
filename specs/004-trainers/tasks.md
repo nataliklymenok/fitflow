@@ -25,7 +25,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 3 — Screens
 
-- [ ] **T320** Trainers section in the header, the phone tab bar and the landing page; `/trainers` with category filter, trainer cards, selection (max 5, "Any trainer"), workout-type toggles, and Save with a confirmation when a plan exists. *(US-1, US-2, US-5, US-6)*
+- [x] **T320** Trainers section in the header, the phone tab bar and the landing page; `/trainers` with category filter, trainer cards, selection (max 5, "Any trainer"), workout-type toggles, and Save with a confirmation when a plan exists. *(US-1, US-2, US-5, US-6)*
   Done when: e2e covers filtering, the 5-trainer limit, Clear, type toggles, and Save rebuilding sessions from today while keeping a done session.
 - [ ] **T321** `/trainers/:id`: the trainer's videos by category. *(US-1)*
 - [ ] **T322** Quiz step 7, "Who do you want to train with?", with the coverage warning; the e2e `createPlan` helper updated for the new step. *(US-2, US-4)*

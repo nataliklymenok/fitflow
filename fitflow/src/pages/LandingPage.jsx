@@ -53,6 +53,9 @@ function LandingPage() {
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </Link>
+          <Link to="/trainers" className={`${ui.button} ${ui.secondary} ${styles.start}`}>
+            Meet the trainers
+          </Link>
         </div>
         <ul className={styles.categories} aria-label="Workout types">
           {CATEGORIES.map((category) => (

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useReducer } from 'react'
 import { EMPTY_STATE, planReducer } from '../domain/planReducer.js'
+import { DEFAULT_PREFERENCES } from '../domain/preferences.js'
 import { clear, load, save } from '../domain/storage.js'
+import { samePreferences } from './usePreferencesDraft.js'
 import { PlanContext } from './planContext.js'
 
 function initialState() {
@@ -12,7 +14,9 @@ function PlanProvider({ children }) {
 
   // Every change is saved immediately (US-5, US-6).
   useEffect(() => {
-    if (state.plan) save(state)
+    // Save a plan, or a choice of trainers made before the quiz; otherwise
+    // there is nothing to keep (spec 004, US-2).
+    if (state.plan || !samePreferences(state.preferences, DEFAULT_PREFERENCES)) save(state)
     else clear()
   }, [state])
 

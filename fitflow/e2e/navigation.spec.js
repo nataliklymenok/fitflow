@@ -42,8 +42,12 @@ test('phones: nothing is hidden behind the tab bar (002 US-2)', async ({ page })
   }
 })
 
-test('without a plan there is no section navigation', async ({ page }) => {
+test('without a plan only Trainers is in the navigation (004)', async ({ page }) => {
   await page.evaluate(() => localStorage.removeItem('fitflow'))
   await page.goto('/')
-  await expect(page.getByRole('navigation', { name: 'Main' })).toHaveCount(0)
+  await expect(page.getByRole('link', { name: 'Meet the trainers' })).toBeVisible()
+  if (!isPhone(page)) {
+    const nav = page.getByRole('navigation', { name: 'Main' })
+    await expect(nav.getByRole('link')).toHaveText(['Trainers'])
+  }
 })

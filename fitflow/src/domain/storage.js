@@ -80,7 +80,12 @@ function isValidPreferences(preferences) {
   )
 }
 
+// A saved state is either a plan with everything around it, or (spec 004)
+// just a choice of trainers made before taking the quiz.
 export function isValidState(state) {
+  if (state?.plan === null && state.answers === null) {
+    return isValidPreferences(state.preferences)
+  }
   return (
     isComplete(state?.answers) &&
     isValidPlan(state.plan) &&
@@ -114,7 +119,7 @@ export function load(storage = defaultStorage()) {
     const state = {
       answers: data.answers,
       plan: data.plan,
-      checkIns: data.checkIns,
+      checkIns: data.checkIns ?? {},
       preferences: data.preferences,
     }
     return isValidState(state) ? state : null

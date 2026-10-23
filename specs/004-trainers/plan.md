@@ -40,6 +40,7 @@ preferences: {
 
 - Stored with the plan in **schema version 3**; `migrate()` gains a step 2 → 3 that adds the defaults above. A version 1 fixture still migrates through both steps.
 - `RESET` deletes the preferences along with the plan and check-ins; only the theme survives, as before.
+- A choice made on the Trainers page **before** taking the quiz is saved too: the saved state may then hold preferences with no plan (`answers` and `plan` are `null`). Found during T320, when an e2e test showed the choice was lost on reload.
 
 ## Domain logic (FR-3, FR-4)
 

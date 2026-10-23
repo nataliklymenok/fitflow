@@ -271,3 +271,23 @@ describe('schema version 3 (004 FR-2)', () => {
   })
 })
 
+describe('a choice of trainers without a plan (004 US-2)', () => {
+  it('is saved and loaded on its own', () => {
+    const storage = memoryStorage()
+    const state = {
+      answers: null,
+      plan: null,
+      checkIns: {},
+      preferences: { trainers: ['ania-lu'], categories: ['functional'] },
+    }
+    save(state, storage)
+    expect(load(storage)).toEqual(state)
+  })
+
+  it('is still validated', () => {
+    expect(
+      isValidState({ answers: null, plan: null, checkIns: {}, preferences: { trainers: [], categories: [] } }),
+    ).toBe(false)
+  })
+})
+

@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
 import SessionPage from './pages/SessionPage.jsx'
 import TodayPage from './pages/TodayPage.jsx'
+import TrainersPage from './pages/TrainersPage.jsx'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/trainers" element={<TrainersPage />} />
         <Route
           path="/today"
           element={
