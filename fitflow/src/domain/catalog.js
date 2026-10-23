@@ -56,10 +56,24 @@ function validateVideo(video, index) {
 }
 
 // Returns a list of human-readable problems; an empty list means valid.
-export function validateCatalog(catalog) {
+// `trainers` is the list from trainers.json (spec 004, FR-1).
+export function validateCatalog(catalog, trainers) {
   if (!Array.isArray(catalog?.videos)) return ['catalog.videos must be a list']
+  if (!Array.isArray(trainers)) return ['trainers must be a list']
 
   const errors = catalog.videos.flatMap(validateVideo)
+
+  const byId = new Map(trainers.map((trainer) => [trainer.id, trainer]))
+  for (const [index, video] of catalog.videos.entries()) {
+    const trainer = byId.get(video.trainer)
+    if (!trainer) {
+      errors.push(`videos[${index}] (${video.id}): unknown trainer "${video.trainer}"`)
+    } else if (trainer.channel !== video.channel) {
+      errors.push(
+        `videos[${index}] (${video.id}): channel "${video.channel}" is not ${trainer.name}'s channel "${trainer.channel}"`,
+      )
+    }
+  }
 
   const seen = new Set()
   for (const video of catalog.videos) {

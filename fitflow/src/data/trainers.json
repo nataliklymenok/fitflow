@@ -1,0 +1,84 @@
+{
+  "trainers": [
+    {
+      "id": "yoga-with-adriene",
+      "name": "Yoga With Adriene",
+      "channel": "Yoga With Adriene",
+      "url": "https://www.youtube.com/@yogawithadriene",
+      "language": "en",
+      "description": "Friendly, accessible yoga for every level, from short morning flows to calming bedtime practices."
+    },
+    {
+      "id": "madfit",
+      "name": "MadFit",
+      "channel": "MadFit",
+      "url": "https://www.youtube.com/@MadFit",
+      "language": "en",
+      "description": "No-equipment home workouts, dance cardio parties and quick stretches."
+    },
+    {
+      "id": "heather-robertson",
+      "name": "Heather Robertson",
+      "channel": "Heather Robertson",
+      "url": "https://www.youtube.com/@Heatherrobertsoncom",
+      "language": "en",
+      "description": "Full-body HIIT and strength sessions, with or without dumbbells."
+    },
+    {
+      "id": "pamela-reif",
+      "name": "Pamela Reif",
+      "channel": "Pamela Reif",
+      "url": "https://www.youtube.com/@PamelaRf1",
+      "language": "en",
+      "description": "Short, high-energy cardio and full-body routines, and calm stretching. Mostly music, little talking."
+    },
+    {
+      "id": "tom-merrick",
+      "name": "Tom Merrick",
+      "channel": "Tom Merrick",
+      "url": "https://www.youtube.com/@BodyweightWarrior",
+      "language": "en",
+      "description": "Flexibility and mobility routines to follow along, from beginner stretches to hips and spine."
+    },
+    {
+      "id": "caroline-girvan",
+      "name": "Caroline Girvan",
+      "channel": "Caroline Girvan",
+      "url": "https://www.youtube.com/@CarolineGirvan",
+      "language": "en",
+      "description": "Structured strength training with dumbbells, from 20-minute sessions to full programmes."
+    },
+    {
+      "id": "mila-tymchuk",
+      "name": "Mila Tymchuk",
+      "channel": "Mila Tymchuk",
+      "url": "https://www.youtube.com/@milatymchuk",
+      "language": "uk",
+      "description": "Home workouts in Ukrainian: full-body functional training, HIIT and Pilates."
+    },
+    {
+      "id": "ania-lu",
+      "name": "Аня Лу",
+      "channel": "Аня Лу - Фітнес для кожного",
+      "url": "https://www.youtube.com/@anialu",
+      "language": "uk",
+      "description": "Fitness for everyone, in Ukrainian: full-body workouts with bands or dumbbells, Pilates and stretching."
+    },
+    {
+      "id": "yoga-in-ukrainian",
+      "name": "Йога Українською",
+      "channel": "Йога Українською",
+      "url": "https://www.youtube.com/@yogainukrainian",
+      "language": "uk",
+      "description": "Hatha yoga in Ukrainian for beginners and beyond, from short daily practices to full classes."
+    },
+    {
+      "id": "yoga-dopomoga",
+      "name": "Йога Допомога",
+      "channel": "Йога і медитації українською - ЙОГА ДОПОМОГА",
+      "url": "https://www.youtube.com/@YogaDopomoga",
+      "language": "uk",
+      "description": "Short stretches, gentle yoga and meditations in Ukrainian."
+    }
+  ]
+}

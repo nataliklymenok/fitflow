@@ -9,6 +9,9 @@ import { validateCatalog } from '../src/domain/catalog.js'
 const CONCURRENCY = 8
 const catalogUrl = new URL('../src/data/catalog.json', import.meta.url)
 const catalog = JSON.parse(readFileSync(catalogUrl, 'utf8'))
+const { trainers } = JSON.parse(
+  readFileSync(new URL('../src/data/trainers.json', import.meta.url), 'utf8'),
+)
 const offline = process.argv.includes('--offline')
 
 async function checkVideo(video) {
@@ -43,7 +46,7 @@ async function checkOnline(videos) {
   return problems
 }
 
-const schemaErrors = validateCatalog(catalog)
+const schemaErrors = validateCatalog(catalog, trainers)
 if (schemaErrors.length > 0) {
   console.error(`Catalog schema: ${schemaErrors.length} problem(s)`)
   for (const error of schemaErrors) console.error(`  - ${error}`)
