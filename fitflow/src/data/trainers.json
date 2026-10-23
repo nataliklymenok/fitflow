@@ -65,20 +65,12 @@
       "description": "Fitness for everyone, in Ukrainian: full-body workouts with bands or dumbbells, Pilates and stretching."
     },
     {
-      "id": "yoga-in-ukrainian",
-      "name": "Йога Українською",
-      "channel": "Йога Українською",
-      "url": "https://www.youtube.com/@yogainukrainian",
+      "id": "olha-pasichnyk",
+      "name": "Ольга Пасічник",
+      "channel": "Йога на килимках | Пасічник Ольга",
+      "url": "https://www.youtube.com/@pasichnyk_olha",
       "language": "uk",
-      "description": "Hatha yoga in Ukrainian for beginners and beyond, from short daily practices to full classes."
-    },
-    {
-      "id": "yoga-dopomoga",
-      "name": "Йога Допомога",
-      "channel": "Йога і медитації українською - ЙОГА ДОПОМОГА",
-      "url": "https://www.youtube.com/@YogaDopomoga",
-      "language": "uk",
-      "description": "Short stretches, gentle yoga and meditations in Ukrainian."
+      "description": "Yoga in Ukrainian: energising morning practices, vinyasa flows, relaxation and evening yoga before sleep."
     }
   ]
 }

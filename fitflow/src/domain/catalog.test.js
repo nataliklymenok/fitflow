@@ -81,6 +81,14 @@ describe('validateCatalog', () => {
 })
 
 describe('trainers (004 FR-1)', () => {
+  it('reports trainers with fewer than 8 videos', () => {
+    const errors = validateCatalog(validCatalog(), [
+      ...TRAINERS,
+      { id: 'new', name: 'New', channel: 'New channel' },
+    ])
+    expect(errors).toContain('trainer new has 0 videos, needs at least 8')
+  })
+
   it('reports videos with an unknown trainer or another channel', () => {
     const bad = validCatalog()
     bad.videos[0] = { ...bad.videos[0], trainer: 'nobody' }

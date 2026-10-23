@@ -11,7 +11,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 ## Phase 1 — Trainers and catalog
 
 - [x] **T301** `src/data/trainers.json` with the 10 approved trainers; a `trainer` field on all existing catalog videos; validation that every video's trainer exists. *(FR-1)*
-- [ ] **T302** Catalog draft for the new trainers (Caroline Girvan, Mila Tymchuk, Аня Лу, Йога Українською, ЙОГА ДОПОМОГА) and more Tom Merrick videos: at least 8 per trainer, lengths 10–45 min, embeddable. Validation of the per-trainer minimum; `check:catalog` checks each video's channel against its trainer.
+- [x] **T302** Catalog draft for the new trainers (Caroline Girvan, Mila Tymchuk, Аня Лу, Йога Українською, ЙОГА ДОПОМОГА) and more Tom Merrick videos: at least 8 per trainer, lengths 10–45 min, embeddable. Validation of the per-trainer minimum; `check:catalog` checks each video's channel against its trainer.
   Done when: `npm run check:catalog` passes, and `specs/004-trainers/catalog-review.md` lists every new video with its link, title, length, category and intensity, for the user to check.
 
 **Checkpoint A:** the user goes through `catalog-review.md` and corrects lengths, categories or intensity where the videos differ (or swaps videos). Corrections go into `catalog.json` before Phase 2.

@@ -13,6 +13,7 @@ export const CATEGORY_LABELS = {
 export const INTENSITIES = ['low', 'medium', 'high']
 
 export const MIN_VIDEOS_PER_CATEGORY = 10
+export const MIN_VIDEOS_PER_TRAINER = 8
 export const MIN_DURATION = 5
 export const MAX_DURATION = 45
 
@@ -79,6 +80,15 @@ export function validateCatalog(catalog, trainers) {
   for (const video of catalog.videos) {
     if (seen.has(video.id)) errors.push(`duplicate video id ${video.id}`)
     seen.add(video.id)
+  }
+
+  for (const trainer of trainers) {
+    const count = catalog.videos.filter((v) => v.trainer === trainer.id).length
+    if (count < MIN_VIDEOS_PER_TRAINER) {
+      errors.push(
+        `trainer ${trainer.id} has ${count} videos, needs at least ${MIN_VIDEOS_PER_TRAINER}`,
+      )
+    }
   }
 
   for (const category of CATEGORIES) {
