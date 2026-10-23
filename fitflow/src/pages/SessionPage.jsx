@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router'
 import SessionEditor from '../components/SessionEditor.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
+import TrainerLink from '../components/TrainerLink.jsx'
 import VideoPlayer from '../components/VideoPlayer.jsx'
 import { sessionMinutes, videosById } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
@@ -134,7 +135,11 @@ function SessionPage() {
                   <div className={styles.videoInfo}>
                     <span className={styles.videoTitle}>{item?.title ?? 'Unknown video'}</span>
                     <span className={`${ui.muted} ${styles.videoMeta}`}>
-                      {item ? `${item.channel} · ${item.durationMin} min` : ''}
+                      {item && (
+                        <>
+                          <TrainerLink video={item} /> · {item.durationMin} min
+                        </>
+                      )}
                     </span>
                   </div>
                   <div className={styles.videoActions}>

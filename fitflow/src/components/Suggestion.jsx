@@ -6,6 +6,7 @@ import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
 import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
+import TrainerLink from './TrainerLink.jsx'
 import styles from './Suggestion.module.css'
 
 const REASONS = {
@@ -69,7 +70,7 @@ function Suggestion({ date, record }) {
         <p className={styles.reason}>{REASONS[`${record.mood}-${kind}`]}</p>
         <p className={styles.title}>{first?.title}</p>
         <p className={styles.channel}>
-          {first?.channel}
+          {first && <TrainerLink video={first} />}
           {items.length > 1 && ` · ${items.length} videos`}
         </p>
         <div className={styles.actions}>

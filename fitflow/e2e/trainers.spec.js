@@ -98,3 +98,18 @@ test("a trainer's page lists their videos by type (004 US-1)", async ({ page }) 
   await page.goto('/trainers/nobody')
   await expect(page).toHaveURL(/\/trainers$/)
 })
+
+test('sessions show their trainer, linking to the trainer page (004 US-7)', async ({ page }) => {
+  await page.goto('/trainers')
+  await select(page, 'Pamela Reif').click()
+  await save(page).click()
+  await createPlan(page)
+
+  await page.goto('/calendar')
+  await expect(page.locator('a[href^="/session/"]').first()).toContainText('Pamela Reif')
+
+  const { plan } = await stored(page)
+  await page.goto(`/session/${plan.sessions[0].id}`)
+  await page.getByRole('region', { name: 'In this session' }).getByRole('link', { name: 'Pamela Reif' }).first().click()
+  await expect(page).toHaveURL(/\/trainers\/pamela-reif$/)
+})

@@ -30,7 +30,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T321** `/trainers/:id`: the trainer's videos by category. *(US-1)*
 - [x] **T322** Quiz step 7, "Who do you want to train with?", with the coverage warning; the e2e `createPlan` helper updated for the new step. *(US-2, US-4)*
   Done when: e2e checks a single-trainer plan uses only that trainer, and the warning appears for a selection that can't fill the chosen length.
-- [ ] **T323** Trainer name on session cards and the workout page, linking to the trainer page. *(US-7)*
+- [x] **T323** Trainer name on session cards and the workout page, linking to the trainer page. *(US-7)*
 
 **Checkpoint B:** review the Trainers page, trainer page, quiz step and trainer names in both themes, desktop and phone.
 

@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { trainersById } from '../data/trainers.js'
 import { sessionMinutes, sessionVideos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { categoryVars } from '../lib/categoryVars.js'
@@ -23,6 +24,7 @@ function SessionCard({ session }) {
       <span className={styles.title}>{videos[0]?.title}</span>
       <span className={styles.meta}>
         {sessionMinutes(session)} min
+        {videos[0] && ` · ${trainersById.get(videos[0].trainer)?.name ?? videos[0].channel}`}
         {more > 0 && ` · ${more + 1} videos`}
       </span>
     </Link>

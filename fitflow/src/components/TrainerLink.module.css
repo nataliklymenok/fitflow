@@ -1,0 +1,11 @@
+.link {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}

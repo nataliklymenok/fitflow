@@ -5,6 +5,7 @@ import PlanActions from '../components/PlanActions.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
 import Suggestion from '../components/Suggestion.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
+import TrainerLink from '../components/TrainerLink.jsx'
 import WeekView from '../components/WeekView.jsx'
 import { sessionMinutes, sessionVideos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
@@ -182,7 +183,7 @@ function WorkoutCard({ session }) {
         <StatusBadge status={session.status} />
         <h2 className={styles.workoutTitle}>{first?.title}</h2>
         <p className={styles.channel}>
-          {first?.channel}
+          {first && <TrainerLink video={first} />}
           {items.length > 1 && ` · ${items.length} videos`}
         </p>
         <div className={styles.actions}>
