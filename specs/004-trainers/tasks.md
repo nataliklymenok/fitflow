@@ -34,6 +34,11 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 **Checkpoint B:** review the Trainers page, trainer page, quiz step and trainer names in both themes, desktop and phone.
 
+Changes requested at Checkpoint B (2026-10-23):
+
+- [ ] **T324** Trainers page: **Clear** above **Save my choice**; after saving, the button reads "✓ Saved" and the page says the plan was updated, with a link to Today.
+- [ ] **T325** Trainer pictures: a `cover` video per trainer in `trainers.json` (validated to be one of their own videos); its YouTube thumbnail on cards, the trainer page and the quiz step, with alt text, lazy loading and the initials avatar as a fallback.
+
 ## Phase 4 — Release
 
 - [ ] **T330** Verification: accessibility for the new pages and states in both themes, full unit and e2e runs, `check:catalog`. Record results in `specs/004-trainers/acceptance.md`.

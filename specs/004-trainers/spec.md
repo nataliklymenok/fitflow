@@ -29,6 +29,7 @@ As a visitor, I can browse the trainers, so that I know who I could train with.
 - Trainers can be filtered by category (Functional, Cardio, Stretching, Yoga, Calm); a trainer appears under every category they have videos in.
 - Each trainer card shows: name, a short description, the categories they cover, how many videos FitFlow has from them and their typical length range, the language of the videos, and a link to their YouTube channel.
 - A trainer's own page (or expanded card) lists their videos in FitFlow.
+- Each card and trainer page shows a picture of the trainer (a video thumbnail, see Content).
 
 **US-2. Choose trainers**
 As a user, I can choose which trainers my plan uses: one, several (up to five), or any.
@@ -37,6 +38,7 @@ As a user, I can choose which trainers my plan uses: one, several (up to five), 
 - At most 5 trainers can be selected; a sixth selection is refused with a short explanation.
 - "Any trainer" is the default and means today's behaviour.
 - The selection is remembered on this device.
+- After saving, the page says clearly that the choice was saved and, when a plan exists, that the plan was updated, with a link to Today. The Clear button sits with the Save button.
 
 **US-3. Plans follow the selection**
 As a user, I only get videos from the trainers I chose.
@@ -78,7 +80,7 @@ As a user, I see the trainer's name on each session card and on the workout page
   - **at least 2–3 Ukrainian trainers** who publish follow-along workouts on YouTube (to be researched and confirmed with the user);
   - 1–2 more to fill gaps (for example, more calm or stretching).
 - Every trainer needs enough videos to build a plan alone: **at least 8 videos** across their categories, with a spread of lengths (10–45 minutes), all allowing embedding (checked by `npm run check:catalog`).
-- Descriptions are short, factual and written by us. No trainer photos are copied; cards use an initials avatar and link to the official channel.
+- Descriptions are short, factual and written by us. No trainer photos are copied into the project. **Changed at Checkpoint B (2026-10-23):** each trainer card and page shows a cover picture: the thumbnail of one of the trainer's own videos, loaded from YouTube's standard thumbnail address (`i.ytimg.com`), as any page with embedded videos does. If it fails to load, the initials avatar is shown instead.
 
 ## Functional requirements
 
