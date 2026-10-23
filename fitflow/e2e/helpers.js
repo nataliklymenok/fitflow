@@ -22,9 +22,14 @@ export function quizAnswer(page, label) {
   return page.getByRole('button', { name: new RegExp(`^${escaped}(\\s|$)`) })
 }
 
+// Answers the quiz; after all six answers, finishes on the trainers step
+// (spec 004) with whatever is selected there, "any trainer" by default.
 export async function answerQuiz(page, answers) {
   for (const answer of answers) {
     await quizAnswer(page, answer).click()
+  }
+  if (answers.length === 6) {
+    await page.getByRole('button', { name: 'Create my plan' }).click()
   }
 }
 

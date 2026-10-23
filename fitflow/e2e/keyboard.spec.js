@@ -32,6 +32,8 @@ test('the whole flow works with the keyboard alone (NFR-3)', async ({ page }) =>
     await tabTo(page, new RegExp(`^${label}(\\s|$)`))
     await page.keyboard.press('Enter')
   }
+  await tabTo(page, /^Create my plan$/)
+  await page.keyboard.press('Enter')
   await expect(page).toHaveURL(/\/today$/)
 
   await tabTo(page, /^Start$/)

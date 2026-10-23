@@ -51,9 +51,9 @@ test('the choice survives a reload and overrides the device setting (US-4)', asy
 test('switching keeps the page as it is (US-4)', async ({ page }) => {
   await page.goto('/quiz')
   await answerQuiz(page, ['Okay'])
-  await expect(page.getByText('Question 2 of 6')).toBeVisible()
+  await expect(page.getByText('Question 2 of 7')).toBeVisible()
   await page.getByRole('button', { name: /^Switch to / }).click()
-  await expect(page.getByText('Question 2 of 6')).toBeVisible()
+  await expect(page.getByText('Question 2 of 7')).toBeVisible()
 })
 
 test('Reset deletes the plan but keeps the theme (FR-4)', async ({ page }) => {

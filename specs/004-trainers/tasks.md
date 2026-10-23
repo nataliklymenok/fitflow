@@ -28,7 +28,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T320** Trainers section in the header, the phone tab bar and the landing page; `/trainers` with category filter, trainer cards, selection (max 5, "Any trainer"), workout-type toggles, and Save with a confirmation when a plan exists. *(US-1, US-2, US-5, US-6)*
   Done when: e2e covers filtering, the 5-trainer limit, Clear, type toggles, and Save rebuilding sessions from today while keeping a done session.
 - [x] **T321** `/trainers/:id`: the trainer's videos by category. *(US-1)*
-- [ ] **T322** Quiz step 7, "Who do you want to train with?", with the coverage warning; the e2e `createPlan` helper updated for the new step. *(US-2, US-4)*
+- [x] **T322** Quiz step 7, "Who do you want to train with?", with the coverage warning; the e2e `createPlan` helper updated for the new step. *(US-2, US-4)*
   Done when: e2e checks a single-trainer plan uses only that trainer, and the warning appears for a selection that can't fill the chosen length.
 - [ ] **T323** Trainer name on session cards and the workout page, linking to the trainer page. *(US-7)*
 
