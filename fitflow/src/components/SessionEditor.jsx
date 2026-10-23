@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { videos } from '../data/videos.js'
-import { CATEGORIES, CATEGORY_LABELS } from '../domain/catalog.js'
+import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay, rangeKeys } from '../domain/dates.js'
 import { changeCategory } from '../domain/planReducer.js'
 import { newSeed } from '../domain/random.js'
 import { usePlan } from '../state/planContext.js'
+import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
 import Dialog from './Dialog.jsx'
 import styles from './SessionEditor.module.css'
@@ -13,6 +13,7 @@ import styles from './SessionEditor.module.css'
 // Move, change category or delete a session (US-5).
 function SessionEditor({ open, onClose, session }) {
   const { state, dispatch } = usePlan()
+  const { videos, categories } = useAllowedVideos()
   const navigate = useNavigate()
   const { plan } = state
   const [toDate, setToDate] = useState(session.date)
@@ -93,7 +94,7 @@ function SessionEditor({ open, onClose, session }) {
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           >
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <option key={c} value={c}>
                 {CATEGORY_LABELS[c]}
               </option>

@@ -10,7 +10,7 @@ import ui from '../styles/ui.module.css'
 import styles from './QuizPage.module.css'
 
 function QuizPage() {
-  const { dispatch } = usePlan()
+  const { state, dispatch } = usePlan()
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
@@ -34,8 +34,9 @@ function QuizPage() {
     const plan = generatePlan(next, catalog, {
       seed: newSeed(),
       today: todayKey(),
+      preferences: state.preferences,
     })
-    dispatch({ type: 'REPLACE_PLAN', answers: next, plan })
+    dispatch({ type: 'REPLACE_PLAN', answers: next, plan, preferences: state.preferences })
     navigate('/today')
   }
 

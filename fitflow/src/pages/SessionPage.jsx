@@ -4,18 +4,20 @@ import SessionEditor from '../components/SessionEditor.jsx'
 import StatusBadge from '../components/StatusBadge.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
 import VideoPlayer from '../components/VideoPlayer.jsx'
-import { sessionMinutes, videos, videosById } from '../data/videos.js'
+import { sessionMinutes, videosById } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay } from '../domain/dates.js'
 import { suggestAlternatives } from '../domain/suggestions.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
+import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
 import styles from './SessionPage.module.css'
 
 function SessionPage() {
   const { id } = useParams()
   const { state, dispatch } = usePlan()
+  const { videos } = useAllowedVideos()
   const [current, setCurrent] = useState(0)
   const [swapping, setSwapping] = useState(null)
   const [editing, setEditing] = useState(false)

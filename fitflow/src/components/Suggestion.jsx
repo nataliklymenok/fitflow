@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import { sessionMinutes, sessionVideos, videos } from '../data/videos.js'
+import { sessionMinutes, sessionVideos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { suggestFor } from '../domain/checkIn.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
+import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
 import styles from './Suggestion.module.css'
 
@@ -17,13 +18,14 @@ const REASONS = {
 function Suggestion({ date, record }) {
   const { state, dispatch } = usePlan()
   const { plan, answers } = state
+  const { videos } = useAllowedVideos()
 
   const suggestion = useMemo(
     () =>
       record && record.decision === null
         ? suggestFor({ plan, answers, date, mood: record.mood, videos })
         : null,
-    [plan, answers, date, record],
+    [plan, answers, date, record, videos],
   )
 
   if (record?.decision === 'adapted') {

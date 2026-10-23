@@ -6,7 +6,7 @@ import StatusBadge from '../components/StatusBadge.jsx'
 import Suggestion from '../components/Suggestion.jsx'
 import SwapOptions from '../components/SwapOptions.jsx'
 import WeekView from '../components/WeekView.jsx'
-import { sessionMinutes, sessionVideos, videos } from '../data/videos.js'
+import { sessionMinutes, sessionVideos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay, isWithin, startOfWeekKey, todayKey } from '../domain/dates.js'
 import { suggestAlternatives } from '../domain/suggestions.js'
@@ -14,6 +14,7 @@ import { streak, weekProgress } from '../domain/progress.js'
 import { planProgress, todayStatus } from '../domain/today.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import { usePlan } from '../state/planContext.js'
+import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
 import styles from './TodayPage.module.css'
 
@@ -154,6 +155,7 @@ function TodayPage() {
 
 function WorkoutCard({ session }) {
   const { dispatch } = usePlan()
+  const { videos } = useAllowedVideos()
   const [swapping, setSwapping] = useState(false)
   const items = sessionVideos(session)
   const first = items[0]

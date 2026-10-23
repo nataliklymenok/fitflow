@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { videos } from '../data/videos.js'
-import { CATEGORIES, CATEGORY_LABELS } from '../domain/catalog.js'
+import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { formatDay } from '../domain/dates.js'
 import { addSession } from '../domain/planReducer.js'
 import { newSeed } from '../domain/random.js'
 import { usePlan } from '../state/planContext.js'
+import { useAllowedVideos } from '../state/useAllowedVideos.js'
 import ui from '../styles/ui.module.css'
 import Dialog from './Dialog.jsx'
 import styles from './SessionEditor.module.css'
@@ -12,7 +12,8 @@ import styles from './SessionEditor.module.css'
 // Adds a session to a rest day (US-5). `date` is null while closed.
 function AddSessionDialog({ date, onClose }) {
   const { state, dispatch } = usePlan()
-  const [category, setCategory] = useState(CATEGORIES[0])
+  const { videos, categories } = useAllowedVideos()
+  const [category, setCategory] = useState(categories[0])
 
   function add(event) {
     event.preventDefault()
@@ -37,7 +38,7 @@ function AddSessionDialog({ date, onClose }) {
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           >
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <option key={c} value={c}>
                 {CATEGORY_LABELS[c]}
               </option>

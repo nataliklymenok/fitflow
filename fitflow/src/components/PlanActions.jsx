@@ -47,8 +47,12 @@ function PlanActions({ actions, className, buttonClassName = ui.small, onRegener
     setConfirming(null)
     if (confirming === 'regenerate') {
       const today = todayKey()
-      const plan = generatePlan(state.answers, catalog, { seed: newSeed(), today })
-      dispatch({ type: 'REPLACE_PLAN', answers: state.answers, plan })
+      const plan = generatePlan(state.answers, catalog, {
+        seed: newSeed(),
+        today,
+        preferences: state.preferences,
+      })
+      dispatch({ type: 'REPLACE_PLAN', answers: state.answers, plan, preferences: state.preferences })
       onRegenerated?.(today)
     } else if (confirming === 'retake') {
       navigate('/quiz')
