@@ -156,3 +156,10 @@
 .trainer:hover {
   border-color: var(--text-muted);
 }
+
+/* After .trainer, which would otherwise override the shared .selected. */
+.trainer.selected,
+.trainer.selected:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}

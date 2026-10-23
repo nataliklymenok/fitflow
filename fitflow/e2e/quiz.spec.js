@@ -72,4 +72,17 @@ test('the trainers step warns when nothing fits the chosen length (004 US-4)', a
 
   await page.getByRole('list', { name: 'Trainers' }).getByRole('button', { name: /Аня Лу/ }).click()
   await expect(page.getByRole('button', { name: 'Create my plan' })).toBeEnabled()
+
+  // Selected trainers look selected, not only to screen readers.
+  const accent = await page.evaluate(() =>
+    getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),
+  )
+  const chosen = page.getByRole('list', { name: 'Trainers' }).getByRole('button', { name: /Аня Лу/ })
+  await page.mouse.move(0, 0)
+  await expect(chosen).toHaveCSS('border-color', hexToRgb(accent))
 })
+
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16)
+  return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`
+}
