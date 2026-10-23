@@ -6,10 +6,13 @@ import {
   MAX_SAME_CATEGORY_IN_A_ROW,
   NO_REPEAT_DAYS,
   generatePlan,
+  planWeights,
   trainingDates,
 } from './generatePlan.js'
 import { isWithinTolerance } from './pickVideos.js'
 import { allAnswerCombinations } from './quiz.js'
+import trainersData from '../data/trainers.json'
+import { allowedVideos, coverage } from './preferences.js'
 
 const TODAY = '2026-10-21'
 const SEEDS = [1, 2024, 987654321]
@@ -106,7 +109,7 @@ function anyFit(pool, targetMinutes) {
 
 // Sessions that repeat a video from the previous NO_REPEAT_DAYS days even
 // though fresh videos of that category could have filled them (US-2).
-function avoidableRepeats(plan, answers) {
+function avoidableRepeats(plan, answers, videos = catalog.videos) {
   const avoidable = []
   for (const [i, session] of plan.sessions.entries()) {
     const recentIds = new Set(
@@ -116,7 +119,7 @@ function avoidableRepeats(plan, answers) {
         .flatMap((s) => s.videoIds),
     )
     if (!session.videoIds.some((id) => recentIds.has(id))) continue
-    const fresh = catalog.videos.filter(
+    const fresh = videos.filter(
       (video) => video.category === session.category && !recentIds.has(video.id),
     )
     if (anyFit(fresh, answers.sessionMinutes)) avoidable.push(session.date)
@@ -214,4 +217,71 @@ describe('generatePlan', () => {
     }
     expect(failures.slice(0, 5)).toEqual([])
   }, 60_000)
+})
+
+describe('generatePlan with chosen trainers and types (004)', () => {
+  const combinations = allAnswerCombinations().filter((_, i) => i % 3 === 0)
+
+  it('every trainer alone gives valid plans from only their videos (FR-4)', () => {
+    const failures = []
+    for (const trainer of trainersData.trainers) {
+      const preferences = { trainers: [trainer.id], categories: ['functional', 'cardio', 'stretching', 'yoga', 'calm'] }
+      const videos = allowedVideos(catalog.videos, preferences)
+      for (const combination of combinations) {
+        const plan = generatePlan(combination, catalog, { seed: 5, today: TODAY, preferences })
+        const ids = plan.sessions.flatMap((s) => s.videoIds)
+        if (!ids.every((id) => videosById.get(id).trainer === trainer.id)) {
+          failures.push(`${trainer.id}: another trainer's video`)
+        }
+        // A length the trainer can't fill is warned about in the quiz (US-4);
+        // every other rule must hold.
+        const fillable = !coverage(catalog.videos, preferences, combination.sessionMinutes).none
+        // With a single usable workout type, repeats of that type are expected.
+        const weights = planWeights(combination, videos, preferences)
+        const oneType = Object.values(weights).filter((w) => w > 0).length === 1
+        const problems = brokenRules(plan, combination).filter(
+          (p) =>
+            (fillable || !p.includes(' min for a ')) &&
+            !(oneType && p.includes('category repeated too often')),
+        )
+        if (fillable) {
+          problems.push(...avoidableRepeats(plan, combination, videos).map((d) => `${d}: avoidable repeat`))
+        }
+        if (problems.length > 0) failures.push({ trainer: trainer.id, combination, problems })
+      }
+    }
+    expect(failures.slice(0, 3)).toEqual([])
+  }, 120_000)
+
+  it('a yoga-and-stretching choice never gets other types (US-3)', () => {
+    const preferences = { trainers: [], categories: ['yoga', 'stretching'] }
+    for (const combination of combinations) {
+      const plan = generatePlan(combination, catalog, { seed: 9, today: TODAY, preferences })
+      for (const session of plan.sessions) {
+        expect(['yoga', 'stretching']).toContain(session.category)
+      }
+    }
+  }, 60_000)
+
+  it('a single type allows the same type every day', () => {
+    const preferences = { trainers: ['tom-merrick'], categories: ['functional', 'cardio', 'stretching', 'yoga', 'calm'] }
+    const plan = generatePlan(
+      { mood: 'okay', energy: 'medium', goal: 'fitness', daysPerWeek: 6, sessionMinutes: 20, weeks: 1 },
+      catalog,
+      { seed: 3, today: TODAY, preferences },
+    )
+    expect(plan.sessions).toHaveLength(6)
+    expect(new Set(plan.sessions.map((s) => s.category))).toEqual(new Set(['stretching']))
+  })
+
+  it('leaves out types that cannot fill the chosen length when others can', () => {
+    const preferences = { trainers: ['olha-pasichnyk', 'ania-lu'], categories: ['functional', 'cardio', 'stretching', 'yoga', 'calm'] }
+    const answers = { mood: 'okay', energy: 'medium', goal: 'stress', daysPerWeek: 6, sessionMinutes: 10, weeks: 2 }
+    const { uncovered } = coverage(catalog.videos, preferences, 10)
+    const plan = generatePlan(answers, catalog, { seed: 4, today: TODAY, preferences })
+    expect(uncovered.length).toBeGreaterThan(0)
+    for (const session of plan.sessions) {
+      expect(uncovered).not.toContain(session.category)
+    }
+  })
 })

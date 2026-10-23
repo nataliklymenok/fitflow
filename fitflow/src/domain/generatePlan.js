@@ -3,6 +3,12 @@ import { addDays, daysBetween } from './dates.js'
 import { pickVideos } from './pickVideos.js'
 import { createRandom, weightedPick } from './random.js'
 import { categoryWeights, isIntensityAllowed } from './weights.js'
+import {
+  DEFAULT_PREFERENCES,
+  allowedVideos,
+  availableCategories,
+  coverage,
+} from './preferences.js'
 
 // Training days within each 7-day block, as offsets from the block's first
 // day. Day 0 is always a training day, so the plan starts today.
@@ -31,9 +37,27 @@ function chooseCategory(random, weights, previousCategories) {
   const repeated =
     lastFew.length === MAX_SAME_CATEGORY_IN_A_ROW &&
     lastFew.every((category) => category === lastFew[0])
+  // With only one workout type available (spec 004), repeats are unavoidable.
+  const choices = Object.values(weights).filter((weight) => weight > 0).length
   return weightedPick(
     random,
-    repeated ? { ...weights, [lastFew[0]]: 0 } : weights,
+    repeated && choices > 1 ? { ...weights, [lastFew[0]]: 0 } : weights,
+  )
+}
+
+// Category weights limited to the types the user's choice can fill at this
+// session length (spec 004, US-3, US-4). If none can, all available types
+// stay in, and sessions get the closest length possible.
+export function planWeights(answers, videos, preferences) {
+  const available = availableCategories(videos, preferences)
+  const { uncovered } = coverage(videos, preferences, answers.sessionMinutes)
+  const fillable = available.filter((category) => !uncovered.includes(category))
+  const allowed = new Set(fillable.length > 0 ? fillable : available)
+  return Object.fromEntries(
+    Object.entries(categoryWeights(answers)).map(([category, weight]) => [
+      category,
+      allowed.has(category) ? weight : 0,
+    ]),
   )
 }
 
@@ -58,32 +82,39 @@ export function recentVideoIds(sessions, date, excludeSessionId) {
   )
 }
 
-export function generatePlan(answers, catalog, { seed, today }) {
-  const random = createRandom(seed)
-  const weights = categoryWeights(answers)
-  const dates = trainingDates(today, answers.weeks, answers.daysPerWeek)
-
-  const sessions = []
+// New planned sessions on `dates`, after the `kept` ones (which count for the
+// no-repeat window and the "2 in a row" rule). `videos` is already filtered
+// by the user's preferences.
+export function fillSessions({ dates, answers, videos, preferences, random, idPrefix, kept = [] }) {
+  const weights = planWeights(answers, videos, preferences)
+  const sessions = [...kept]
   for (const [index, date] of dates.entries()) {
-    const category = chooseCategory(
-      random,
-      weights,
-      sessions.map((session) => session.category),
-    )
+    const previous = sessions.filter((s) => s.date < date).map((s) => s.category)
+    const category = chooseCategory(random, weights, previous)
     const videoIds = pickVideos({
       random,
-      pools: candidatePools(catalog.videos, category, answers.energy),
+      pools: candidatePools(videos, category, answers.energy),
       targetMinutes: answers.sessionMinutes,
       recentIds: recentVideoIds(sessions, date),
     })
-    sessions.push({
-      id: `s-${seed.toString(36)}-${index}`,
-      date,
-      category,
-      videoIds,
-      status: 'planned',
-    })
+    sessions.push({ id: `${idPrefix}-${index}`, date, category, videoIds, status: 'planned' })
   }
+  return sessions.slice(kept.length)
+}
+
+export function generatePlan(
+  answers,
+  catalog,
+  { seed, today, preferences = DEFAULT_PREFERENCES },
+) {
+  const sessions = fillSessions({
+    dates: trainingDates(today, answers.weeks, answers.daysPerWeek),
+    answers,
+    videos: allowedVideos(catalog.videos, preferences),
+    preferences,
+    random: createRandom(seed),
+    idPrefix: `s-${seed.toString(36)}`,
+  })
 
   return {
     startDate: today,
