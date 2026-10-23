@@ -1,5 +1,7 @@
 # 004 — Catalog review
 
+**Checkpoint A, 2026-10-23:** reviewed by the user with no corrections; Ольга Пасічник approved in place of the two channels below.
+
 For Checkpoint A. Please open each video, check the **length**, **category** and **intensity**, and correct this file (or tell Claude) where they differ. "Length from" says where the length came from: the video title, or a description found by search (less reliable).
 
 Categories: functional, cardio, stretching, yoga, calm. Pilates is filed under functional. Intensity: low, medium, high.

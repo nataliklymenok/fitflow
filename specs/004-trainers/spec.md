@@ -133,3 +133,5 @@ Alternates if a trainer lacks enough short videos: **Move with Dasha** (yoga, Uk
 Pilates is not a FitFlow category; Pilates sessions are filed under Functional (low or medium intensity).
 
 The list above was approved by the user on 2026-10-22.
+
+**Change at Checkpoint A (2026-10-23, approved by the user):** «Йога Українською» and «ЙОГА ДОПОМОГА» had too few videos with a stated length (4 and 2; each trainer needs 8), so they are replaced by **Ольга Пасічник — «Йога на килимках»** (Ukrainian; yoga and calm). FitFlow ships with **9 trainers**; a 10th can be added in a later release once a channel with enough videos is found.
