@@ -85,3 +85,16 @@ test('without a plan, the choice is saved for the next plan', async ({ page }) =
   await expect(page.getByRole('status')).toContainText(/next plan/)
   expect((await stored(page)).preferences.trainers).toEqual(['ania-lu'])
 })
+
+test("a trainer's page lists their videos by type (004 US-1)", async ({ page }) => {
+  await page.goto('/trainers')
+  await page.getByRole('link', { name: 'Аня Лу', exact: true }).click()
+  await expect(page).toHaveURL(/\/trainers\/ania-lu$/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Аня Лу')
+  await expect(page.getByRole('heading', { level: 2, name: 'Functional' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Stretching' })).toBeVisible()
+  await expect(page.locator('a[href*="youtube.com/watch?v="]')).toHaveCount(10)
+
+  await page.goto('/trainers/nobody')
+  await expect(page).toHaveURL(/\/trainers$/)
+})
