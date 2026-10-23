@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router'
 import ChoiceSummary from '../components/ChoiceSummary.jsx'
 import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import TrainerCard from '../components/TrainerCard.jsx'
@@ -24,6 +25,7 @@ function TrainersPage() {
   const [filter, setFilter] = useState('all')
   const [confirming, setConfirming] = useState(false)
   const [status, setStatus] = useState('')
+  const [justSaved, setJustSaved] = useState(false)
 
   const shown = trainers.filter(
     (trainer) => filter === 'all' || trainerSummary(trainer, videos).categories.includes(filter),
@@ -33,7 +35,19 @@ function TrainersPage() {
   function apply() {
     setConfirming(false)
     dispatch(setPreferences(state, catalog, draft.value, { today: todayKey(), seed: newSeed() }))
-    setStatus(state.plan ? 'Saved. Your plan from today uses your new choice.' : 'Saved. Your next plan will use this choice.')
+    setStatus(
+      state.plan
+        ? 'Saved. Your plan is updated: sessions from today use your new choice.'
+        : 'Saved. Your next plan will use this choice.',
+    )
+    setJustSaved(true)
+  }
+
+  // Any new edit makes the choice unsaved again.
+  function edited(change) {
+    setStatus('')
+    setJustSaved(false)
+    change()
   }
 
   return (
@@ -47,15 +61,44 @@ function TrainersPage() {
       </header>
 
       <section className={styles.choice} aria-label="Your choice">
-        <ChoiceSummary draft={draft} extraMessage={status} />
-        <button
-          type="button"
-          className={`${ui.button} ${ui.primary}`}
-          disabled={!changed || draft.errors.length > 0}
-          onClick={() => (state.plan ? setConfirming(true) : apply())}
-        >
-          Save my choice
-        </button>
+        <ChoiceSummary
+          draft={{
+            ...draft,
+            toggleCategory: (c) => edited(() => draft.toggleCategory(c)),
+          }}
+          extraMessage={status}
+          showClear={false}
+        />
+        <div className={styles.saveColumn}>
+          {draft.value.trainers.length > 0 && (
+            <button
+              type="button"
+              className={`${ui.button} ${ui.ghost} ${ui.small}`}
+              onClick={() => edited(draft.clearTrainers)}
+            >
+              Clear
+            </button>
+          )}
+          {justSaved ? (
+            <>
+              <button type="button" className={`${ui.button} ${ui.secondary}`} disabled>
+                ✓ Saved
+              </button>
+              <Link to={state.plan ? '/today' : '/quiz'} className={styles.next}>
+                {state.plan ? 'Open Today →' : 'Take the quiz →'}
+              </Link>
+            </>
+          ) : (
+            <button
+              type="button"
+              className={`${ui.button} ${ui.primary}`}
+              disabled={!changed || draft.errors.length > 0}
+              onClick={() => (state.plan ? setConfirming(true) : apply())}
+            >
+              Save my choice
+            </button>
+          )}
+        </div>
       </section>
 
       <div className={styles.filters} role="group" aria-label="Show trainers who teach">
@@ -78,10 +121,7 @@ function TrainersPage() {
             key={trainer.id}
             trainer={trainer}
             selected={draft.value.trainers.includes(trainer.id)}
-            onToggle={() => {
-              setStatus('')
-              draft.toggleTrainer(trainer.id)
-            }}
+            onToggle={() => edited(() => draft.toggleTrainer(trainer.id))}
           />
         ))}
       </ul>

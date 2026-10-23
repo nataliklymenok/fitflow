@@ -7,7 +7,7 @@ import styles from './ChoiceSummary.module.css'
 
 // Who and what the plan uses: chosen trainers, Clear, and type toggles.
 // Shared by the Trainers page and the quiz (spec 004, US-2, US-6).
-function ChoiceSummary({ draft, extraMessage }) {
+function ChoiceSummary({ draft, extraMessage, showClear = true }) {
   const { value, notice, errors, toggleCategory, clearTrainers } = draft
   const count = value.trainers.length
   const message = notice || errors[0] || extraMessage
@@ -27,7 +27,7 @@ function ChoiceSummary({ draft, extraMessage }) {
             </>
           )}
         </p>
-        {count > 0 && (
+        {showClear && count > 0 && (
           <button type="button" className={`${ui.button} ${ui.ghost} ${ui.small}`} onClick={clearTrainers}>
             Clear
           </button>

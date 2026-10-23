@@ -36,7 +36,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 Changes requested at Checkpoint B (2026-10-23):
 
-- [ ] **T324** Trainers page: **Clear** above **Save my choice**; after saving, the button reads "✓ Saved" and the page says the plan was updated, with a link to Today.
+- [x] **T324** Trainers page: **Clear** above **Save my choice**; after saving, the button reads "✓ Saved" and the page says the plan was updated, with a link to Today.
 - [ ] **T325** Trainer pictures: a `cover` video per trainer in `trainers.json` (validated to be one of their own videos); its YouTube thumbnail on cards, the trainer page and the quiz step, with alt text, lazy loading and the initials avatar as a fallback.
 
 ## Phase 4 — Release

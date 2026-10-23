@@ -65,7 +65,9 @@ test('saving rebuilds sessions from today and keeps done ones (004 US-5)', async
   await select(page, 'Caroline Girvan').click()
   await save(page).click()
   await page.getByRole('dialog').getByRole('button', { name: 'Update plan' }).click()
-  await expect(page.getByRole('status')).toContainText(/Saved/)
+  await expect(page.getByRole('status')).toContainText(/plan is updated/)
+  await expect(page.getByRole('button', { name: '✓ Saved' })).toBeDisabled()
+  await expect(page.getByRole('link', { name: /Open Today/ })).toHaveAttribute('href', '/today')
 
   const saved = await stored(page)
   expect(saved.preferences.trainers).toEqual(['caroline-girvan'])
@@ -83,6 +85,9 @@ test('without a plan, the choice is saved for the next plan', async ({ page }) =
   await save(page).click()
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(page.getByRole('status')).toContainText(/next plan/)
+  await expect(page.getByRole('link', { name: /Take the quiz/ })).toBeVisible()
+  await select(page, 'MadFit').click()
+  await expect(save(page)).toBeEnabled()
   expect((await stored(page)).preferences.trainers).toEqual(['ania-lu'])
 })
 
