@@ -9,9 +9,9 @@
   box-shadow: var(--shadow);
 }
 
+/* Border only: a tinted background lowers the contrast of the type chips. */
 .selected {
   border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
 }
 
 .photo {

@@ -3,6 +3,7 @@ import {
   coverAllCategories,
   createPlan,
   expect,
+  quizAnswer,
   setFirstSession,
   test,
 } from './helpers.js'
@@ -95,5 +96,45 @@ test('check-in, suggestion and applied states have no accessibility violations (
     await expectNoViolations(page, `${theme}: swapped`)
     await page.goto('/calendar')
     await expectNoViolations(page, `${theme}: calendar with mood mark`)
+  }
+})
+
+test('trainers pages, choices and the quiz trainers step have no accessibility violations (004)', async ({ page }) => {
+  const types = () => page.getByRole('group', { name: 'Workout types in my plan' })
+  for (const theme of ['dark', 'light']) {
+    await page.addInitScript((t) => localStorage.setItem('fitflow:theme', t), theme)
+    await page.goto('/')
+    await page.evaluate(() => localStorage.removeItem('fitflow'))
+
+    await page.goto('/trainers')
+    await expect(page.locator('img[src*="i.ytimg.com"]').first()).toBeVisible()
+    await expectNoViolations(page, `${theme}: trainers`)
+    await page.getByRole('button', { name: 'Select Tom Merrick' }).click()
+    for (const name of ['Functional', 'Cardio', 'Stretching', 'Calm']) {
+      await types().getByRole('button', { name: new RegExp(name) }).click()
+    }
+    await expect(page.getByRole('status')).toContainText('has no Yoga videos')
+    await expectNoViolations(page, `${theme}: trainers with an error`)
+    await page.getByRole('button', { name: 'Clear' }).click()
+    for (const name of ['Functional', 'Cardio', 'Stretching', 'Calm']) {
+      await types().getByRole('button', { name: new RegExp(name) }).click()
+    }
+    await page.getByRole('button', { name: 'Select Caroline Girvan' }).click()
+    await page.getByRole('button', { name: 'Save my choice' }).click()
+    await expect(page.getByRole('status')).toContainText('Saved')
+    await expectNoViolations(page, `${theme}: trainers saved`)
+
+    await page.goto('/trainers/olha-pasichnyk')
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expectNoViolations(page, `${theme}: trainer page`)
+
+    await page.goto('/quiz')
+    for (const label of ['Okay', 'Medium', 'Get fitter / lose weight', '4', '10 min', '1 week']) {
+      await quizAnswer(page, label).click()
+    }
+    // The saved Caroline Girvan plus Mila Tymchuk leave two types uncovered.
+    await page.getByRole('list', { name: 'Trainers' }).getByRole('button', { name: /Mila Tymchuk/ }).click()
+    await expect(page.getByRole('status')).toContainText(/won't be in your plan/)
+    await expectNoViolations(page, `${theme}: quiz trainers step with a warning`)
   }
 })

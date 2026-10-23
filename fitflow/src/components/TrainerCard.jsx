@@ -40,10 +40,11 @@ function TrainerCard({ trainer, selected, onToggle }) {
           type="button"
           className={`${ui.button} ${ui.small} ${selected ? ui.primary : ui.secondary}`}
           aria-pressed={selected}
-          aria-label={`Select ${trainer.name}`}
           onClick={onToggle}
         >
-          {selected ? '✓ Selected' : 'Select'}
+          {selected && <span aria-hidden="true">✓ </span>}
+          {selected ? 'Selected' : 'Select'}
+          <span className={ui.visuallyHidden}> {trainer.name}</span>
         </button>
         <a
           href={trainer.url}

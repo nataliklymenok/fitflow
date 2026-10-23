@@ -2,7 +2,9 @@ import { createPlan, expect, stored, test } from './helpers.js'
 
 const card = (page, name) =>
   page.getByRole('listitem').filter({ has: page.getByRole('heading', { name, exact: true }) })
-const select = (page, name) => page.getByRole('button', { name: `Select ${name}` })
+// The button reads "Select" or "Selected", followed by the name for screen readers.
+const select = (page, name) =>
+  page.getByRole('button', { name: new RegExp(`^Select(ed)? ${name}$`) })
 const types = (page) => page.getByRole('group', { name: 'Workout types in my plan' })
 const save = (page) => page.getByRole('button', { name: 'Save my choice' })
 

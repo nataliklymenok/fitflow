@@ -41,7 +41,7 @@ Changes requested at Checkpoint B (2026-10-23):
 
 ## Phase 4 — Release
 
-- [ ] **T330** Verification: accessibility for the new pages and states in both themes, full unit and e2e runs, `check:catalog`. Record results in `specs/004-trainers/acceptance.md`.
+- [x] **T330** Verification: accessibility for the new pages and states in both themes, full unit and e2e runs, `check:catalog`. Record results in `specs/004-trainers/acceptance.md`.
 - [ ] **T331** README: trainers in "What it does", screenshots, the 004 docs in the SDD table, test counts.
 - [ ] **T332** Push to `main`, run the e2e suite against the live site, and ask the user to try a single-trainer plan on their iPhone.
   Done when: the live run is green and the user has checked it.
