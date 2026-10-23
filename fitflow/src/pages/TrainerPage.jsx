@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router'
-import TrainerAvatar from '../components/TrainerAvatar.jsx'
+import TrainerPhoto from '../components/TrainerPhoto.jsx'
 import { LANGUAGE_LABELS, trainersById } from '../data/trainers.js'
 import { videos } from '../data/videos.js'
 import { CATEGORY_LABELS } from '../domain/catalog.js'
@@ -24,7 +24,7 @@ function TrainerPage() {
       </Link>
 
       <header className={styles.header}>
-        <TrainerAvatar trainer={trainer} size={88} />
+        <TrainerPhoto trainer={trainer} described className={styles.photo} />
         <div className={styles.heading}>
           <h1 className={styles.title}>{trainer.name}</h1>
           <p className={styles.meta}>

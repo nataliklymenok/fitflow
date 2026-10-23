@@ -5,7 +5,7 @@ import { CATEGORY_LABELS } from '../domain/catalog.js'
 import { trainerSummary } from '../domain/preferences.js'
 import { categoryVars } from '../lib/categoryVars.js'
 import ui from '../styles/ui.module.css'
-import TrainerAvatar from './TrainerAvatar.jsx'
+import TrainerPhoto from './TrainerPhoto.jsx'
 import styles from './TrainerCard.module.css'
 
 // One trainer on the Trainers page (spec 004, US-1, US-2).
@@ -13,8 +13,8 @@ function TrainerCard({ trainer, selected, onToggle }) {
   const summary = trainerSummary(trainer, videos)
   return (
     <li className={`${styles.card} ${selected ? styles.selected : ''}`}>
+      <TrainerPhoto trainer={trainer} className={styles.photo} />
       <div className={styles.top}>
-        <TrainerAvatar trainer={trainer} />
         <div className={styles.heading}>
           <h2 className={styles.name}>
             <Link to={`/trainers/${trainer.id}`} className={styles.nameLink}>

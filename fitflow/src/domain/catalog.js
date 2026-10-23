@@ -65,6 +65,7 @@ export function validateCatalog(catalog, trainers) {
   const errors = catalog.videos.flatMap(validateVideo)
 
   const byId = new Map(trainers.map((trainer) => [trainer.id, trainer]))
+  const videoTrainer = new Map(catalog.videos.map((video) => [video.id, video.trainer]))
   for (const [index, video] of catalog.videos.entries()) {
     const trainer = byId.get(video.trainer)
     if (!trainer) {
@@ -88,6 +89,10 @@ export function validateCatalog(catalog, trainers) {
       errors.push(
         `trainer ${trainer.id} has ${count} videos, needs at least ${MIN_VIDEOS_PER_TRAINER}`,
       )
+    }
+    // The picture is the thumbnail of one of their own videos (Checkpoint B).
+    if (trainer.cover !== undefined && byId.get(videoTrainer.get(trainer.cover)) !== trainer) {
+      errors.push(`trainer ${trainer.id}: cover ${trainer.cover} is not one of their videos`)
     }
   }
 

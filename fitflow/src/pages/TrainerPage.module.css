@@ -21,6 +21,11 @@
   gap: var(--space-5);
 }
 
+.photo {
+  width: min(100%, 360px);
+  border-radius: var(--radius-lg);
+}
+
 .heading {
   flex: 1 1 320px;
   display: flex;

@@ -89,6 +89,20 @@ describe('trainers (004 FR-1)', () => {
     expect(errors).toContain('trainer new has 0 videos, needs at least 8')
   })
 
+  it('accepts a cover that is one of the trainer\'s videos', () => {
+    const good = validCatalog()
+    expect(validateCatalog(good, [{ ...TRAINERS[0], cover: good.videos[0].id }])).toEqual([])
+  })
+
+  it('reports a cover that is not one of the trainer\'s videos', () => {
+    const errors = validateCatalog(validCatalog(), [{ ...TRAINERS[0], cover: 'zzzzzzzzzzz' }])
+    expect(errors).toContain('trainer test: cover zzzzzzzzzzz is not one of their videos')
+  })
+
+  it('gives every shipped trainer a cover', () => {
+    expect(trainersData.trainers.every((trainer) => trainer.cover)).toBe(true)
+  })
+
   it('reports videos with an unknown trainer or another channel', () => {
     const bad = validCatalog()
     bad.videos[0] = { ...bad.videos[0], trainer: 'nobody' }

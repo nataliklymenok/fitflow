@@ -104,6 +104,19 @@ test("a trainer's page lists their videos by type (004 US-1)", async ({ page }) 
   await expect(page).toHaveURL(/\/trainers$/)
 })
 
+test('trainers have a picture from one of their videos, with initials as a fallback', async ({ page }) => {
+  await page.goto('/trainers/caroline-girvan')
+  const photo = page.getByRole('img', { name: /^Caroline Girvan, from the video/ })
+  await expect(photo).toHaveAttribute('src', 'https://i.ytimg.com/vi/ScInpT_5dIQ/hqdefault.jpg')
+
+  await page.goto('/trainers')
+  await expect(card(page, 'MadFit').locator('img[src*="i.ytimg.com/vi/uZbig5yMlN8/"]')).toHaveCount(1)
+
+  await page.route('https://i.ytimg.com/**', (route) => route.abort())
+  await page.goto('/trainers/caroline-girvan')
+  await expect(page.getByRole('img', { name: 'Caroline Girvan' })).toHaveText('CG')
+})
+
 test('sessions show their trainer, linking to the trainer page (004 US-7)', async ({ page }) => {
   await page.goto('/trainers')
   await select(page, 'Pamela Reif').click()

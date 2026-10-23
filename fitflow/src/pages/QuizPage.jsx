@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import ChoiceSummary from '../components/ChoiceSummary.jsx'
-import TrainerAvatar from '../components/TrainerAvatar.jsx'
+import TrainerPhoto from '../components/TrainerPhoto.jsx'
 import catalog from '../data/catalog.json'
 import { trainers } from '../data/trainers.js'
 import { videos } from '../data/videos.js'
@@ -158,7 +158,7 @@ function TrainersStep({ draft, sessionMinutes }) {
                 aria-pressed={selected}
                 onClick={() => draft.toggleTrainer(trainer.id)}
               >
-                <TrainerAvatar trainer={trainer} size={36} />
+                <TrainerPhoto trainer={trainer} width={64} />
                 {trainer.name}
               </button>
             </li>
