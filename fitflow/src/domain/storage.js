@@ -3,12 +3,13 @@
 // simply starts fresh.
 import { CATEGORIES } from './catalog.js'
 import { DECISIONS, MOODS } from './checkIn.js'
+import { DEFAULT_PREFERENCES, MAX_TRAINERS } from './preferences.js'
 import { isKey, isWithin } from './dates.js'
 import { STATUSES } from './planReducer.js'
 import { isComplete } from './quiz.js'
 
 export const STORAGE_KEY = 'fitflow'
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 
 // The theme is kept apart from the plan, so Reset does not change it (002 FR-4).
 // index.html reads the same key before the app loads; keep the two in sync.
@@ -68,11 +69,23 @@ function isValidCheckIns(checkIns, plan) {
   )
 }
 
+function isValidPreferences(preferences) {
+  return (
+    Array.isArray(preferences?.trainers) &&
+    preferences.trainers.length <= MAX_TRAINERS &&
+    preferences.trainers.every((id) => typeof id === 'string') &&
+    Array.isArray(preferences.categories) &&
+    preferences.categories.length > 0 &&
+    preferences.categories.every((c) => CATEGORIES.includes(c))
+  )
+}
+
 export function isValidState(state) {
   return (
     isComplete(state?.answers) &&
     isValidPlan(state.plan) &&
-    isValidCheckIns(state.checkIns, state.plan)
+    isValidCheckIns(state.checkIns, state.plan) &&
+    isValidPreferences(state.preferences)
   )
 }
 
@@ -84,6 +97,10 @@ export function migrate(data) {
     // 003: daily check-ins were added.
     current = { ...current, version: 2, checkIns: {} }
   }
+  if (current?.version === 2) {
+    // 004: chosen trainers and workout types; old plans used any trainer.
+    current = { ...current, version: 3, preferences: DEFAULT_PREFERENCES }
+  }
   return current?.version === SCHEMA_VERSION ? current : null
 }
 
@@ -94,7 +111,12 @@ export function load(storage = defaultStorage()) {
     if (!raw) return null
     const data = migrate(JSON.parse(raw))
     if (!data) return null
-    const state = { answers: data.answers, plan: data.plan, checkIns: data.checkIns }
+    const state = {
+      answers: data.answers,
+      plan: data.plan,
+      checkIns: data.checkIns,
+      preferences: data.preferences,
+    }
     return isValidState(state) ? state : null
   } catch {
     return null
@@ -112,6 +134,7 @@ export function save(state, storage = defaultStorage()) {
         answers: state.answers,
         plan: state.plan,
         checkIns: state.checkIns ?? {},
+        preferences: state.preferences ?? DEFAULT_PREFERENCES,
       }),
     )
     return true

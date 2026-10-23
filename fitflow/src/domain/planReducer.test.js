@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import catalog from '../data/catalog.json'
 import { generatePlan } from './generatePlan.js'
+import { DEFAULT_PREFERENCES } from './preferences.js'
 import { isWithinTolerance } from './pickVideos.js'
 import {
   EMPTY_STATE,
   addSession,
   changeCategory,
   planReducer,
+  setPreferences,
 } from './planReducer.js'
 
 const TODAY = '2026-10-21'
@@ -25,6 +27,7 @@ function makeState() {
     answers,
     plan: generatePlan(answers, catalog, { seed: 11, today: TODAY }),
     checkIns: {},
+    preferences: DEFAULT_PREFERENCES,
   }
 }
 
@@ -356,3 +359,57 @@ describe('daily check-in actions (003 US-1, US-2)', () => {
     expect(planReducer(state, { type: 'UNDO_ADAPTATION', date: TODAY })).toBe(state)
   })
 })
+
+describe('changing trainers and types (004 US-5)', () => {
+  const madfitCardio = { trainers: ['madfit'], categories: ['cardio'] }
+
+  it('saves the choice when there is no plan yet', () => {
+    const next = planReducer(EMPTY_STATE, setPreferences(EMPTY_STATE, catalog, madfitCardio, { today: TODAY, seed: 1 }))
+    expect(next.preferences).toEqual(madfitCardio)
+    expect(next.plan).toBeNull()
+  })
+
+  it('rebuilds planned sessions from today, keeping done and earlier ones', () => {
+    let state = makeState() // sessions on Oct 21, 23 and 25
+    state = planReducer(state, { type: 'SET_STATUS', id: sessionOn(state, TODAY).id, status: 'done' })
+    const done = sessionOn(state, TODAY)
+    const tomorrowish = '2026-10-23'
+    const next = planReducer(
+      state,
+      setPreferences(state, catalog, madfitCardio, { today: tomorrowish, seed: 7 }),
+    )
+    expect(sessionOn(next, TODAY)).toEqual(done)
+    expect(next.plan.sessions.map((s) => s.date)).toEqual(state.plan.sessions.map((s) => s.date))
+    for (const session of next.plan.sessions.filter((s) => s.date >= tomorrowish)) {
+      expect(session.category).toBe('cardio')
+      expect(session.videoIds.every((id) => catalog.videos.find((v) => v.id === id).trainer === 'madfit')).toBe(true)
+    }
+  })
+
+  it('also rebuilds today when it is still planned, and clears an applied suggestion', () => {
+    let state = planReducer(makeState(), { type: 'SET_CHECK_IN', date: TODAY, mood: 'low' })
+    const previous = sessionOn(state, TODAY)
+    state = planReducer(state, {
+      type: 'ADAPT_TODAY',
+      date: TODAY,
+      session: { ...previous, category: 'calm' },
+      previous,
+    })
+    const next = planReducer(state, setPreferences(state, catalog, madfitCardio, { today: TODAY, seed: 7 }))
+    expect(sessionOn(next, TODAY).category).toBe('cardio')
+    expect(next.checkIns[TODAY]).toEqual({ mood: 'low', decision: null, previous: null, sessionId: null })
+  })
+
+  it('a new plan from the quiz carries its preferences', () => {
+    const state = makeState()
+    const next = planReducer(state, {
+      type: 'REPLACE_PLAN',
+      answers: state.answers,
+      plan: state.plan,
+      preferences: madfitCardio,
+    })
+    expect(next.preferences).toEqual(madfitCardio)
+    expect(planReducer(next, { type: 'RESET' }).preferences).toEqual(DEFAULT_PREFERENCES)
+  })
+})
+

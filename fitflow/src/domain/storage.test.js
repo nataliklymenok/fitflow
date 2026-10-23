@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import catalog from '../data/catalog.json'
 import v1SavedState from './fixtures/v1-saved-state.json'
 import { generatePlan } from './generatePlan.js'
+import { DEFAULT_PREFERENCES } from './preferences.js'
 import {
   SCHEMA_VERSION,
   STORAGE_KEY,
@@ -30,6 +31,7 @@ function makeState() {
     answers,
     plan: generatePlan(answers, catalog, { seed: 99, today: '2026-10-21' }),
     checkIns: {},
+    preferences: DEFAULT_PREFERENCES,
   }
 }
 
@@ -202,10 +204,10 @@ describe('schema version 2 (003 FR-1)', () => {
     expect(loaded.answers).toEqual(v1SavedState.answers)
   })
 
-  it('saves as version 2 after a migrated load', () => {
+  it('saves as the current version after a migrated load', () => {
     const storage = stored(v1SavedState)
     save(load(storage), storage)
-    expect(JSON.parse(storage.data.get(STORAGE_KEY)).version).toBe(2)
+    expect(JSON.parse(storage.data.get(STORAGE_KEY)).version).toBe(SCHEMA_VERSION)
   })
 
   it('round-trips check-ins', () => {
@@ -235,3 +237,37 @@ describe('schema version 2 (003 FR-1)', () => {
     }
   })
 })
+
+describe('schema version 3 (004 FR-2)', () => {
+  it('migrates version 2 data to "any trainer, all types"', () => {
+    const v2 = { ...v1SavedState, version: 2, checkIns: {} }
+    const loaded = load(stored(v2))
+    expect(loaded.preferences).toEqual(DEFAULT_PREFERENCES)
+    expect(loaded.plan).toEqual(v1SavedState.plan)
+  })
+
+  it('migrates version 1 data through both steps', () => {
+    expect(load(stored(v1SavedState)).preferences).toEqual(DEFAULT_PREFERENCES)
+  })
+
+  it('round-trips chosen trainers and types', () => {
+    const storage = memoryStorage()
+    const state = { ...makeState(), preferences: { trainers: ['madfit'], categories: ['cardio'] } }
+    save(state, storage)
+    expect(load(storage).preferences).toEqual(state.preferences)
+  })
+
+  it('rejects invalid preferences', () => {
+    const base = makeState()
+    for (const preferences of [
+      { trainers: ['a', 'b', 'c', 'd', 'e', 'f'], categories: ['yoga'] },
+      { trainers: [], categories: [] },
+      { trainers: [], categories: ['pilates'] },
+      { trainers: 'madfit', categories: ['yoga'] },
+      null,
+    ]) {
+      expect(isValidState({ ...base, preferences })).toBe(false)
+    }
+  })
+})
+

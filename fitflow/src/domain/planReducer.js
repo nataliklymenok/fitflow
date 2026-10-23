@@ -3,14 +3,20 @@
 // creators below, and the reducer only applies their result.
 import { CATEGORIES } from './catalog.js'
 import { MOODS } from './checkIn.js'
+import { DEFAULT_PREFERENCES } from './preferences.js'
 import { isKey, isWithin } from './dates.js'
-import { candidatePools, recentVideoIds } from './generatePlan.js'
+import { candidatePools, rebuildFromToday, recentVideoIds } from './generatePlan.js'
 import { pickVideos } from './pickVideos.js'
 import { createRandom } from './random.js'
 
 export const STATUSES = ['planned', 'done', 'skipped']
 
-export const EMPTY_STATE = { answers: null, plan: null, checkIns: {} }
+export const EMPTY_STATE = {
+  answers: null,
+  plan: null,
+  checkIns: {},
+  preferences: DEFAULT_PREFERENCES,
+}
 
 function byDate(a, b) {
   return a.date.localeCompare(b.date)
@@ -48,6 +54,7 @@ export function planReducer(state, action) {
     return {
       answers: action.answers,
       plan: action.plan,
+      preferences: action.preferences ?? state.preferences ?? DEFAULT_PREFERENCES,
       checkIns: Object.fromEntries(
         Object.entries(state.checkIns ?? {}).map(([date, { mood }]) => [
           date,
@@ -57,6 +64,25 @@ export function planReducer(state, action) {
     }
   }
   if (action.type === 'RESET') return EMPTY_STATE
+  if (action.type === 'SET_PREFERENCES') {
+    // Without a plan, only the choice is saved; with one, the action carries
+    // the plan rebuilt from today (spec 004, US-5). Suggestions applied on
+    // rebuilt days pointed at old sessions, so they are cleared.
+    if (!state.plan || !action.plan) return { ...state, preferences: action.preferences }
+    return {
+      ...state,
+      preferences: action.preferences,
+      plan: action.plan,
+      checkIns: Object.fromEntries(
+        Object.entries(state.checkIns).map(([date, record]) => [
+          date,
+          date >= action.today && record.decision === 'adapted'
+            ? { mood: record.mood, ...NO_DECISION }
+            : record,
+        ]),
+      ),
+    }
+  }
   if (!state.plan) return state
 
   switch (action.type) {
@@ -216,3 +242,15 @@ export function addSession(state, videos, { date, category, seed }) {
     },
   }
 }
+
+export function setPreferences(state, catalog, preferences, { today, seed }) {
+  return {
+    type: 'SET_PREFERENCES',
+    preferences,
+    today,
+    plan: state.plan
+      ? rebuildFromToday(state.plan, state.answers, catalog, preferences, { today, seed })
+      : null,
+  }
+}
+

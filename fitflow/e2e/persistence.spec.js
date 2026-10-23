@@ -76,7 +76,8 @@ test('a plan saved by the previous version still opens (003 FR-1)', async ({ pag
 
   await page.getByRole('group', { name: 'How do you feel today?' }).getByRole('button', { name: 'Okay' }).click()
   const saved = JSON.parse(await page.evaluate(() => localStorage.getItem('fitflow')))
-  expect(saved.version).toBe(2)
+  expect(saved.version).toBe(3)
+  expect(saved.preferences.trainers).toEqual([])
   expect(saved.plan.sessions[0].status).toBe('done')
   expect(Object.values(saved.checkIns)[0].mood).toBe('okay')
 })

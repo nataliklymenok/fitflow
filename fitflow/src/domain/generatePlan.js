@@ -123,3 +123,24 @@ export function generatePlan(
     sessions,
   }
 }
+
+// The plan after the user changes trainers or types (spec 004, US-5): past
+// sessions and any session already done or skipped stay; planned sessions
+// from today on are refilled on the same dates.
+export function rebuildFromToday(plan, answers, catalog, preferences, { today, seed }) {
+  const byDate = (a, b) => a.date.localeCompare(b.date)
+  const refill = (s) => s.date >= today && s.status === 'planned'
+  const kept = plan.sessions.filter((s) => !refill(s)).sort(byDate)
+  const dates = plan.sessions.filter(refill).map((s) => s.date).sort()
+  const fresh = fillSessions({
+    dates,
+    answers,
+    videos: allowedVideos(catalog.videos, preferences),
+    preferences,
+    random: createRandom(seed),
+    idPrefix: `s-${seed.toString(36)}`,
+    kept,
+  })
+  return { ...plan, sessions: [...kept, ...fresh].sort(byDate) }
+}
+
