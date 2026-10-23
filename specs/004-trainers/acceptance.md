@@ -55,4 +55,4 @@ After deployment, the full end-to-end suite ran against https://fitflow-nk-lymen
 
 ## Manual checks
 
-- A single-trainer plan on a real iPhone: to be checked by the user (T332).
+- A single-trainer plan on a real iPhone: checked by the user on 2026-10-23 (T332): OK.
