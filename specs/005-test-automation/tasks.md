@@ -10,7 +10,7 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 
 ## Phase 1 — CI for today's suite
 
-- [ ] **T401** `ci.yml` with the `checks` job (lint, unit tests, build) and three e2e jobs (chromium, firefox, webkit) in the Playwright 1.64.1 container, each uploading its HTML report as an artifact; a check that the container tag matches `@playwright/test`. CI settings in `playwright.config.js` (`retries: 1`, `failOnFlakyTests`, blob reporter). *(US-1)*
+- [x] **T401** `ci.yml` with the `checks` job (lint, unit tests, build) and three e2e jobs (chromium, firefox, webkit) in the Playwright 1.64.1 container, each uploading its HTML report as an artifact; a check that the container tag matches `@playwright/test`. CI settings in `playwright.config.js` (`retries: 1`, `failOnFlakyTests`, blob reporter). *(US-1)*
   Done when: a push to `main` shows all four jobs green on GitHub.
 - [ ] **T402** Fix whatever fails or flakes on Linux in T401, in the app or the tests, each with a short note in `acceptance.md`. If nothing does, this task records that. *(US-1, NFR)*
   Done when: three pushes in a row are green with no flaky tests.
