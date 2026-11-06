@@ -13,7 +13,8 @@ Unless a task says otherwise, every task also requires: `npm test`, `npm run lin
 - [x] **T401** `ci.yml` with the `checks` job (lint, unit tests, build) and three e2e jobs (chromium, firefox, webkit) in the Playwright 1.64.1 container, each uploading its HTML report as an artifact; a check that the container tag matches `@playwright/test`. CI settings in `playwright.config.js` (`retries: 1`, `failOnFlakyTests`, blob reporter). *(US-1)*
   Done when: a push to `main` shows all four jobs green on GitHub.
 - [ ] **T402** Fix whatever fails or flakes on Linux in T401, in the app or the tests, each with a short note in `acceptance.md`. If nothing does, this task records that. *(US-1, NFR)*
-  Done when: three pushes in a row are green with no flaky tests.
+  **Changed 2026-11-06:** CI found that YouTube's player script throws random errors in WebKit on Linux. Tests now use a fake YouTube player by default, with a few `@youtube` tests on the real one (plan: YouTube in tests); new tests for "next video starts when one ends" and "unavailable video".
+  Done when: three runs in a row are green with no flaky tests.
 
 ## Phase 2 — TypeScript, page objects and fixtures
 

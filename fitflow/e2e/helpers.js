@@ -1,18 +1,25 @@
 import { test as base, expect } from '@playwright/test'
-
-// WebKit on Linux sometimes rejects a Cache API call from the YouTube player
-// script while a page reloads. FitFlow doesn't use the Cache API, so this is
-// not an app error (found in CI, spec 005 T402).
-function isKnownThirdPartyError(error) {
-  return error.name === 'Cache API operation failed' && error.message === 'Context is stopped'
-}
+import { EMBED_STUB, YOUTUBE_STUB } from './youtube-stub.js'
 
 // Every test fails if the page throws an uncaught error.
+// Real YouTube only in tests tagged @youtube. Its script throws random errors
+// of its own in WebKit on Linux, so in those tests page errors that never
+// pass through FitFlow's scripts are ignored (spec 005, plan: YouTube in tests).
 export const test = base.extend({
-  page: async ({ page }, run) => {
+  page: async ({ page, context, baseURL }, run, testInfo) => {
+    const realYouTube = testInfo.tags.includes('@youtube')
+    if (!realYouTube) {
+      await context.route('https://www.youtube.com/iframe_api', (route) =>
+        route.fulfill({ contentType: 'text/javascript', body: YOUTUBE_STUB }),
+      )
+      await context.route('https://www.youtube-nocookie.com/embed/**', (route) =>
+        route.fulfill({ contentType: 'text/html', body: EMBED_STUB }),
+      )
+    }
+    const fromApp = (error) => (error.stack ?? '').includes(new URL(baseURL).origin)
     const errors = []
     page.on('pageerror', (error) => {
-      if (!isKnownThirdPartyError(error)) errors.push(error.message)
+      if (!realYouTube || fromApp(error)) errors.push(error.message)
     })
     await run(page)
     expect(errors, 'uncaught errors on the page').toEqual([])

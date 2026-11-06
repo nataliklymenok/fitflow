@@ -94,6 +94,15 @@ e2e/
 
 **Migration rule:** files move one at a time, each in its own task. Before the first and after the last, `playwright test --list` is compared: the same 71 tests (426 runs) with the same titles. A title may change only to fix a typo, recorded in the task.
 
+## YouTube in tests
+
+**Changed during T402 (2026-11-06, chosen by the user):** in CI, WebKit on Linux randomly reports uncaught errors from YouTube's player script while a page with the player closes (`Cache API operation failed`, `NetworkError`), with no stack and no link to FitFlow's code. About every second run failed on them.
+
+- By default, tests replace YouTube with a **fake player**: requests for `youtube.com/iframe_api` are answered with a small script that provides `YT.Player`, and the embed page with an empty page. The fake player creates the same `youtube-nocookie.com/embed/{id}` iframe and calls `onReady`, and tests can make it report "video ended" or a player error.
+- This also lets tests cover player behaviour that was untested: the next video starts when one ends, and an unavailable video shows its message and the Swap button.
+- Tests tagged **`@youtube`** use the real YouTube to check the real integration (the API script loads only on the workout page; the embedded player appears). In them only, page errors with no trace of FitFlow's own scripts are ignored.
+- The nightly live run follows the same rules.
+
 ## Phone emulation (US-6)
 
 | Project | Today | After |
@@ -151,7 +160,7 @@ GitHub Pages is switched on for the `gh-pages` branch once, by hand in the repo 
 | Risk | Mitigation |
 |---|---|
 | CI on Linux finds failures that never happened on the Mac (fonts, timing, WebKit on Linux) | That is the point of running CI before the rewrite; each one is fixed in the app or the test, and recorded |
-| YouTube is slow or blocks CI runners | Tests already avoid the player where they can; thumbnails and the player are masked or not awaited; `check:catalog` runs only in the nightly job, which reports instead of blocking pushes |
+| YouTube is slow, blocks CI runners or throws from its script | A fake player in all tests except those tagged `@youtube` (see YouTube in tests); thumbnails are masked in visual tests; `check:catalog` runs only in the nightly job |
 | Visual tests flake on font loading | Wait for `document.fonts.ready`; fonts are self-hosted |
 | Real mobile emulation breaks tests that relied on hover | Fixed as findings (US-6) |
 | TypeScript 7 is new | Only `tsc --noEmit` is used; if it misbehaves, pin TypeScript 5.x |

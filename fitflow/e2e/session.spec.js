@@ -1,4 +1,4 @@
-import { createPlan, expect, stored, test } from './helpers.js'
+import { createPlan, expect, setFirstSession, stored, test } from './helpers.js'
 
 let first
 
@@ -11,7 +11,7 @@ function sessionIn(state, id) {
   return state.plan.sessions.find((session) => session.id === id)
 }
 
-test('YouTube loads only on the workout page (NFR-1)', async ({ page }) => {
+test('YouTube loads only on the workout page (NFR-1)', { tag: '@youtube' }, async ({ page }) => {
   await page.goto('/calendar')
   await expect(page.locator('a[href^="/session/"]').first()).toBeVisible()
   expect(await page.locator('script[src*="youtube"]').count()).toBe(0)
@@ -20,7 +20,7 @@ test('YouTube loads only on the workout page (NFR-1)', async ({ page }) => {
   await expect(page.locator('script[src*="youtube.com/iframe_api"]')).toHaveCount(1)
 })
 
-test('workout page shows an embedded player and the videos (US-4)', async ({ page }) => {
+test('workout page shows an embedded player and the videos (US-4)', { tag: '@youtube' }, async ({ page }) => {
   await page.goto(`/session/${first.id}`)
   await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toBeAttached({
     timeout: 20_000,
@@ -28,6 +28,31 @@ test('workout page shows an embedded player and the videos (US-4)', async ({ pag
   const list = page.getByRole('region', { name: 'In this session' })
   await expect(list).toContainText(/\d+ min/)
   await expect(page.getByRole('heading', { level: 1 })).toContainText(/\d+ min/)
+})
+
+// These two use the fake YouTube player to act as the video (see helpers.js).
+test('the next video starts when one ends (US-4)', async ({ page }) => {
+  await setFirstSession(page, 'calm', ['bJJWArRfKa0', 'tD_l3fDTFyg'])
+  await page.goto(`/session/${first.id}`)
+  const playing = () => page.evaluate(() => window.__youtubeStub?.videoIds() ?? [])
+  await expect.poll(playing).toEqual(['bJJWArRfKa0'])
+
+  await page.evaluate(() => window.__youtubeStub.end())
+  await expect.poll(playing).toEqual(['tD_l3fDTFyg'])
+  await expect(page.getByRole('listitem').filter({ hasText: 'Yoga To Heal Stress' })).toContainText('Now playing')
+
+  // The last video ending doesn't start anything else.
+  await page.evaluate(() => window.__youtubeStub.end())
+  await expect.poll(playing).toEqual(['tD_l3fDTFyg'])
+})
+
+test('an unavailable video says so and offers a swap (US-4)', async ({ page }) => {
+  await page.goto(`/session/${first.id}`)
+  await expect.poll(() => page.evaluate(() => window.__youtubeStub?.videoIds().length ?? 0)).toBe(1)
+  await page.evaluate(() => window.__youtubeStub.fail(150))
+  await expect(page.getByRole('alert')).toContainText('This video is unavailable')
+  await page.getByRole('alert').getByRole('button', { name: 'Swap video' }).click()
+  await expect(page.getByRole('button', { name: /^Use / }).first()).toBeVisible()
 })
 
 test('a session can be marked done or skipped, and undone (US-4)', async ({ page }) => {
