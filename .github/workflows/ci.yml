@@ -1,0 +1,62 @@
+# Every push to main and every pull request: lint, unit tests, build, and the
+# e2e suite in each browser (spec 005, US-1).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: fitflow
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: fitflow/package-lock.json
+      - run: npm ci
+      - run: npm run check:playwright-image
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    name: e2e (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Keep in step with @playwright/test (checked by check:playwright-image).
+    container: mcr.microsoft.com/playwright:v1.64.1-noble
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    env:
+      # Firefox refuses to start when HOME belongs to another user.
+      HOME: /root
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npx playwright test --project=${{ matrix.browser }}-desktop --project=${{ matrix.browser }}-phone
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: fitflow/playwright-report
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-report-${{ matrix.browser }}
+          path: fitflow/blob-report
+          retention-days: 14

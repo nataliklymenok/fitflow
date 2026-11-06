@@ -11,8 +11,13 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
+  // In CI a retry only reveals flakiness: a test that passes on retry still
+  // fails the run (spec 005, NFR).
   retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? 'github' : 'list',
+  failOnFlakyTests: Boolean(process.env.CI),
+  reporter: process.env.CI
+    ? [['github'], ['list'], ['html', { open: 'never' }], ['blob']]
+    : 'list',
   use: {
     baseURL,
     trace: 'retain-on-failure',

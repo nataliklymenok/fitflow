@@ -1,6 +1,6 @@
 # 005 — Test Automation: Tasks
 
-**Status:** Draft · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-11-06
+**Status:** Approved · **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) · **Created:** 2026-11-06
 
 Tasks run in order, numbered from T401. A task is done when its **Done when** check passes; each ends with a commit naming the task ID.
 
