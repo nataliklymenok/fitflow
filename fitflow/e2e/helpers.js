@@ -1,10 +1,19 @@
 import { test as base, expect } from '@playwright/test'
 
+// WebKit on Linux sometimes rejects a Cache API call from the YouTube player
+// script while a page reloads. FitFlow doesn't use the Cache API, so this is
+// not an app error (found in CI, spec 005 T402).
+function isKnownThirdPartyError(error) {
+  return error.name === 'Cache API operation failed' && error.message === 'Context is stopped'
+}
+
 // Every test fails if the page throws an uncaught error.
 export const test = base.extend({
   page: async ({ page }, run) => {
     const errors = []
-    page.on('pageerror', (error) => errors.push(error.message))
+    page.on('pageerror', (error) => {
+      if (!isKnownThirdPartyError(error)) errors.push(error.message)
+    })
     await run(page)
     expect(errors, 'uncaught errors on the page').toEqual([])
   },
